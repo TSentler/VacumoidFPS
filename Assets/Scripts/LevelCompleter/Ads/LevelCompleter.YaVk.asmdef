@@ -1,0 +1,17 @@
+{
+    "name": "LevelCompleter.YaVk",
+    "rootNamespace": "",
+    "references": [
+        "GUID:eceb20a37dcc276469b4102259776749",
+        "GUID:e6f074628495cd447a86a80aef8898f9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

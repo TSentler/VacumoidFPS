@@ -1,0 +1,16 @@
+{
+    "name": "Trash",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f704a9a3fbfe0ea43890c3714be49bbb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

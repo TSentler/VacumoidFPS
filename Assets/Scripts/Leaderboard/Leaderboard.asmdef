@@ -1,0 +1,21 @@
+{
+    "name": "Leaderboard",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e6f074628495cd447a86a80aef8898f9",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:812a9f1b9b2e571459d8ced6e09b2f18",
+        "GUID:eceb20a37dcc276469b4102259776749",
+        "GUID:22eef73b61f1c0741be1c394ac23041b",
+        "GUID:03199192475ed684c975f84099a9bca1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

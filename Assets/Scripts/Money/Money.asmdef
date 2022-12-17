@@ -1,0 +1,16 @@
+{
+    "name": "Money",
+    "rootNamespace": "",
+    "references": [
+        "GUID:812a9f1b9b2e571459d8ced6e09b2f18"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

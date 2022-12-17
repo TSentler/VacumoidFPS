@@ -1,0 +1,18 @@
+{
+    "name": "UI.Statistics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ad0cbaf957503f550b1e4a5e4cd7cd29",
+        "GUID:22eef73b61f1c0741be1c394ac23041b",
+        "GUID:03199192475ed684c975f84099a9bca1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

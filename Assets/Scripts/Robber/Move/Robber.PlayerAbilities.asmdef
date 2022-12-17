@@ -1,0 +1,17 @@
+{
+    "name": "Robber.PlayerAbilities",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bbacbfaeb9135fe35b5cac00814a1223",
+        "GUID:fc6d263af0107e336b9a109bc8bb395b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

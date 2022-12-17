@@ -1,0 +1,17 @@
+{
+    "name": "Money.Vacuum",
+    "rootNamespace": "",
+    "references": [
+        "GUID:09333de930c0ebd46a74e6fe4335da92",
+        "GUID:22eef73b61f1c0741be1c394ac23041b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

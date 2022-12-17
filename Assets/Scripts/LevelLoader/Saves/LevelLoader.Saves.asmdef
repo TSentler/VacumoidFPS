@@ -1,0 +1,17 @@
+{
+    "name": "LevelLoader.Saves",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d014e6c54c0168f409127a5656abbb05",
+        "GUID:812a9f1b9b2e571459d8ced6e09b2f18"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
