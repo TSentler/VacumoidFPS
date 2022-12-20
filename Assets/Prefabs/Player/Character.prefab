@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 1956850126641935999}
   - component: {fileID: 1956850126641935993}
   - component: {fileID: 1956850126641935998}
+  - component: {fileID: 7177281414307245018}
   - component: {fileID: 1956850126641935996}
   - component: {fileID: 1956850126641935997}
   - component: {fileID: 1956850126641935994}
@@ -151,6 +152,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7177281414307245018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956850126641935971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c9a1d48a45f164c8255dc68427093b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1956850126641935996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e35e516090e43b88e0fb4ec01a5b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputSourceBehaviour: {fileID: 7177281414307245018}
   _runSpeed: 170
   _speedMultiply: 1.5
   _rotationSpeed: 9
@@ -193,7 +207,7 @@ MonoBehaviour:
   _temporaryBonus: {fileID: 1956850126641935995}
   _garbageDisposal: {fileID: 1956850128046058371}
   _garbageSucker: {fileID: 1956850127775681508}
-  _movement: {fileID: 1956850126641935996}
+  _topDownMovement: {fileID: 1956850126641935996}
   _sucker: {fileID: 1956850127775681506}
   _throwTimer: {fileID: 1956850127636440579}
 --- !u!114 &1956850126641935995
@@ -462,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5595a06a9c548454cbf130098d69a306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movement: {fileID: 1956850126641935996}
+  _topDownMovement: {fileID: 1956850126641935996}
 --- !u!114 &1956850127636440582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6484,7 +6498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec20b006c383099794291a792ae757d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movement: {fileID: 1956850126641935996}
+  _topDownMovement: {fileID: 1956850126641935996}
 --- !u!4 &2063380558578250617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4028b3321fb5eef4dba7f2902d9d7250, type: 3}
@@ -6724,7 +6738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6480195179652379134, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0010599773
+      value: 0.001060009
       objectReference: {fileID: 0}
     - target: {fileID: 6480195179652379134, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_LocalPosition.y

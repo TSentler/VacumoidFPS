@@ -8,7 +8,7 @@ namespace Upgrade.Move
     {
         private readonly string _upgradeName = "SpeedUpgrade";
         
-        [SerializeField] private Movement _movement;
+        [SerializeField] private TopDownMovement _topDownMovement;
         [Min(0f), SerializeField] private float _runSpeed;
         
         private float RunSpeed => _runSpeed + _runSpeed * UpFactor;
@@ -19,13 +19,13 @@ namespace Upgrade.Move
             if (PrefabChecker.InPrefabFileOrStage(gameObject))
                 return;
             
-            if (_movement == null)
+            if (_topDownMovement == null)
                 Debug.LogWarning("Movement was not found!", this);
         }
 
         protected override void SetUpgrade()
         {
-            _movement.Upgrade(RunSpeed);
+            _topDownMovement.Upgrade(RunSpeed);
         }
 
         protected override string GetUpgradeName()

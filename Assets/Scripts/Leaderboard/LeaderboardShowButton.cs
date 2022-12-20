@@ -10,8 +10,7 @@ namespace Leaderboard
     {
         [SerializeField] private GameObject _cupIcon, _vacuumIcon;
         [SerializeField] private Animator _animator;
-
-        private Button _button;
+        [SerializeField] private Button _button;
 
         public event UnityAction BoardShowed;
 

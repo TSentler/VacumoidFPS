@@ -1,5 +1,4 @@
 using Money;
-using PlayerInput;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,7 +8,6 @@ namespace LevelCompleter
     {
         private bool _isCompleted;
         
-        [SerializeField] private MovementInput _movementInput;
         [SerializeField] private MoneyCounter _moneyCounter;
         [SerializeField] private CompletePresenter _completePresenter;
 
@@ -19,8 +17,6 @@ namespace LevelCompleter
         
         private void OnValidate()
         {
-            if (_movementInput == null)
-                Debug.LogWarning("MovementInput was not found!", this);
             if (_moneyCounter == null)
                 Debug.LogWarning("MoneyCounter was not found!", this);
             if (_completePresenter == null)
@@ -33,7 +29,6 @@ namespace LevelCompleter
                 return;
             
             _isCompleted = true;
-            _movementInput.Pause();
             _moneyCounter.Pause();
             _completePresenter.Apply();
             Completed?.Invoke();

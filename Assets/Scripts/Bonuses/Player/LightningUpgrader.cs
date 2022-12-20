@@ -12,7 +12,7 @@ namespace Bonuses.Player
         [SerializeField] private TemporaryBonus _temporaryBonus;
         [SerializeField] private GarbageDisposal _garbageDisposal;
         [SerializeField] private GarbageSucker _garbageSucker;
-        [SerializeField] private Movement _movement;
+        [SerializeField] private TopDownMovement _topDownMovement;
         [SerializeField] private SuckerBooster _sucker;
         [SerializeField] private ThrowTimer _throwTimer;
 
@@ -24,7 +24,7 @@ namespace Bonuses.Player
                 Debug.LogWarning("GarbageDisposal was not found!", this);
             if (_garbageSucker == null)
                 Debug.LogWarning("GarbageSucker was not found!", this);
-            if (_movement == null)
+            if (_topDownMovement == null)
                 Debug.LogWarning("Movement was not found!", this);
             if (_sucker == null)
                 Debug.LogWarning("GarbageSucker was not found!", this);
@@ -46,7 +46,7 @@ namespace Bonuses.Player
 
         private void OnTimerStarted()
         {
-            _movement.BoostSpeed();
+            _topDownMovement.BoostSpeed();
             _sucker.IncreaseSize();
             _garbageSucker.BoostSpeed();
             _throwTimer.BoostDelay();
@@ -54,7 +54,7 @@ namespace Bonuses.Player
 
         private void OnTimerEnded()
         {
-            _movement.ResetSpeed();
+            _topDownMovement.ResetSpeed();
             _sucker.ResetSize();
             _garbageSucker.ResetSpeed();
             _throwTimer.ResetDelay();

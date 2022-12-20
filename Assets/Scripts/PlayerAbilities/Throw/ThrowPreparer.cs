@@ -8,11 +8,11 @@ namespace PlayerAbilities.Throw
     {
         private VacuumThrower _vacuumThrower;
         
-        [SerializeField] private Movement _movement;
+        [SerializeField] private TopDownMovement _topDownMovement;
 
         private void OnValidate()
         {
-            if (_movement == null)
+            if (_topDownMovement == null)
                 Debug.LogWarning("Movement was not found!", this);
         }
 
@@ -23,14 +23,14 @@ namespace PlayerAbilities.Throw
 
         private void OnEnable()
         {
-            _vacuumThrower.Tied += _movement.Stop;
-            _vacuumThrower.Throwed += _movement.Go;
+            _vacuumThrower.Tied += _topDownMovement.Stop;
+            _vacuumThrower.Throwed += _topDownMovement.Go;
         }
 
         private void OnDisable()
         {
-            _vacuumThrower.Tied -= _movement.Stop;
-            _vacuumThrower.Throwed -= _movement.Go;
+            _vacuumThrower.Tied -= _topDownMovement.Stop;
+            _vacuumThrower.Throwed -= _topDownMovement.Go;
 
         }
     }

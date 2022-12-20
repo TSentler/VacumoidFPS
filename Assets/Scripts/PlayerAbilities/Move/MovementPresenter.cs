@@ -8,14 +8,14 @@ namespace PlayerAbilities.Move
     {
         private readonly int _speedHash = Animator.StringToHash("Speed");
     
-        [SerializeField] private Movement _movement;
+        [SerializeField] private TopDownMovement _topDownMovement;
         
         private Animator _animator;
         private Vector2 _direction;
     
         private void OnValidate()
         {
-            if (_movement == null)
+            if (_topDownMovement == null)
                 Debug.LogWarning("Movement was not found!", this);
         }
         
@@ -26,12 +26,12 @@ namespace PlayerAbilities.Move
 
         private void OnEnable()
         {
-            _movement.Moved += SetDirection;
+            _topDownMovement.Moved += SetDirection;
         }
 
         private void OnDisable()
         {
-            _movement.Moved -= SetDirection;
+            _topDownMovement.Moved -= SetDirection;
         }
         
         private void SetDirection(Vector2 _direction)

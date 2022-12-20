@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Robber
 {
-    [RequireComponent(typeof(Movement),
+    [RequireComponent(typeof(TopDownMovement),
         typeof(Animator))]
     public class RunToTargetState : MonoBehaviour
     {
@@ -11,7 +11,7 @@ namespace Robber
         [Min(0.1f), SerializeField] private float _minDistance = 1f;
         
         private RunToTargetBehaviour _runToTargetBehaviour;
-        private Movement _movement;
+        private TopDownMovement _topDownMovement;
         private Animator _animator;
         private Vector2 _runDirection;
         
@@ -25,7 +25,7 @@ namespace Robber
         {
             _animator = GetComponent<Animator>();
             _runToTargetBehaviour = _animator.GetBehaviour<RunToTargetBehaviour>();
-            _movement = GetComponent<Movement>();
+            _topDownMovement = GetComponent<TopDownMovement>();
         }
 
         private void OnEnable()
@@ -50,17 +50,17 @@ namespace Robber
         private void OnRunToTargetUpdated()
         {
             var direction = _robberAI.GetDirectionToTarget();
-            _movement.Move(direction.normalized);
+            _topDownMovement.Move(direction.normalized);
             if (direction.magnitude < _minDistance)
             {
-                _movement.Move(Vector2.zero);
+                _topDownMovement.Move(Vector2.zero);
                 _robberAI.PickUpTarget();
             }
         }
 
         private void OnRunToTargetEnded()
         {
-            _movement.Move(Vector2.zero);
+            _topDownMovement.Move(Vector2.zero);
         }
     }
 }
