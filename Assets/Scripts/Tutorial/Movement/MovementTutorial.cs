@@ -10,7 +10,7 @@ namespace Tutorial
         [SerializeField] private GameObject _keyboardPanel,
             _stickPanel;
         
-        private TopDownMovement _topDownMovement;
+        private FPSMovement _fpsMovement;
         private SocialNetwork _socialNetwork;
         private Coroutine _checkMobileDeviceCoroutine;
         private float _minSqrMoveStep = 0.1f;
@@ -29,19 +29,19 @@ namespace Tutorial
         private void Awake()
         {
             _socialNetwork = FindObjectOfType<SocialNetwork>();
-            _topDownMovement = FindObjectOfType<TopDownMovement>();
+            _fpsMovement = FindObjectOfType<FPSMovement>();
             _keyboardPanel.SetActive(false);
             _stickPanel.SetActive(false);
         }
 
         private void OnEnable()
         {
-            _topDownMovement.Moved += MovedTrigger;
+            _fpsMovement.Moved += MovedTrigger;
         }
 
         private void OnDisable()
         {
-            _topDownMovement.Moved -= MovedTrigger;
+            _fpsMovement.Moved -= MovedTrigger;
             if (_checkMobileDeviceCoroutine !=null)
             {
                 StopCoroutine(_checkMobileDeviceCoroutine);

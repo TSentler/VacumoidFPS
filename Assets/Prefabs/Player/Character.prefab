@@ -77,7 +77,8 @@ GameObject:
   - component: {fileID: 1956850126641935993}
   - component: {fileID: 1956850126641935998}
   - component: {fileID: 7177281414307245018}
-  - component: {fileID: 1956850126641935996}
+  - component: {fileID: 6173048192533854351}
+  - component: {fileID: 3186311222594714264}
   - component: {fileID: 1956850126641935997}
   - component: {fileID: 1956850126641935994}
   - component: {fileID: 1956850126641935995}
@@ -164,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c9a1d48a45f164c8255dc68427093b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1956850126641935996
+--- !u!114 &6173048192533854351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,12 +174,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1956850126641935971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e35e516090e43b88e0fb4ec01a5b53, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d1da5520338833468ef5a158d34aa55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speedMultiply: 1.5
+  _runSpeed: 170
+--- !u!114 &3186311222594714264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956850126641935971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af5b6c251f3286a4a955a65ab5f27298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inputSourceBehaviour: {fileID: 7177281414307245018}
-  _runSpeed: 170
-  _speedMultiply: 1.5
+  _speedStat: {fileID: 6173048192533854351}
   _rotationSpeed: 9
 --- !u!114 &1956850126641935997
 MonoBehaviour:
@@ -207,7 +221,7 @@ MonoBehaviour:
   _temporaryBonus: {fileID: 1956850126641935995}
   _garbageDisposal: {fileID: 1956850128046058371}
   _garbageSucker: {fileID: 1956850127775681508}
-  _topDownMovement: {fileID: 1956850126641935996}
+  _speedStat: {fileID: 6173048192533854351}
   _sucker: {fileID: 1956850127775681506}
   _throwTimer: {fileID: 1956850127636440579}
 --- !u!114 &1956850126641935995
@@ -476,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5595a06a9c548454cbf130098d69a306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _topDownMovement: {fileID: 1956850126641935996}
+  _movement: {fileID: 3186311222594714264}
 --- !u!114 &1956850127636440582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6498,7 +6512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec20b006c383099794291a792ae757d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _topDownMovement: {fileID: 1956850126641935996}
+  _movement: {fileID: 3186311222594714264}
 --- !u!4 &2063380558578250617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4028b3321fb5eef4dba7f2902d9d7250, type: 3}

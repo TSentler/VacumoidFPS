@@ -7,7 +7,7 @@ namespace Vacuum
     public class GarbageSucker : MonoBehaviour, ISuckCenter
     {
         [Min(0f), SerializeField] private float _environmentExtraSuckSpeed = 1f,
-            _bonusMultiply = 5f;
+            _boostMultiply = 5f;
         
         private float _oldSpeed;
         
@@ -53,12 +53,12 @@ namespace Vacuum
             return transform;
         }
 
-        public void BoostSpeed()
+        public void Boost()
         {
-            _environmentExtraSuckSpeed *= _bonusMultiply;
+            _environmentExtraSuckSpeed *= _boostMultiply;
         }
 
-        public void ResetSpeed()
+        public void ResetBoost()
         {
             _environmentExtraSuckSpeed = _oldSpeed;
         }

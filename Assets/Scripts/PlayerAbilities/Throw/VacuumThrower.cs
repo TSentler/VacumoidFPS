@@ -1,22 +1,37 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Upgrade;
 
 namespace PlayerAbilities.Throw
 {
     [RequireComponent(typeof(FixedJoint))]
     public class VacuumThrower : MonoBehaviour
     {
-        [Min(0), SerializeField] private float _speed = 10f;
+        [Min(0), SerializeField] private float _startSpeed = 10f;
 
         private FixedJoint _joint, _jointConfig;
         private ThrowObject _throwObject;
+        private ThrowUpgrader _throwUpgrader;
+        private float _currentSpeed;
         private bool _isThrow;
 
         public event UnityAction Tied, Throwed;
             
         private void Awake()
         {
+            _throwUpgrader = FindObjectOfType<ThrowUpgrader>();
             _jointConfig = GetComponent<FixedJoint>();
+        }
+
+        private void OnEnable()
+        {
+            OnUpgraded();
+            _throwUpgrader.Upgraded += OnUpgraded;
+        }
+
+        private void OnDisable()
+        {
+            _throwUpgrader.Upgraded -= OnUpgraded;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -37,6 +52,11 @@ namespace PlayerAbilities.Throw
             }
         }
         
+        private void OnUpgraded()
+        {
+            _currentSpeed = _throwUpgrader.CalculateThrowSpeed(_startSpeed);
+        }
+        
         private void OnJointBreak(float breakForce)
         {
             Throw();
@@ -55,15 +75,10 @@ namespace PlayerAbilities.Throw
 
             var forward = transform.forward;
             forward = new Vector3(forward.x, 0f, forward.z);
-            var force = _speed * forward;
+            var force = _currentSpeed * forward;
             _throwObject?.Throw(force);
             _throwObject = null;
             Throwed?.Invoke();
-        }
-
-        public void Upgrade(float speed)
-        {
-            _speed = speed;
         }
     }
 }

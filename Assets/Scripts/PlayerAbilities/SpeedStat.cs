@@ -1,33 +1,47 @@
-using System;
+using Upgrade.Move;
 using UnityEngine;
 
 namespace PlayerAbilities
 {
     public class SpeedStat : MonoBehaviour
     {
-        [SerializeField] private float _speedMultiply = 1.5f, 
-            _runSpeed = 170f;
+        [SerializeField] private float _boostMultiply = 1.5f, 
+            _startSpeed= 125f;
 
+        private SpeedUpgrader _speedUpgrader;
+        private float _currentSpeed;
+        
         public float Value { get; private set; }
 
         private void Awake()
         {
-            Value = _runSpeed;
+            _speedUpgrader = FindObjectOfType<SpeedUpgrader>();
         }
 
-        public void BoostSpeed()
+        private void OnEnable()
         {
-            Value = _runSpeed * _speedMultiply;
+            OnUpgraded();
+            _speedUpgrader.Upgraded += OnUpgraded;
         }
 
-        public void ResetSpeed()
+        private void OnDisable()
         {
-            Value = _runSpeed;
+            _speedUpgrader.Upgraded -= OnUpgraded;
         }
 
-        public void Upgrade(float speed)
+        private void OnUpgraded()
         {
-            Value = _runSpeed = speed;
+            Value = _currentSpeed = _speedUpgrader.CalculateRunSpeed(_startSpeed);
+        }
+
+        public void Boost()
+        {
+            Value = _currentSpeed * _boostMultiply;
+        }
+
+        public void ResetBoost()
+        {
+            Value = _currentSpeed;
         }
     }
 }

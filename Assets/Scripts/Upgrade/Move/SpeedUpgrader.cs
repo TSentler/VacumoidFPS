@@ -1,31 +1,12 @@
-using PlayerAbilities.Move;
-using UnityEngine;
-using UnityTools;
-
 namespace Upgrade.Move
 {
     public class SpeedUpgrader : Upgrader
     {
         private readonly string _upgradeName = "SpeedUpgrade";
         
-        [SerializeField] private TopDownMovement _topDownMovement;
-        [Min(0f), SerializeField] private float _runSpeed;
-        
-        private float RunSpeed => _runSpeed + _runSpeed * UpFactor;
-        
-        protected override void OnValidate()
+        public float CalculateRunSpeed(float startSpeed)
         {
-            base.OnValidate();
-            if (PrefabChecker.InPrefabFileOrStage(gameObject))
-                return;
-            
-            if (_topDownMovement == null)
-                Debug.LogWarning("Movement was not found!", this);
-        }
-
-        protected override void SetUpgrade()
-        {
-            _topDownMovement.Upgrade(RunSpeed);
+            return startSpeed + startSpeed * UpFactor;
         }
 
         protected override string GetUpgradeName()

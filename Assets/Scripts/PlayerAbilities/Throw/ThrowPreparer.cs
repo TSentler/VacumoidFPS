@@ -1,5 +1,6 @@
 using PlayerAbilities.Move;
 using UnityEngine;
+using UnityTools;
 
 namespace PlayerAbilities.Throw
 {
@@ -8,11 +9,14 @@ namespace PlayerAbilities.Throw
     {
         private VacuumThrower _vacuumThrower;
         
-        [SerializeField] private TopDownMovement _topDownMovement;
+        [SerializeField] private Movement _movement;
 
         private void OnValidate()
         {
-            if (_topDownMovement == null)
+            if (PrefabChecker.InPrefabFileOrStage(gameObject))
+                return;
+            
+            if (_movement == null)
                 Debug.LogWarning("Movement was not found!", this);
         }
 
@@ -23,15 +27,14 @@ namespace PlayerAbilities.Throw
 
         private void OnEnable()
         {
-            _vacuumThrower.Tied += _topDownMovement.Stop;
-            _vacuumThrower.Throwed += _topDownMovement.Go;
+            _vacuumThrower.Tied += _movement.Stop;
+            _vacuumThrower.Throwed += _movement.Go;
         }
 
         private void OnDisable()
         {
-            _vacuumThrower.Tied -= _topDownMovement.Stop;
-            _vacuumThrower.Throwed -= _topDownMovement.Go;
-
+            _vacuumThrower.Tied -= _movement.Stop;
+            _vacuumThrower.Throwed -= _movement.Go;
         }
     }
 }

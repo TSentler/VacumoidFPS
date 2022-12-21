@@ -70,13 +70,13 @@ namespace PlayerAbilities.Throw
             }
         }
 
-        public void BoostDelay()
+        public void Boost()
         {
             _delay = _boostDelay;
             
         }
 
-        public void ResetDelay()
+        public void ResetBoost()
         {
             _delay = _oldDelay;
         }
