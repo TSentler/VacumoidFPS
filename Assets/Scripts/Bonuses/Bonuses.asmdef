@@ -1,4 +1,14 @@
 {
-	"name": "Bonuses",
-	"references":[ "GUID:fc6d263af0107e336b9a109bc8bb395b" ]
+    "name": "Bonuses",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

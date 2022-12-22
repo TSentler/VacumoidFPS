@@ -1,10 +1,11 @@
+using Bonuses;
 using Suckables;
 using UnityEngine;
 
 namespace Vacuum
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class GarbageSucker : MonoBehaviour, ISuckCenter
+    public class GarbageSucker : MonoBehaviour, ISuckCenter, IBoostable
     {
         [Min(0f), SerializeField] private float _environmentExtraSuckSpeed = 1f,
             _boostMultiply = 5f;

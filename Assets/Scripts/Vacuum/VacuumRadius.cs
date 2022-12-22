@@ -1,10 +1,11 @@
+using Bonuses;
 using UnityEngine;
 using Upgrade;
 
 namespace Vacuum 
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class VacuumRadius : MonoBehaviour
+    public class VacuumRadius : MonoBehaviour, IBoostable
     {
         [SerializeField] private float _boostMultiplier = 1.5f;
         [Min(0f), SerializeField] private float _startRadius = 1.5f;

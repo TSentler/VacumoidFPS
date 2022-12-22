@@ -1,9 +1,10 @@
 using Upgrade.Move;
 using UnityEngine;
+using Bonuses;
 
 namespace PlayerAbilities
 {
-    public class SpeedStat : MonoBehaviour
+    public class SpeedStat : MonoBehaviour, IBoostable
     {
         [SerializeField] private float _boostMultiply = 1.5f, 
             _startSpeed= 125f;

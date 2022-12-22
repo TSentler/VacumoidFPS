@@ -110921,6 +110921,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boosts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boosts.Array.data[0]
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: managedReferences[-2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boostsBehavioure.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boostsBehavioure.Array.data[0]
+      value: 
+      objectReference: {fileID: 1956850126831210737}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boostsBehavioure.Array.data[1]
+      value: 
+      objectReference: {fileID: 1956850126831210738}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boostsBehavioure.Array.data[2]
+      value: 
+      objectReference: {fileID: 1956850126831210735}
+    - target: {fileID: 1956850126641935994, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: _boostsBehavioure.Array.data[3]
+      value: 
+      objectReference: {fileID: 1956850126831210739}
     - target: {fileID: 1956850127636440577, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
       propertyPath: _vacuumBoxAnimator
       value: 
@@ -110941,10 +110973,6 @@ PrefabInstance:
       propertyPath: _moneyCounter
       value: 
       objectReference: {fileID: 331511529}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
 --- !u!114 &1956850126831210735 stripped
@@ -110978,6 +111006,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1da5520338833468ef5a158d34aa55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1956850126831210738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1956850127775681508, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+  m_PrefabInstance: {fileID: 1956850126831210734}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144d537304f3826499bd13da05963eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1956850126831210739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1956850127636440579, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+  m_PrefabInstance: {fileID: 1956850126831210734}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc19a27e020caa44cb6abc99649ee835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2010083000279712566

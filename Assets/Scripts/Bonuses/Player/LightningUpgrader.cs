@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using PlayerAbilities;
 using PlayerAbilities.Throw;
 using Trash;
@@ -11,11 +14,10 @@ namespace Bonuses.Player
     {
         [SerializeField] private TemporaryBonus _temporaryBonus;
         [SerializeField] private GarbageDisposal _garbageDisposal;
-        [SerializeField] private GarbageSucker _garbageSucker;
-        [SerializeField] private SpeedStat _speedStat;
-        [SerializeField] private VacuumRadius _sucker;
-        [SerializeField] private ThrowTimer _throwTimer;
-
+        [SerializeField] private MonoBehaviour[] _boostsBehaviour = new MonoBehaviour[0];
+        
+        private IBoostable[] _boosts;
+        
         private void OnValidate()
         {
             if (PrefabChecker.InPrefabFileOrStage(gameObject))
@@ -25,12 +27,28 @@ namespace Bonuses.Player
                 Debug.LogWarning("TemporaryBonus was not found!", this);
             if (_garbageDisposal == null)
                 Debug.LogWarning("GarbageDisposal was not found!", this);
-            if (_garbageSucker == null)
-                Debug.LogWarning("GarbageSucker was not found!", this);
-            if (_speedStat == null)
-                Debug.LogWarning("SpeedStat was not found!", this);
-            if (_sucker == null)
-                Debug.LogWarning("GarbageSucker was not found!", this);
+            if (_boostsBehaviour.Length > 0)
+            {
+                for (int i = 0; i < _boostsBehaviour.Length; i++)
+                {
+                    if (_boostsBehaviour[i] 
+                        && !(_boostsBehaviour[i] is IBoostable) )
+                    {
+                        Debug.LogError(nameof(_boostsBehaviour) + " needs to implement " + nameof(IBoostable));
+                        _boostsBehaviour[i] = null;
+                    }
+                }
+
+                if (_boostsBehaviour.Any(item => item == null))
+                {
+                    Debug.LogError(nameof(_boostsBehaviour) + " contains null element");
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            _boosts = _boostsBehaviour.OfType<IBoostable>().ToArray();
         }
 
         private void OnEnable()
@@ -49,18 +67,18 @@ namespace Bonuses.Player
 
         private void OnTimerStarted()
         {
-            _speedStat.Boost();
-            _sucker.Boost();
-            _garbageSucker.Boost();
-            _throwTimer.Boost();
+            foreach (var boostable in _boosts)
+            {
+                boostable.Boost();
+            }
         }
 
         private void OnTimerEnded()
         {
-            _speedStat.ResetBoost();
-            _sucker.ResetBoost();
-            _garbageSucker.ResetBoost();
-            _throwTimer.ResetBoost();
+            foreach (var boostable in _boosts)
+            {
+                boostable.ResetBoost();
+            }
         }
         
         private void OnCollected(Garbage garbage)

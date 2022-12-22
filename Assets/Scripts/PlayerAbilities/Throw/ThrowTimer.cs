@@ -1,11 +1,12 @@
 using System.Collections;
+using Bonuses;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace PlayerAbilities.Throw
 {
     [RequireComponent(typeof(VacuumThrower))]
-    public class ThrowTimer : MonoBehaviour
+    public class ThrowTimer : MonoBehaviour, IBoostable
     {
         private VacuumThrower _vacuumThrower;
         private Coroutine _timerCoroutine;
