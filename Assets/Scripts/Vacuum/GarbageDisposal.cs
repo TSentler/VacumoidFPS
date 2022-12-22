@@ -16,7 +16,7 @@ namespace Vacuum
             {
                 garbage.Sucked();
                 _bag.AddTrashPoints(garbage.TrashPoints);
-                Collected(garbage);
+                Collected?.Invoke(garbage);
             }
         }
     }

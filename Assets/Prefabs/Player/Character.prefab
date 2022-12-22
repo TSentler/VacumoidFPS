@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _temporaryBonus: {fileID: 1956850126641935995}
-  _garbageDisposal: {fileID: 1956850128046058371}
+  _bonusDisposal: {fileID: 9056912054756401131}
   _boostsBehaviour:
   - {fileID: 6173048192533854351}
   - {fileID: 1956850127775681508}
@@ -5761,6 +5761,7 @@ GameObject:
   - component: {fileID: 1956850128046058370}
   - component: {fileID: 3219758220604427570}
   - component: {fileID: 1956850128046058371}
+  - component: {fileID: 9056912054756401131}
   - component: {fileID: 1956850128046058368}
   - component: {fileID: 2963921961195850537}
   - component: {fileID: 3626074674170277813}
@@ -5811,6 +5812,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bag: {fileID: 3219758220604427570}
+--- !u!114 &9056912054756401131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956850128046058373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd6725cb0f51eb4d8d751924fb34453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1956850128046058368
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,20 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using PlayerAbilities;
-using PlayerAbilities.Throw;
-using Trash;
 using UnityEngine;
 using UnityTools;
-using Vacuum;
 
 namespace Bonuses.Player
 {
     public class LightningUpgrader : MonoBehaviour
     {
         [SerializeField] private TemporaryBonus _temporaryBonus;
-        [SerializeField] private GarbageDisposal _garbageDisposal;
-        [SerializeField] private MonoBehaviour[] _boostsBehaviour = new MonoBehaviour[0];
+        [SerializeField] private BonusDisposal _bonusDisposal;
+        [SerializeField] private MonoBehaviour[] _boostsBehaviour = Array.Empty<MonoBehaviour>();
         
         private IBoostable[] _boosts;
         
@@ -25,7 +20,7 @@ namespace Bonuses.Player
             
             if (_temporaryBonus == null)
                 Debug.LogWarning("TemporaryBonus was not found!", this);
-            if (_garbageDisposal == null)
+            if (_bonusDisposal == null)
                 Debug.LogWarning("GarbageDisposal was not found!", this);
             if (_boostsBehaviour.Length > 0)
             {
@@ -55,14 +50,14 @@ namespace Bonuses.Player
         {
             _temporaryBonus.TimerStarted += OnTimerStarted;
             _temporaryBonus.TimerEnded += OnTimerEnded;
-            _garbageDisposal.Collected += OnCollected;
+            _bonusDisposal.Boosted += OnBoosted;
         }
     
         private void OnDisable()
         {
             _temporaryBonus.TimerStarted -= OnTimerStarted;
             _temporaryBonus.TimerEnded -= OnTimerEnded;
-            _garbageDisposal.Collected -= OnCollected;
+            _bonusDisposal.Boosted -= OnBoosted;
         }
 
         private void OnTimerStarted()
@@ -81,13 +76,9 @@ namespace Bonuses.Player
             }
         }
         
-        private void OnCollected(Garbage garbage)
+        private void OnBoosted(Lightning lightningBonus)
         {
-            if (garbage.TryGetComponent<Lightning>(
-                    out var lightningBonus))
-            {
-                _temporaryBonus.Apply();
-            }
+            _temporaryBonus.Apply();
         }
     }
 }
