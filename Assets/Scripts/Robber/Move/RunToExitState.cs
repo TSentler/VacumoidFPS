@@ -44,16 +44,16 @@ namespace Robber
 
         private void OnRunToExitEnded()
         {
-            _topDownMovement.Move(Vector2.zero);
+            _topDownMovement.SetDirection(Vector2.zero);
         }
         
         private void OnRunToExitUpdated()
         {
             var direction = _robberAI.GetDirectionToExit();
-            _topDownMovement.Move(direction.normalized);
+            _topDownMovement.SetDirection(direction.normalized);
             if (direction.magnitude < _minDistance)
             {
-                _topDownMovement.Move(Vector2.zero);
+                _topDownMovement.SetDirection(Vector2.zero);
                 transform.rotation = Quaternion.LookRotation(
                     new Vector3(direction.x, 0f, direction.y));
                  

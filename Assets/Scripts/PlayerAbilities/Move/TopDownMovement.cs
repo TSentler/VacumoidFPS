@@ -32,7 +32,7 @@ namespace PlayerAbilities.Move
         private void Update()
         {
             if(InputSource != null)
-                Move(InputSource.MovementInput);
+                SetDirection(InputSource.MovementInput);
         }
 
         private void FixedUpdate()
@@ -46,7 +46,7 @@ namespace PlayerAbilities.Move
             HandleRotation(_rotateDirection);
         }
         
-        public override void Move(Vector2 direction)
+        public override void SetDirection(Vector2 direction)
         {
             _rotateDirection = direction;
             if (CanMove == false)
@@ -54,7 +54,7 @@ namespace PlayerAbilities.Move
                 direction = Vector2.zero;
             }
             _moveDirection = direction;
-            base.Move(_moveDirection);
+            base.SetDirection(_moveDirection);
         }
     }
 }

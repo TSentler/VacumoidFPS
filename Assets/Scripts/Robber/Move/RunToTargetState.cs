@@ -50,17 +50,17 @@ namespace Robber
         private void OnRunToTargetUpdated()
         {
             var direction = _robberAI.GetDirectionToTarget();
-            _topDownMovement.Move(direction.normalized);
+            _topDownMovement.SetDirection(direction.normalized);
             if (direction.magnitude < _minDistance)
             {
-                _topDownMovement.Move(Vector2.zero);
+                _topDownMovement.SetDirection(Vector2.zero);
                 _robberAI.PickUpTarget();
             }
         }
 
         private void OnRunToTargetEnded()
         {
-            _topDownMovement.Move(Vector2.zero);
+            _topDownMovement.SetDirection(Vector2.zero);
         }
     }
 }

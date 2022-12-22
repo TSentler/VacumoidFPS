@@ -44,7 +44,7 @@ namespace PlayerAbilities.Move
             
         }
 
-        public virtual void Move(Vector2 direction)
+        public virtual void SetDirection(Vector2 direction)
         {
             Moved?.Invoke(direction);
         }
