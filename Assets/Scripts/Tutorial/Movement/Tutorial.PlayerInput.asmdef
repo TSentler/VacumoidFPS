@@ -1,11 +1,11 @@
 {
-    "name": "Tutorial.PlayerAbilities",
+    "name": "Tutorial.PlayerInput",
     "rootNamespace": "",
     "references": [
         "GUID:2f8cd2d3dad810b438f6edd49ffeb16f",
-        "GUID:fc6d263af0107e336b9a109bc8bb395b",
-        "GUID:e6f074628495cd447a86a80aef8898f9",
-        "GUID:03199192475ed684c975f84099a9bca1"
+        "GUID:03199192475ed684c975f84099a9bca1",
+        "GUID:4cc6c664183d849a4816e9fdc5d64e58",
+        "GUID:fc6d263af0107e336b9a109bc8bb395b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
