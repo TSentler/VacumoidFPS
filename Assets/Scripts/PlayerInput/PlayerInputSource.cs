@@ -8,6 +8,7 @@ namespace PlayerInput
     public interface ICharacterInputSource
     {
         Vector2 MovementInput { get; }
+        Vector2 MouseInput { get; }
     }
     
     public class PlayerInputSource : MonoBehaviour, ICharacterInputSource
@@ -18,6 +19,7 @@ namespace PlayerInput
         private bool _isPause;
 
         public Vector2 MovementInput { get; private set; }
+        public Vector2 MouseInput { get; private set; }
         
         private void Awake()
         {
@@ -48,6 +50,26 @@ namespace PlayerInput
 
         private void Update()
         {
+            SetMouseInput();
+            SetMovementInput();
+        }
+
+        private void SetMouseInput()
+        {
+            MouseInput = Vector2.zero;
+            if (_isPause)
+            {
+                MouseInput = Vector2.zero;
+            }
+            else if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                MouseInput = new Vector2(Input.GetAxis("Mouse X"),
+                    Input.GetAxis("Mouse Y"));
+            }
+        }
+
+        private void SetMovementInput()
+        {
             if (_isPause)
             {
                 _lastDirection = Vector2.zero;
@@ -62,10 +84,10 @@ namespace PlayerInput
                     _lastDirection.Normalize();
                 }
             }
-
+            
             MovementInput = _lastDirection;
         }
-        
+
         private void StickOn(Vector2 direction)
         {
             _lastDirection = Vector2.zero;

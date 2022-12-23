@@ -41,7 +41,6 @@ namespace PlayerAbilities.Move
             {
                 Initialize((ICharacterInputSource)_inputSourceBehaviour);
             }
-            
         }
 
         public virtual void SetDirection(Vector2 direction)

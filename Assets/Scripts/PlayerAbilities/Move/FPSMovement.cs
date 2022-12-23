@@ -8,28 +8,8 @@ namespace PlayerAbilities.Move
         [SerializeField] private float _turnSmoothTime = 0.1f,
             _rotationSpeed = 9f;
         
-        private Vector2 _inputDirection, _rotateDirection;
+        private Vector2 _inputDirection;
         private float _turnSmoothVelocity;
-
-        private void HandleRotation()
-        {
-            /*
-            var targetRotation = Quaternion.LookRotation(
-                new Vector3(direction.x, 0f, direction.y));
-
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation, targetRotation,
-                _rotationSpeed * Time.deltaTime);
-           */
-            float targetAngle =
-                Mathf.Atan2(_inputDirection.x, _inputDirection.y) * Mathf.Rad2Deg;
-            Debug.Log(targetAngle);
-            targetAngle += Camera.main.transform.eulerAngles.y;
-            Debug.Log(targetAngle + "!");
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,
-                targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-            transform.rotation = Quaternion.Euler(Vector3.up * angle);
-        }
 
         private void Update()
         {
@@ -52,7 +32,6 @@ namespace PlayerAbilities.Move
         
         public override void SetDirection(Vector2 direction)
         {
-            _rotateDirection = direction;
             if (CanMove == false)
             {
                 direction = Vector2.zero;

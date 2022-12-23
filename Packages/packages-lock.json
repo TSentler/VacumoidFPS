@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.agava.defineswitchtool": {
-      "version": "https://github.com/tsentler/com.agava.defineswitchtool.git#1.0.1",
+      "version": "https://github.com/tsentler/com.agava.defineswitchtool.git#1.0.2",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "9dcf04f46e3e65c752e550e27a478ad10fdb7261"
+      "hash": "eab1a225332dda244235cf5655bb8b583e8c48e5"
     },
     "com.agava.vkgames": {
       "version": "https://github.com/punisherpete/com.agava.vkgames.git",

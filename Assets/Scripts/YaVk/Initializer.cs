@@ -29,14 +29,14 @@ namespace YaVk
             _isInitializeRun = true;
 #if !UNITY_WEBGL || UNITY_EDITOR
             InitializeComplete();
-#elif CRAZY_GAMES
-            InitializeComplete();
 #elif YANDEX_GAMES
             yield return YandexGamesSdk.Initialize(
                 onSuccessCallback: InitializeComplete);
 #elif VK_GAMES
             yield return VKGamesSdk.Initialize(
                 onSuccessCallback: InitializeComplete);
+#else
+            InitializeComplete();
 #endif
         }
         

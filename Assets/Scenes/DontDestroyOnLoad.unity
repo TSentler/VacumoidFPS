@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 151350670}
-  _delay: 6
+  _delay: 1
 --- !u!114 &656852962
 MonoBehaviour:
   m_ObjectHideFlags: 0
