@@ -4158,6 +4158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e3fee61918ecc498825e1ff3fd00a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDesktop: 1
   _mobilePanels:
   - {fileID: 1466610085231618194}
   - {fileID: 5848127337227047670}
@@ -11200,7 +11201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f981237971c3e434cb0c218dc7595f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _referenceWidth: 25
 --- !u!1 &5851655386496148473
 GameObject:
   m_ObjectHideFlags: 0

@@ -109778,10 +109778,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -75
       objectReference: {fileID: 0}
-    - target: {fileID: 2946787645924924135, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
-      propertyPath: _isDesktop
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3167806559958654293, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -110898,6 +110894,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 282840813}
+    - target: {fileID: 4823914729671741144, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.26
+      objectReference: {fileID: 0}
     - target: {fileID: 7914417887681417909, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
       propertyPath: _moneyCounter
       value: 
