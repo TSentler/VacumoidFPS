@@ -144,7 +144,7 @@ namespace PlayerInput
         
         private void TouchPoinerOn(Vector2 position)
         {
-            _lastDirection = Vector2.zero;
+            _lastMouseMove = Vector2.zero;
         }
         
         private void TouchPoinerOff()
