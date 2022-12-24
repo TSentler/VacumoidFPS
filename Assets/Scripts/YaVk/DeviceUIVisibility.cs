@@ -5,10 +5,12 @@ namespace YaVk
 {
     public class DeviceUIVisibility : MonoBehaviour
     {
+        [SerializeField] private bool _isDesktop;
         [SerializeField] private List<GameObject> _mobilePanels, _desktopPanels;
         
         private SocialNetwork _socialNetwork;
         private Coroutine _checkDeviceCoroutine;
+        
         private void Awake()
         {
             _socialNetwork = FindObjectOfType<SocialNetwork>();
@@ -24,13 +26,17 @@ namespace YaVk
 
         private void Start()
         {
+            _desktopPanels.ForEach(item => item.SetActive(false));
+            _mobilePanels.ForEach(item => item.SetActive(false));
 #if !UNITY_WEBGL || UNITY_EDITOR
+            if (_isDesktop)
+            {
+                _desktopPanels.ForEach(item => item.SetActive(true));
+                return;
+            }
             _desktopPanels.ForEach(item => item.SetActive(true));
             _mobilePanels.ForEach(item => item.SetActive(true));
             return;
-#else 
-            _desktopPanels.ForEach(item => item.SetActive(false));
-            _mobilePanels.ForEach(item => item.SetActive(false));
 #endif
             _checkDeviceCoroutine = StartCoroutine(
                 _socialNetwork.CheckMobileDeviceCoroutine(
@@ -48,6 +54,5 @@ namespace YaVk
                 _desktopPanels.ForEach(item => item.SetActive(true));
             }
         }
-        
     }
 }

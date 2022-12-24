@@ -9,7 +9,8 @@ namespace UI.Joystick
         [SerializeField] private CanvasGroup _stickGroup; 
         [SerializeField] private RectTransform _stickArea, _stickKnob;
 
-        private float _defaultYPosition, _defaultLeft, _defaultRight;
+        private float _defaultYRatio, _defaultLeft, _defaultRight;
+        private bool _isFingerOut;
         
         private void OnValidate()
         {
@@ -25,7 +26,7 @@ namespace UI.Joystick
         {
             _defaultLeft = _stickArea.offsetMin.x;
             _defaultRight = _stickArea.offsetMax.x;
-            _defaultYPosition = _stickArea.position.y;
+            _defaultYRatio = _stickArea.position.y / Screen.height;
             OnFingerOuted();
         }
 
@@ -43,13 +44,13 @@ namespace UI.Joystick
             _stickPointer.FingerMove -= MoveStickKnob;
         }
 
-        private bool _isFingerOut;
         private void LateUpdate()
         {
             if (_isFingerOut)
             {
                 var position = _stickArea.position;
-                position = new Vector3(position.x, _defaultYPosition, position.z);
+                var defaultYPosition = _defaultYRatio * Screen.height;
+                position = new Vector3(position.x, defaultYPosition, position.z);
                 _stickArea.position = position;
                 _isFingerOut = false;
             }
