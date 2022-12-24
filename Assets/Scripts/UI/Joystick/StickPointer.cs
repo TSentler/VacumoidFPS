@@ -12,6 +12,7 @@ namespace UI.Joystick
         [SerializeField] private RectTransform _stickRect;
 
         private Vector2 _startTouch, _currentTouch, _stickVector;
+        private int _fingerId = int.MinValue;
         private bool _isTouch;
     
         public bool IsTouch => _isTouch;
@@ -41,21 +42,27 @@ namespace UI.Joystick
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (_isTouch == false || _fingerId != eventData.pointerId)
+                return;
+
             _isTouch = false;
             FingerOut?.Invoke();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            _startTouch = eventData.position;
-        
+            if (_isTouch)
+                return;
+            
             _isTouch = true;
+            _fingerId = eventData.pointerId;
+            _startTouch = eventData.position;
             FingerDown?.Invoke(_startTouch);
         }
-
+        
         public void OnDrag(PointerEventData eventData)
         {
-            if (_isTouch == false)
+            if (_isTouch == false || _fingerId != eventData.pointerId)
                 return;
 
             Vector2 targetTouch = eventData.position;

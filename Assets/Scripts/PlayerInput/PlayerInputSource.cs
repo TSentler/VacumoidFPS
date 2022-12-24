@@ -15,7 +15,8 @@ namespace PlayerInput
     {
         private Completer _completer;
         private StickPointer _stick;
-        private Vector2 _lastDirection;
+        private MousePointer _mousePointer;
+        private Vector2 _lastDirection, _lastMouseMove;
         private bool _isPause;
 
         public Vector2 MovementInput { get; private set; }
@@ -24,6 +25,7 @@ namespace PlayerInput
         private void Awake()
         {
             _stick = FindObjectOfType<StickPointer>();
+            _mousePointer = FindObjectOfType<MousePointer>();
             _completer = FindObjectOfType<Completer>();
         }
 
@@ -33,6 +35,9 @@ namespace PlayerInput
             _stick.FingerDown += StickOn;
             _stick.FingerOut += StickOff;
             _stick.FingerMove += Move;
+            _mousePointer.FingerDown += MousePoinerOn;
+            _mousePointer.FingerOut += MousePoinerOff;
+            _mousePointer.FingerMove += MousePoinerMove;
         }
 
         private void OnDisable()
@@ -41,6 +46,9 @@ namespace PlayerInput
             _stick.FingerDown -= StickOn;
             _stick.FingerOut -= StickOff;
             _stick.FingerMove -= Move;
+            _mousePointer.FingerDown -= MousePoinerOn;
+            _mousePointer.FingerOut -= MousePoinerOff;
+            _mousePointer.FingerMove -= MousePoinerMove;
         }
 
         private void OnCompleted()
@@ -53,19 +61,24 @@ namespace PlayerInput
             SetMouseInput();
             SetMovementInput();
         }
-
+        
         private void SetMouseInput()
         {
-            MouseInput = Vector2.zero;
             if (_isPause)
             {
-                MouseInput = Vector2.zero;
+                _lastMouseMove = Vector2.zero;
             }
-            else if (Cursor.lockState == CursorLockMode.Locked)
+            else if (_mousePointer.IsTouch == false)
             {
-                MouseInput = new Vector2(Input.GetAxis("Mouse X"),
-                    Input.GetAxis("Mouse Y"));
+                if (Cursor.lockState == CursorLockMode.Locked)
+                {
+                    _lastMouseMove = new Vector2(Input.GetAxis("Mouse X"),
+                        Input.GetAxis("Mouse Y"));
+                }
             }
+            
+            MouseInput = _lastMouseMove;
+            _lastMouseMove = Vector2.zero;
         }
 
         private void SetMovementInput()
@@ -88,7 +101,7 @@ namespace PlayerInput
             MovementInput = _lastDirection;
         }
 
-        private void StickOn(Vector2 direction)
+        private void StickOn(Vector2 position)
         {
             _lastDirection = Vector2.zero;
         }
@@ -102,10 +115,26 @@ namespace PlayerInput
         {
             _lastDirection = direction;
         }
+        
+        private void MousePoinerOn(Vector2 position)
+        {
+            _lastDirection = Vector2.zero;
+        }
+        
+        private void MousePoinerOff()
+        {
+            _lastMouseMove = Vector2.zero;
+        }
+
+        private void MousePoinerMove(Vector2 direction)
+        {
+            _lastMouseMove = direction;
+        }
 
         private void Pause()
         {
             StickOff();
+            MousePoinerOff();
             _isPause = true;
         }
     }

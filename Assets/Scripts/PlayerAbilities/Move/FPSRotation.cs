@@ -45,11 +45,10 @@ namespace PlayerAbilities.Move
             _turn += InputSource.MouseInput * _sensitivity;
             _turn.x %= 360f;
             _turn.y %= 360f;
-            Debug.Log(_turn);
             transform.localRotation = Quaternion.Euler(0f, _turn.x, 0f);
             _cameraRoot.localRotation = Quaternion.Euler(-_turn.y, 0f, 0f);
-            Debug.Log(transform.localRotation.eulerAngles.y);
-            Debug.Log(_cameraRoot.localRotation.eulerAngles.x);
+            // Debug.Log(transform.localRotation.eulerAngles.y);
+            // Debug.Log(_cameraRoot.localRotation.eulerAngles.x);
         }
 
         private void HandleRotation()
