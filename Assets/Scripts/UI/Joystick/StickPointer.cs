@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,9 +15,8 @@ namespace UI.Joystick
 
         private Vector2 _startTouch, _currentTouch, _stickVector;
         private int _fingerId = int.MinValue;
-        private bool _isTouch;
     
-        public bool IsTouch => _isTouch;
+        public bool IsTouch => _fingerId != int.MinValue;
     
         public event UnityAction FingerOut;
         public event UnityAction<Vector2> FingerDown, FingerMove;
@@ -25,7 +26,23 @@ namespace UI.Joystick
             if (_stickRect == null)
                 Debug.LogWarning("RectTransform was not found!", this);
         }
-    
+
+        private void LateUpdate()
+        {
+            CheckFinger();
+        }
+
+        private void CheckFinger()
+        {
+            var isMouse = _fingerId != int.MinValue && _fingerId < 0;
+            var hasTouch =
+                Input.touches.Any(touch => touch.fingerId == _fingerId);
+            if (isMouse == false && hasTouch == false && IsTouch)
+            {
+                OnFingerOuted();
+            }
+        }
+
         private Vector2 CalculateStickVector(Vector2 position, Vector2 pressPosition)
         {
             var stickVector = pressPosition - position;
@@ -42,19 +59,23 @@ namespace UI.Joystick
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (_isTouch == false || _fingerId != eventData.pointerId)
+            if (_fingerId != eventData.pointerId)
                 return;
 
-            _isTouch = false;
+            OnFingerOuted();
+        }
+
+        private void OnFingerOuted()
+        {
+            _fingerId = int.MinValue;
             FingerOut?.Invoke();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (_isTouch)
+            if (IsTouch)
                 return;
             
-            _isTouch = true;
             _fingerId = eventData.pointerId;
             _startTouch = eventData.position;
             FingerDown?.Invoke(_startTouch);
@@ -62,7 +83,7 @@ namespace UI.Joystick
         
         public void OnDrag(PointerEventData eventData)
         {
-            if (_isTouch == false || _fingerId != eventData.pointerId)
+            if (_fingerId != eventData.pointerId)
                 return;
 
             Vector2 targetTouch = eventData.position;
