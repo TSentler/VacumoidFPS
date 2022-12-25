@@ -4,19 +4,12 @@ using UnityEngine;
 
 namespace PlayerInput
 {
-    public interface ICharacterInputSource
-    {
-        Vector2 MovementInput { get; }
-        Vector2 MouseInput { get; }
-    }
-    
     public class PlayerInputSource : MonoBehaviour, ICharacterInputSource
     {
         private CursorLockerPanel _lockerPanel;
         private Completer _completer;
-        private StickPointer _stick;
-        private TouchPointer _touchPointer;
-        private Vector2 _lastDirection, _lastMouseMove;
+        private MovementInputSource _movementInput;
+        private RotationInputSource _rotationInput;
         private bool _isPause;
 
         public Vector2 MovementInput { get; private set; }
@@ -25,33 +18,27 @@ namespace PlayerInput
         private void Awake()
         {
             _lockerPanel = FindObjectOfType<CursorLockerPanel>();
-            _stick = FindObjectOfType<StickPointer>();
-            _touchPointer = FindObjectOfType<TouchPointer>();
+            var stick = FindObjectOfType<StickPointer>();
+            _movementInput = new MovementInputSource(stick);
+            var touchPointer = FindObjectOfType<TouchPointer>();
+            _rotationInput = new RotationInputSource(touchPointer);
             _completer = FindObjectOfType<Completer>();
         }
 
         private void OnEnable()
         {
             _lockerPanel.PointerDowned += OnPointerDowned;
-            _completer.Completed += OnCompleted;
-            _stick.FingerDown += StickOn;
-            _stick.FingerOut += StickOff;
-            _stick.FingerMove += Move;
-            _touchPointer.FingerDown += TouchPoinerOn;
-            _touchPointer.FingerOut += TouchPoinerOff;
-            _touchPointer.FingerMove += TouchPoinerMove;
+            _completer.Completed += Pause;
+            _movementInput.Subscribe();
+            _rotationInput.Subscribe();
         }
 
         private void OnDisable()
         {
             _lockerPanel.PointerDowned -= OnPointerDowned;
-            _completer.Completed -= OnCompleted;
-            _stick.FingerDown -= StickOn;
-            _stick.FingerOut -= StickOff;
-            _stick.FingerMove -= Move;
-            _touchPointer.FingerDown -= TouchPoinerOn;
-            _touchPointer.FingerOut -= TouchPoinerOff;
-            _touchPointer.FingerMove -= TouchPoinerMove;
+            _completer.Completed -= Pause;
+            _movementInput.Unsubscribe();
+            _rotationInput.Unsubscribe();
         }
 
         private void OnPointerDowned()
@@ -62,20 +49,24 @@ namespace PlayerInput
             CursorLock();
         }
 
-        private void OnCompleted()
-        {
-            Pause();
-        }
-
         private void Update()
         {
             if (Input.GetButtonDown("CursorUnlock"))
             {
                 CursorUnlock();
             }
-            
-            SetMouseInput();
-            SetMovementInput();
+
+            if (_isPause)
+            {
+                MouseInput = Vector2.zero;
+                MovementInput = Vector2.zero;
+            }
+            else
+            {
+                MouseInput = _rotationInput.GetInput();
+                _rotationInput.Reset();
+                MovementInput = _movementInput.GetInput();
+            }
         }
 
         private void CursorLock()
@@ -88,79 +79,10 @@ namespace PlayerInput
             Cursor.lockState = CursorLockMode.None;
         }
 
-        private void SetMouseInput()
-        {
-            if (_isPause)
-            {
-                _lastMouseMove = Vector2.zero;
-            }
-            else if (_touchPointer.IsTouch == false)
-            {
-                if (Cursor.lockState == CursorLockMode.Locked)
-                {
-                    _lastMouseMove = new Vector2(Input.GetAxis("Mouse X"),
-                        Input.GetAxis("Mouse Y"));
-                }
-            }
-            
-            MouseInput = _lastMouseMove;
-            _lastMouseMove = Vector2.zero;
-        }
-
-        private void SetMovementInput()
-        {
-            if (_isPause)
-            {
-                _lastDirection = Vector2.zero;
-            }
-            else if (_stick.IsTouch == false)
-            {
-                _lastDirection = new Vector2(
-                    Input.GetAxisRaw("Horizontal"),
-                    Input.GetAxisRaw("Vertical"));
-                if (_lastDirection.magnitude > 1f)
-                {
-                    _lastDirection.Normalize();
-                }
-            }
-            
-            MovementInput = _lastDirection;
-        }
-
-        private void StickOn(Vector2 position)
-        {
-            _lastDirection = Vector2.zero;
-        }
-        
-        private void StickOff()
-        {
-            _lastDirection = Vector2.zero;
-        }
-        
-        private void Move(Vector2 direction)
-        {
-            _lastDirection = direction;
-        }
-        
-        private void TouchPoinerOn(Vector2 position)
-        {
-            _lastMouseMove = Vector2.zero;
-        }
-        
-        private void TouchPoinerOff()
-        {
-            _lastMouseMove = Vector2.zero;
-        }
-
-        private void TouchPoinerMove(Vector2 direction)
-        {
-            _lastMouseMove = direction;
-        }
-
         private void Pause()
         {
-            StickOff();
-            TouchPoinerOff();
+            _movementInput.Reset();
+            _rotationInput.Reset();
             CursorUnlock();
             _isPause = true;
         }

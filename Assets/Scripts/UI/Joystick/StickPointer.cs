@@ -1,49 +1,69 @@
-using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace UI.Joystick
 {
-    public class StickPointer : MonoBehaviour, IDragHandler,
-        IPointerDownHandler, IPointerUpHandler
+    [RequireComponent(typeof(PointerHandler))]
+    public class StickPointer : MonoBehaviour, ITouchable
     {
         private readonly float _deadZone = 0.05f;
 
         [SerializeField] private RectTransform _stickRect;
 
+        private PointerHandler _pointerHandler;
         private Vector2 _startTouch, _currentTouch, _stickVector;
-        private int _fingerId = int.MinValue;
-    
-        public bool IsTouch => _fingerId != int.MinValue;
-    
-        public event UnityAction FingerOut;
-        public event UnityAction<Vector2> FingerDown, FingerMove;
 
+        public event UnityAction Outed;
+        public event UnityAction<Vector2> Downed, Moved;
+
+        public bool IsTouch => _pointerHandler.IsTouch;
+        
         private void OnValidate()
         {
             if (_stickRect == null)
                 Debug.LogWarning("RectTransform was not found!", this);
         }
 
-        private void LateUpdate()
+        private void Awake()
         {
-            CheckFinger();
+            _pointerHandler = GetComponent<PointerHandler>();
         }
 
-        private void CheckFinger()
+        private void OnEnable()
         {
-            var isMouse = _fingerId != int.MinValue && _fingerId < 0;
-            var hasTouch =
-                Input.touches.Any(touch => touch.fingerId == _fingerId);
-            if (isMouse == false && hasTouch == false && IsTouch)
-            {
-                OnFingerOuted();
-            }
+            _pointerHandler.PointerOuted += OnPointerOuted;
+            _pointerHandler.PointerDowned += OnPointerDowned;
+            _pointerHandler.PointerMoved += OnPointerMoved;
         }
 
-        private Vector2 CalculateStickVector(Vector2 position, Vector2 pressPosition)
+        private void OnDisable()
+        {
+            _pointerHandler.PointerOuted -= OnPointerOuted;
+            _pointerHandler.PointerDowned -= OnPointerDowned;
+            _pointerHandler.PointerMoved -= OnPointerMoved;
+        }
+
+        private void OnPointerOuted()
+        {
+            Outed?.Invoke();
+        }
+
+        private void OnPointerDowned(Vector2 position)
+        {
+            _startTouch = position;
+            Downed?.Invoke(_startTouch);
+        }
+
+        private void OnPointerMoved(Vector2 position)
+        {
+            _stickVector = CalculateStickVector(_startTouch,
+                position);
+
+            Moved?.Invoke(_stickVector);
+        }
+
+        private Vector2 CalculateStickVector(Vector2 position,
+            Vector2 pressPosition)
         {
             var stickVector = pressPosition - position;
             stickVector /= _stickRect.lossyScale;
@@ -57,40 +77,5 @@ namespace UI.Joystick
             return stickVector;
         }
 
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (_fingerId != eventData.pointerId)
-                return;
-
-            OnFingerOuted();
-        }
-
-        private void OnFingerOuted()
-        {
-            _fingerId = int.MinValue;
-            FingerOut?.Invoke();
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (IsTouch)
-                return;
-            
-            _fingerId = eventData.pointerId;
-            _startTouch = eventData.position;
-            FingerDown?.Invoke(_startTouch);
-        }
-        
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (_fingerId != eventData.pointerId)
-                return;
-
-            Vector2 targetTouch = eventData.position;
-            _stickVector = CalculateStickVector(_startTouch,
-                targetTouch);
-
-            FingerMove?.Invoke(_stickVector);
-        }
     }
 }

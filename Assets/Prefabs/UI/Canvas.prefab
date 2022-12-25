@@ -2789,6 +2789,7 @@ GameObject:
   - component: {fileID: 1466610085231618195}
   - component: {fileID: 1466610085231618193}
   - component: {fileID: 1466610085231618196}
+  - component: {fileID: 1697567087389626649}
   - component: {fileID: 1466610085231618198}
   - component: {fileID: 1466610085231618199}
   m_Layer: 5
@@ -2844,6 +2845,18 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1697567087389626649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466610085231618194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b1bd67dae0fd64f8ceee005f832143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1466610085231618198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,6 +2870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stickRect: {fileID: 1466610085741283818}
+  _pointerHandler: {fileID: 0}
 --- !u!114 &1466610085231618199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,7 +5042,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 101.45
+  m_fontSize: 96
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5570,7 +5584,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 104.35
+  m_fontSize: 97.1
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11137,6 +11151,7 @@ GameObject:
   - component: {fileID: 1152298255768953148}
   - component: {fileID: 437911005472562027}
   - component: {fileID: 2717973261857295117}
+  - component: {fileID: 7758988444795613591}
   - component: {fileID: 7241456989978606348}
   m_Layer: 5
   m_Name: MobileMouseAreaPanel
@@ -11189,6 +11204,18 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7758988444795613591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848127337227047670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b1bd67dae0fd64f8ceee005f832143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7241456989978606348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11201,6 +11228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f981237971c3e434cb0c218dc7595f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pointerHandler: {fileID: 7758988444795613591}
 --- !u!1 &5851655386496148473
 GameObject:
   m_ObjectHideFlags: 0

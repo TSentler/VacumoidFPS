@@ -5,11 +5,8 @@ namespace PlayerAbilities.Move
     public class FPSMovement : Movement
     {
         [SerializeField] private SpeedStat _speedStat;
-        [SerializeField] private float _turnSmoothTime = 0.1f,
-            _rotationSpeed = 9f;
         
         private Vector2 _inputDirection;
-        private float _turnSmoothVelocity;
 
         private void Update()
         {

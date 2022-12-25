@@ -32,16 +32,16 @@ namespace UI.Joystick
 
         private void OnEnable()
         {
-            _stickPointer.FingerDown += OnFingerDowned;
-            _stickPointer.FingerOut += OnFingerOuted;
-            _stickPointer.FingerMove += MoveStickKnob;
+            _stickPointer.Downed += OnFingerDowned;
+            _stickPointer.Outed += OnFingerOuted;
+            _stickPointer.Moved += MoveStickKnob;
         }
 
         private void OnDisable()
         {
-            _stickPointer.FingerDown -= OnFingerDowned;
-            _stickPointer.FingerOut -= OnFingerOuted;
-            _stickPointer.FingerMove -= MoveStickKnob;
+            _stickPointer.Downed -= OnFingerDowned;
+            _stickPointer.Outed -= OnFingerOuted;
+            _stickPointer.Moved -= MoveStickKnob;
         }
 
         private void LateUpdate()
