@@ -1,10 +1,5 @@
 fileFormatVersion: 2
-guid: e2b1894e7d784825bf9719c33331fae8
-labels:
-- gvh
-- gvh_version-1.2.169
-- gvhp_exportpath-ExternalDependencyManager/Editor/1.2.169/Google.IOSResolver.dll
-- gvhp_targets-editor
+guid: 8b72eaae126b74b44aecb1fc9505d280
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -17,14 +12,15 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
-      : Any
+      '': Any
     second:
       enabled: 0
       settings:
         Exclude Editor: 0
+        Exclude Linux: 1
         Exclude Linux64: 1
+        Exclude LinuxUniversal: 1
         Exclude OSXUniversal: 1
-        Exclude WebGL: 1
         Exclude Win: 1
         Exclude Win64: 1
   - first:
@@ -37,33 +33,57 @@ PluginImporter:
     second:
       enabled: 1
       settings:
-        CPU: ARM64
+        CPU: AnyCPU
         DefaultValueInitialized: true
-        OS: OSX
+        OS: AnyOS
   - first:
-      Standalone: Linux64
+      Facebook: Win
     second:
       enabled: 0
       settings:
         CPU: AnyCPU
   - first:
-      Standalone: OSXUniversal
+      Facebook: Win64
     second:
       enabled: 0
       settings:
-        CPU: None
+        CPU: AnyCPU
   - first:
-      Standalone: Win
+      Standalone: Linux
     second:
       enabled: 0
       settings:
         CPU: x86
   - first:
-      Standalone: Win64
+      Standalone: Linux64
     second:
       enabled: 0
       settings:
         CPU: x86_64
+  - first:
+      Standalone: LinuxUniversal
+    second:
+      enabled: 0
+      settings:
+        CPU: None
+  - first:
+      Standalone: OSXUniversal
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  - first:
+      Standalone: Win
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  - first:
+      Standalone: Win64
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
   - first:
       Windows Store Apps: WindowsStoreApps
     second:
