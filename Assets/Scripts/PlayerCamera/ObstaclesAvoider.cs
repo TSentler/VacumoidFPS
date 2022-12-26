@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace PlayerCamera
@@ -21,7 +20,6 @@ namespace PlayerCamera
             var targetLocalPosition = GetCameraLocalPosition();
             if ((targetLocalPosition - transform.localPosition).magnitude > 0.001f)
             {
-                Debug.Log("Smooth");
                 var step = _smooth * Time.deltaTime;
                 transform.localPosition = Vector3.MoveTowards(
                     transform.localPosition, targetLocalPosition, step);
