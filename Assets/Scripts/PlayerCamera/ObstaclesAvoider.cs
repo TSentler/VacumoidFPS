@@ -38,10 +38,9 @@ namespace PlayerCamera
                 QueryTriggerInteraction.Ignore);
             if (hits.Length > 0)
             {
-                var offset = (_root.position - defaultCameraPosition).normalized 
-                             * _radius / 2f;
                 var avoidVector =
-                    GetAvoidedVector(_root.position, defaultCameraPosition, offset);
+                    GetAvoidedVector(_root.position, defaultCameraPosition,
+                        _radius);
                 cameraLocalPosition =
                     _root.InverseTransformPoint(_root.position + avoidVector);
             }
@@ -54,11 +53,13 @@ namespace PlayerCamera
         }
 
         private Vector3 GetAvoidedVector(Vector3 start, Vector3 end, 
-            Vector3 offset = default)
+            float radius)
         {
-            var direction = end - start;
-            var ray = new Ray(start + offset , direction.normalized);
-            if (Physics.SphereCast(ray, _radius, out var hit,
+            var startOffset = (start - end).normalized 
+                         * radius / 2f;
+            var direction = end - (start + startOffset);
+            var ray = new Ray(start + startOffset, direction.normalized);
+            if (Physics.SphereCast(ray, radius, out var hit,
                     direction.magnitude, ~_playerLayer,
                     QueryTriggerInteraction.Ignore))
             {
