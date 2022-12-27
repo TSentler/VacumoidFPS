@@ -9,6 +9,8 @@ namespace PlayerCamera
         [Min(0f), SerializeField] private float _radius = 0.5f, _smooth = 20f;
 
         private Vector3 _defaultLocalPosition, _currentLocalPosition;
+        private Collider[] _hitBuffer = new Collider[1];
+        private float _overlapStepFactor = 3f;
 
         private void Awake()
         {
@@ -18,12 +20,44 @@ namespace PlayerCamera
         private void Update()
         {
             var targetLocalPosition = GetCameraLocalPosition();
-            if ((targetLocalPosition - transform.localPosition).magnitude > 0.001f)
+
+            Move(targetLocalPosition);
+        }
+
+        private void Move(Vector3 targetLocalPosition)
+        {
+            if (IsArrived(targetLocalPosition))
+                return;
+
+            var step = _smooth * Time.deltaTime;
+            transform.localPosition = Vector3.MoveTowards(
+                transform.localPosition, targetLocalPosition, step);
+
+            while (Physics.OverlapSphereNonAlloc(transform.position, _radius,
+                       _hitBuffer, ~_playerLayer, QueryTriggerInteraction.Ignore) > 0)
             {
-                var step = _smooth * Time.deltaTime;
                 transform.localPosition = Vector3.MoveTowards(
-                    transform.localPosition, targetLocalPosition, step);
+                    transform.localPosition, targetLocalPosition, 
+                    step * _overlapStepFactor);
+
+                if (IsArrived(targetLocalPosition))
+                    return;
             }
+        }
+
+        private void SimpleMove(Vector3 targetLocalPosition)
+        {
+            if (IsArrived(targetLocalPosition))
+                return;
+            
+            var step = _smooth * Time.deltaTime;
+            transform.localPosition = Vector3.MoveTowards(
+                transform.localPosition, targetLocalPosition, step);
+        }
+
+        private bool IsArrived(Vector3 targetLocalPosition)
+        {
+            return (targetLocalPosition - transform.localPosition).magnitude < 0.001f;
         }
 
         private Vector3 GetCameraLocalPosition()
