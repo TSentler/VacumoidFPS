@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PlayerCamera
 {
@@ -12,6 +13,8 @@ namespace PlayerCamera
         private Collider[] _hitBuffer = new Collider[1];
         private float _overlapStepFactor = 3f;
 
+        public event UnityAction Moved;
+        
         private void Awake()
         {
             _defaultLocalPosition = transform.localPosition;
@@ -34,15 +37,16 @@ namespace PlayerCamera
                 transform.localPosition, targetLocalPosition, step);
 
             while (Physics.OverlapSphereNonAlloc(transform.position, _radius,
-                       _hitBuffer, ~_playerLayer, QueryTriggerInteraction.Ignore) > 0)
+                       _hitBuffer, ~_playerLayer,
+                       QueryTriggerInteraction.Ignore) > 0
+                   && IsArrived(targetLocalPosition) == false)
             {
                 transform.localPosition = Vector3.MoveTowards(
                     transform.localPosition, targetLocalPosition, 
                     step * _overlapStepFactor);
-
-                if (IsArrived(targetLocalPosition))
-                    return;
             }
+            
+            Moved?.Invoke();
         }
 
         private void SimpleMove(Vector3 targetLocalPosition)
