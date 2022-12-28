@@ -10,9 +10,9 @@ namespace PlayerAbilities
             _startSpeed= 125f;
 
         private SpeedUpgrader _speedUpgrader;
-        private float _currentSpeed;
-        
-        public float Value { get; private set; }
+        [SerializeField]private float _currentSpeed, _currentBoost = 1f;
+
+        public float Value => _currentSpeed * _currentBoost;
 
         private void Awake()
         {
@@ -32,17 +32,17 @@ namespace PlayerAbilities
 
         private void OnUpgraded()
         {
-            Value = _currentSpeed = _speedUpgrader.CalculateRunSpeed(_startSpeed);
+            _currentSpeed = _speedUpgrader.CalculateRunSpeed(_startSpeed);
         }
 
         public void Boost()
         {
-            Value = _currentSpeed * _boostMultiply;
+            _currentBoost = _boostMultiply;
         }
 
         public void ResetBoost()
         {
-            Value = _currentSpeed;
+            _currentBoost = 1f;
         }
     }
 }

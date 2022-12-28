@@ -25,6 +25,7 @@ namespace PlayerAbilities.Move
             
             var deltaSpeed = _speedStat.Value * Time.deltaTime;
             Rigidbody.velocity = moveDirection * deltaSpeed;
+            //Rigidbody.MovePosition(transform.position + moveDirection * deltaSpeed);
         }
         
         public override void SetDirection(Vector2 direction)

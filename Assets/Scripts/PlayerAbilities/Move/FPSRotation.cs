@@ -5,14 +5,16 @@ using UnityTools;
 
 namespace PlayerAbilities.Move
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class FPSRotation : MonoBehaviour
     {
         [SerializeField] private MonoBehaviour _inputSourceBehaviour;
         [SerializeField] private Transform _cameraRoot;
 
         private ICharacterInputSource InputSource;
+        private Rigidbody _rigidbody;
         private Vector2 _turn;
-        private float _sensitivity = 1f;
+        [SerializeField] private float _sensitivity = 100f;
 
         private void OnValidate()
         {
@@ -38,6 +40,8 @@ namespace PlayerAbilities.Move
             {
                 Initialize((ICharacterInputSource)_inputSourceBehaviour);
             }
+
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -45,33 +49,15 @@ namespace PlayerAbilities.Move
             _turn += InputSource.MouseInput * _sensitivity;
             _turn.x %= 360f;
             _turn.y %= 360f;
-            transform.localRotation = Quaternion.Euler(0f, _turn.x, 0f);
-            _cameraRoot.localRotation = Quaternion.Euler(-_turn.y, 0f, 0f);
-            // Debug.Log(transform.localRotation.eulerAngles.y);
-            // Debug.Log(_cameraRoot.localRotation.eulerAngles.x);
         }
 
-        private void HandleRotation()
+        private void FixedUpdate()
         {
-            /*
-            var targetRotation = Quaternion.LookRotation(
-                new Vector3(direction.x, 0f, direction.y));
-
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation, targetRotation,
-                _rotationSpeed * Time.deltaTime);
-           */
+            _rigidbody.MoveRotation(Quaternion.Euler(0f, _turn.x, 0f));
             
-            /*
-            float targetAngle =
-                Mathf.Atan2(_inputDirection.x, _inputDirection.y) * Mathf.Rad2Deg;
-            Debug.Log(targetAngle);
-            targetAngle += Camera.main.transform.eulerAngles.y;
-            Debug.Log(targetAngle + "!");
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,
-                targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
-            transform.rotation = Quaternion.Euler(Vector3.up * angle);
-            */
+            var cameraRotation = _cameraRoot.localRotation.eulerAngles;
+            cameraRotation.x = -_turn.y;
+            _cameraRoot.localRotation = Quaternion.Euler(cameraRotation);
         }
     }
 }
