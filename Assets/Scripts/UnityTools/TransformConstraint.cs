@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using UnityEngine;
 
 namespace UnityTools
@@ -7,6 +8,14 @@ namespace UnityTools
         [SerializeField] private Transform _root;
         [SerializeField] private bool _isPosition = true, _isRotation = true;
 
+        public void Initialize(Transform root, bool isPosition = true, 
+            bool isRotation = true)
+        {
+            _root = root;
+            _isPosition = isPosition;
+            _isRotation = isRotation;
+        }
+        
         private void LateUpdate()
         {
             UpdateTransform();

@@ -65046,6 +65046,89 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1294491277
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1572004072}
+    m_Modifications:
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8900001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.29793876
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9545851
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -145.332
+      objectReference: {fileID: 0}
+    - target: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290996902217313749, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: m_Name
+      value: Plant (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5627982168341760497, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+      propertyPath: _maxVelocity
+      value: 1500
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+--- !u!4 &1294491278 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4766696313576929135, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+  m_PrefabInstance: {fileID: 1294491277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1294491279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5290996902217313749, guid: c596f28b8def6434488c2d1993fcce53, type: 3}
+  m_PrefabInstance: {fileID: 1294491277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1294491280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294491279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2c1b054c4fe625f8ce7ef2aafff120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1297468723
 GameObject:
   m_ObjectHideFlags: 0
@@ -78688,6 +78771,7 @@ Transform:
   - {fileID: 620172661}
   - {fileID: 112483786}
   - {fileID: 1330427549}
+  - {fileID: 1294491278}
   m_Father: {fileID: 477951389}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103895,12 +103979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7653d4c10d6bd43893c6ab7fa601be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 111105293}
-  _moveSmoothTime: 0.01
-  _rotationSmoothTime: 0.1
-  _rigidbody: {fileID: 0}
-  _velocityVector: {x: 0, y: 0, z: 0}
-  _velocity: 0
 --- !u!114 &2021589154
 MonoBehaviour:
   m_ObjectHideFlags: 0

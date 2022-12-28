@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlayerAbilities
@@ -18,6 +15,7 @@ namespace PlayerAbilities
         public Rigidbody Tie()
         {
             _rigidbody.useGravity = false;
+            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             return _rigidbody;
         }
         
