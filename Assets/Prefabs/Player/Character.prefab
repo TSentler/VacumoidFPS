@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4823914729671741144}
   - component: {fileID: 6911193961778926776}
   - component: {fileID: 4968516619047275714}
+  - component: {fileID: 1611987618604399423}
   - component: {fileID: 8308788432213882332}
   - component: {fileID: 9094480920148477711}
   m_Layer: 0
@@ -86,6 +87,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613882814254972601}
   m_Enabled: 1
+--- !u!114 &1611987618604399423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613882814254972601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a906e98fd8e6bc4a9de80efc66cc323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSourceBehaviour: {fileID: 7177281414307245018}
+  _step: 0.1
 --- !u!114 &8308788432213882332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +118,7 @@ MonoBehaviour:
     m_Bits: 37696
   _root: {fileID: 1865562238477011671}
   _radius: 0.4
-  _smooth: 20
+  _speed: 20
 --- !u!114 &9094480920148477711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6980,27 +6995,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7944803548530736725, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: 0.017721295
+      value: 0.013565779
       objectReference: {fileID: 0}
     - target: {fileID: 7944803548530736725, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: -0.4329337
+      value: -0.58568364
       objectReference: {fileID: 0}
     - target: {fileID: 7944803548530736725, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.15590268
+      value: 0.24878472
       objectReference: {fileID: 0}
     - target: {fileID: 7944803548530736725, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.38100463
+      value: 0.40309376
       objectReference: {fileID: 0}
     - target: {fileID: 7944803548530736725, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.4610613
+      value: 0.58802694
       objectReference: {fileID: 0}
     - target: {fileID: 7944803548530736725, guid: 641759d753100de468040ac8f816d87a, type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.3401307
+      value: 0.24671438
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 641759d753100de468040ac8f816d87a, type: 3}

@@ -6,5 +6,6 @@ namespace PlayerInput
     {
         Vector2 MovementInput { get; }
         Vector2 MouseInput { get; }
+        float ScrollInput { get; }
     }
 }

@@ -3,21 +3,26 @@ using UnityEngine.Events;
 
 namespace PlayerCamera
 {
+    [RequireComponent(typeof(MaxDistance))]
     public class ObstaclesAvoider : MonoBehaviour
     {
         [SerializeField] private LayerMask _playerLayer;
         [SerializeField] private Transform _root;
-        [Min(0f), SerializeField] private float _radius = 0.5f, _smooth = 20f;
+        [Min(0f), SerializeField] private float _radius = 0.5f, _speed = 20f;
 
-        private Vector3 _defaultLocalPosition, _currentLocalPosition;
+        private Vector3 _defaultMaxLocalPosition;
         private Collider[] _hitBuffer = new Collider[1];
-        private float _overlapStepFactor = 3f;
+        private float _overlapSpeedFactor = 3f;
+        private MaxDistance _maxDistanceFactor;
 
         public event UnityAction Moved;
+                
+        private Vector3 MaxLocalPosition => _defaultMaxLocalPosition * _maxDistanceFactor;
         
         private void Awake()
         {
-            _defaultLocalPosition = transform.localPosition;
+            _maxDistanceFactor = GetComponent<MaxDistance>();
+            _defaultMaxLocalPosition = transform.localPosition;
         }
 
         private void Update()
@@ -32,7 +37,7 @@ namespace PlayerCamera
             if (IsArrived(targetLocalPosition))
                 return;
 
-            var step = _smooth * Time.deltaTime;
+            var step = _speed * Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(
                 transform.localPosition, targetLocalPosition, step);
 
@@ -43,7 +48,7 @@ namespace PlayerCamera
             {
                 transform.localPosition = Vector3.MoveTowards(
                     transform.localPosition, targetLocalPosition, 
-                    step * _overlapStepFactor);
+                    step * _overlapSpeedFactor);
             }
             
             Moved?.Invoke();
@@ -54,7 +59,7 @@ namespace PlayerCamera
             if (IsArrived(targetLocalPosition))
                 return;
             
-            var step = _smooth * Time.deltaTime;
+            var step = _speed * Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(
                 transform.localPosition, targetLocalPosition, step);
         }
@@ -67,22 +72,22 @@ namespace PlayerCamera
         private Vector3 GetCameraLocalPosition()
         {
             Vector3 cameraLocalPosition;
-            var defaultCameraPosition =
-                _root.TransformPoint(_defaultLocalPosition);
+            var maxCameraPosition =
+                _root.TransformPoint(MaxLocalPosition);
             Collider[] hits = Physics.OverlapCapsule(_root.position,
-                defaultCameraPosition, _radius, ~_playerLayer,
+                maxCameraPosition, _radius, ~_playerLayer,
                 QueryTriggerInteraction.Ignore);
             if (hits.Length > 0)
             {
                 var avoidVector =
-                    GetAvoidedVector(_root.position, defaultCameraPosition,
+                    GetAvoidedVector(_root.position, maxCameraPosition,
                         _radius);
                 cameraLocalPosition =
                     _root.InverseTransformPoint(_root.position + avoidVector);
             }
             else
             {
-                cameraLocalPosition = _defaultLocalPosition;
+                cameraLocalPosition = MaxLocalPosition;
             }
 
             return cameraLocalPosition;

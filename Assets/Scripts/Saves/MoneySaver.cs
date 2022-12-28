@@ -13,7 +13,7 @@ namespace Saves
         
         public int Load()
         {
-            return _saver.Load(_moneyName);
+            return _saver.LoadInt(_moneyName);
         }
         
         public void Save(int money)

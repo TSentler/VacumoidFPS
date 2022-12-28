@@ -13,7 +13,7 @@ namespace Saves
 
         public int Load()
         {
-            return _saver.Load(_trashName);
+            return _saver.LoadInt(_trashName);
         }
         
         public void Save(int allTrashPointsRounded)

@@ -14,6 +14,7 @@ namespace PlayerInput
 
         public Vector2 MovementInput { get; private set; }
         public Vector2 MouseInput { get; private set; }
+        public float ScrollInput { get; private set; }
         
         private void Awake()
         {
@@ -60,9 +61,11 @@ namespace PlayerInput
             {
                 MouseInput = Vector2.zero;
                 MovementInput = Vector2.zero;
+                ScrollInput = 0f;
             }
             else
             {
+                ScrollInput = Input.mouseScrollDelta.y;
                 MouseInput = _rotationInput.GetInput();
                 _rotationInput.Reset();
                 MovementInput = _movementInput.GetInput();
