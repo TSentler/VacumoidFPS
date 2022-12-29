@@ -3,7 +3,6 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityTools;
-using Upgrade.Move;
 
 namespace Upgrade
 {

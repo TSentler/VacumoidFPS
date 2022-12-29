@@ -14,7 +14,7 @@ namespace PlayerAbilities.Move
         private ICharacterInputSource InputSource;
         private Rigidbody _rigidbody;
         private Vector2 _turn;
-        [SerializeField] private float _sensitivity = 100f;
+        private float _sensitivity = 1f;
 
         private void OnValidate()
         {

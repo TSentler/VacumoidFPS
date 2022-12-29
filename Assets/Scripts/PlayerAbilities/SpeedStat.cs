@@ -10,7 +10,7 @@ namespace PlayerAbilities
             _startSpeed= 125f;
 
         private SpeedUpgrader _speedUpgrader;
-        [SerializeField]private float _currentSpeed, _currentBoost = 1f;
+        private float _currentSpeed, _currentBoost = 1f;
 
         public float Value => _currentSpeed * _currentBoost;
 
