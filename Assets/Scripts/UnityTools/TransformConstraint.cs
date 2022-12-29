@@ -1,4 +1,4 @@
-using System.Net.Mime;
+using System;
 using UnityEngine;
 
 namespace UnityTools
@@ -15,7 +15,12 @@ namespace UnityTools
             _isPosition = isPosition;
             _isRotation = isRotation;
         }
-        
+
+        private void Update()
+        {
+            UpdateTransform();
+        }
+
         private void LateUpdate()
         {
             UpdateTransform();

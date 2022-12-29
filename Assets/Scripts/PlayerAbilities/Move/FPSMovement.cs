@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerAbilities.Move
@@ -5,27 +6,41 @@ namespace PlayerAbilities.Move
     public class FPSMovement : Movement
     {
         [SerializeField] private SpeedStat _speedStat;
-        
+
         private Vector2 _inputDirection;
 
         private void Update()
         {
-            if(InputSource != null)
+            if (InputSource != null)
                 SetDirection(InputSource.MovementInput);
         }
 
         private void FixedUpdate()
         {
-            var relativeRotation = transform.rotation;
             var moveDirection = 
                 new Vector3(_inputDirection.x, 0f, _inputDirection.y);
-            moveDirection = 
-                Quaternion.Euler(Vector3.up * relativeRotation.eulerAngles.y) 
+            moveDirection = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up)
                 * moveDirection;
-            
-            var deltaSpeed = _speedStat.Value * Time.deltaTime;
-            Rigidbody.velocity = moveDirection * deltaSpeed;
-            //Rigidbody.MovePosition(transform.position + moveDirection * deltaSpeed);
+            Rigidbody.velocity = moveDirection * _speedStat.Value * Time.deltaTime;
+            //transform.position = Vector3.Lerp(transform.position,
+              //  transform.position + moveDirection, _speedStat.Value * Time.deltaTime);
+            //var path = moveDirection * _speedStat.Value;
+            //Rigidbody.MovePosition(transform.position + path * Time.deltaTime);
+            //Rigidbody.AddForce(path/Time.deltaTime/Time.deltaTime, ForceMode.Force);
+            //
+            return;
+            Debug.Log(Rigidbody.velocity);
+            if (moveDirection.sqrMagnitude == 0f)
+            {
+                Rigidbody.velocity = Vector3.zero;
+            }
+
+            float currentSpeed = Rigidbody.velocity.magnitude;
+            float maxSpeed = _speedStat.Value * Time.deltaTime * 2f;
+            float actualForce = _speedStat.Value * (1 - currentSpeed / maxSpeed);
+            //Debug.Log(currentSpeed);
+            //Debug.Log(maxSpeed);
+            Rigidbody.AddForce(moveDirection * actualForce);
         }
         
         public override void SetDirection(Vector2 direction)

@@ -11,9 +11,9 @@ namespace Saves
             _saver = new GameSaver();
         }
 
-        public float Load()
+        public float Load(float defaultValue = 0f)
         {
-            return _saver.LoadFloat(_trashName);
+            return _saver.LoadFloat(_trashName, defaultValue);
         }
         
         public void Save(float distance)

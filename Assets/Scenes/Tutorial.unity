@@ -108251,7 +108251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1494427684930780615, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
       propertyPath: m_fontSize
-      value: 90
+      value: 87.4
       objectReference: {fileID: 0}
     - target: {fileID: 1494427684930780632, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -108392,10 +108392,6 @@ PrefabInstance:
     - target: {fileID: 2527859435872741489, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 2946787645924924135, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
-      propertyPath: _isDesktop
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3167806559958654293, guid: caee2b23f5d62d144902391fd097a05a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -109513,6 +109509,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1878746175668671342, guid: 1a9133035cacda145a98e47104ee3c84, type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3103297085760894938, guid: 1a9133035cacda145a98e47104ee3c84, type: 3}
       propertyPath: m_Name
       value: CharacterWithVacuumCleaner
@@ -109568,6 +109568,10 @@ PrefabInstance:
     - target: {fileID: 3243304556005684797, guid: 1a9133035cacda145a98e47104ee3c84, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699865345991288703, guid: 1a9133035cacda145a98e47104ee3c84, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8000844092503570111, guid: 1a9133035cacda145a98e47104ee3c84, type: 3}
       propertyPath: _targets.Array.data[1]

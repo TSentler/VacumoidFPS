@@ -2870,7 +2870,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stickRect: {fileID: 1466610085741283818}
-  _pointerHandler: {fileID: 0}
 --- !u!114 &1466610085231618199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4172,7 +4171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e3fee61918ecc498825e1ff3fd00a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDesktop: 0
+  _isDesktop: 1
   _mobilePanels:
   - {fileID: 1466610085231618194}
   - {fileID: 5848127337227047670}
@@ -11228,7 +11227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f981237971c3e434cb0c218dc7595f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointerHandler: {fileID: 7758988444795613591}
 --- !u!1 &5851655386496148473
 GameObject:
   m_ObjectHideFlags: 0

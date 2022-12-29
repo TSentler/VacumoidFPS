@@ -1,19 +1,19 @@
+using System;
 using PlayerInput;
 using UnityEngine;
 using UnityTools;
 
 namespace PlayerAbilities.Move
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class FPSRotation : MonoBehaviour
     {
         [SerializeField] private MonoBehaviour _inputSourceBehaviour;
         [SerializeField] private Transform _cameraRoot;
         [SerializeField] private Vector2 _turn;
+        [Min(0.001f), SerializeField] private float _speed = 10f;
+        [Min(0.01f), SerializeField] private float _sensitivity = 1f;
 
         private ICharacterInputSource InputSource;
-        private Rigidbody _rigidbody;
-        private float _sensitivity = 1f;
 
         private void OnValidate()
         {
@@ -39,10 +39,8 @@ namespace PlayerAbilities.Move
             {
                 Initialize((ICharacterInputSource)_inputSourceBehaviour);
             }
-
-            _rigidbody = GetComponent<Rigidbody>();
         }
-
+        
         private void Update()
         {
             _turn += InputSource.MouseInput * _sensitivity;
@@ -52,7 +50,11 @@ namespace PlayerAbilities.Move
 
         private void FixedUpdate()
         {
-            _rigidbody.MoveRotation(Quaternion.Euler(0f, _turn.x, 0f));
+            var target = Quaternion.AngleAxis(_turn.x, Vector3.up);
+            var angle = Vector3.SignedAngle(transform.forward, target * Vector3.forward, Vector3.up);
+            angle *= _speed * Time.deltaTime;
+            // if (Mathf.Abs(angle) > 0.001f)
+                 transform.Rotate(Vector3.up, angle);
             
             var rotation = Quaternion.AngleAxis(-_turn.y, Vector3.right);
             _cameraRoot.localRotation = rotation;

@@ -42,7 +42,7 @@ namespace PlayerCamera
 
         private void OnEnable()
         {
-            Value = _saver.Load();
+            Value = _saver.Load(Value);
         }
 
         private void OnDisable()
