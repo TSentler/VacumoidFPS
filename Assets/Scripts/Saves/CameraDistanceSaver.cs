@@ -18,7 +18,7 @@ namespace Saves
         
         public void Save(float distance)
         {
-            _saver.Save(_trashName, (int)distance);
+            _saver.Save(_trashName, distance);
         }
     }
 }

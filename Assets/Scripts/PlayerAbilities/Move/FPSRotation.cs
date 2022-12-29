@@ -1,4 +1,3 @@
-using System;
 using PlayerInput;
 using UnityEngine;
 using UnityTools;
@@ -10,10 +9,10 @@ namespace PlayerAbilities.Move
     {
         [SerializeField] private MonoBehaviour _inputSourceBehaviour;
         [SerializeField] private Transform _cameraRoot;
+        [SerializeField] private Vector2 _turn;
 
         private ICharacterInputSource InputSource;
         private Rigidbody _rigidbody;
-        private Vector2 _turn;
         private float _sensitivity = 1f;
 
         private void OnValidate()
@@ -55,9 +54,8 @@ namespace PlayerAbilities.Move
         {
             _rigidbody.MoveRotation(Quaternion.Euler(0f, _turn.x, 0f));
             
-            var cameraRotation = _cameraRoot.localRotation.eulerAngles;
-            cameraRotation.x = -_turn.y;
-            _cameraRoot.localRotation = Quaternion.Euler(cameraRotation);
+            var rotation = Quaternion.AngleAxis(-_turn.y, Vector3.right);
+            _cameraRoot.localRotation = rotation;
         }
     }
 }

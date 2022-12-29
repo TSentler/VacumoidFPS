@@ -2772,14 +2772,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000844091271681589}
-  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 2.28, z: -2.686}
+  m_LocalRotation: {x: -0.043619405, y: 0, z: 0, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 0.3270402, z: -3.5079966}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8000844093137355918}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -5, y: 0, z: 0}
 --- !u!20 &8000844091271681599
 Camera:
   m_ObjectHideFlags: 0
@@ -2812,7 +2812,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  m_RenderingPath: 1
+  m_RenderingPath: 0
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -3039,15 +3039,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000844093137355913}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
   m_LocalPosition: {x: -0.00000023841858, y: 1.6, z: 0}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8000844091271681594}
   m_Father: {fileID: 3103297085760894939}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!114 &8000844093137355952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3942,6 +3942,10 @@ PrefabInstance:
     - target: {fileID: 1487349064951869868, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.001060009
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865562238477011671, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1956850126641935969, guid: fed7239b73cc4c847bd88f250663443a, type: 3}
       propertyPath: m_RootOrder
