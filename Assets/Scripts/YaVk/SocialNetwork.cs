@@ -51,7 +51,9 @@ namespace YaVk
 #elif VK_GAMES_MOBILE
             isMobile = true;
 #else
-            isMobile = Application.isMobilePlatform;
+            isMobile = Application.isMobilePlatform 
+                       || Application.platform == RuntimePlatform.Android
+                       || SystemInfo.deviceModel.StartsWith("iPad");
 #endif
             callback.Invoke(isMobile);
         }
