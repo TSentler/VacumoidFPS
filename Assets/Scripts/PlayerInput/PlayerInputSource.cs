@@ -1,3 +1,4 @@
+using System;
 using LevelCompleter;
 using UI.Joystick;
 using UnityEngine;
@@ -52,7 +53,14 @@ namespace PlayerInput
 
         private void Update()
         {
-            if (Input.GetButtonDown("CursorUnlock"))
+#if !UNITY_EDITOR && UNITY_WEBGL
+            WebGLInput.captureAllKeyboardInput = true;
+#endif
+            
+            if (Input.GetButtonDown("Cancel") || Cursor.lockState == CursorLockMode.Locked
+                && (Input.GetButtonDown("CursorUnlock")
+                    || Input.GetButton("CursorUnlock")
+                    || Input.GetButtonUp("CursorUnlock")))
             {
                 CursorUnlock();
             }
@@ -71,15 +79,17 @@ namespace PlayerInput
                 MovementInput = _movementInput.GetInput();
             }
         }
-
+        
         private void CursorLock()
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void CursorUnlock()
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         private void Pause()

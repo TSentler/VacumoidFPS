@@ -13,6 +13,11 @@ namespace PlayerAbilities.Move
         [Min(0.001f), SerializeField] private float _speed = 10f;
         [Min(0.01f), SerializeField] private float _sensitivity = 1f;
 
+        public void Set(float val)
+        {
+            _sensitivity = val;
+        }
+
         private ICharacterInputSource InputSource;
 
         private void OnValidate()
@@ -53,8 +58,8 @@ namespace PlayerAbilities.Move
             var target = Quaternion.AngleAxis(_turn.x, Vector3.up);
             var angle = Vector3.SignedAngle(transform.forward, target * Vector3.forward, Vector3.up);
             angle *= _speed * Time.deltaTime;
-            // if (Mathf.Abs(angle) > 0.001f)
-                 transform.Rotate(Vector3.up, angle);
+            if (Mathf.Abs(angle) > 0.001f)
+                 transform.rotation *= Quaternion.AngleAxis(angle, Vector3.up);
             
             var rotation = Quaternion.AngleAxis(-_turn.y, Vector3.right);
             _cameraRoot.localRotation = rotation;

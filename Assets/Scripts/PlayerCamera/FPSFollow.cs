@@ -6,16 +6,17 @@ namespace PlayerCamera
     public class FPSFollow : MonoBehaviour
     {
         [SerializeField] private Transform _target;
+
         [Min(0f), SerializeField] private float _smoothTime = 0.3f,
-            _rotationSmoothTime = 0.3f;
+            _rotationSmoothTime = 20f;
+        
+        public void Set(float val)
+        {
+            _rotationSmoothTime = val;
+        }
 
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
-
-        private void Update()
-        {
-            _targetRotation = _target.rotation;
-        }
 
         private void FixedUpdate()
         {
@@ -27,8 +28,15 @@ namespace PlayerCamera
         {
             _targetPosition = _target.position;
             Follow();
+            
+            _targetRotation = _target.rotation;
+            var parent = transform.parent;
+            transform.parent = _target;
+            transform.localRotation = Quaternion.Euler(
+                transform.localEulerAngles.x, 0f, 0f);
+            transform.parent = parent;
         }
-
+        
         private void Follow()
         {
             Vector3 targetPosition = _targetPosition;
@@ -47,7 +55,11 @@ namespace PlayerCamera
             if (Mathf.Abs(angle) < 0.1f)
                 return;
             
-            Quaternion lerp = Quaternion.Lerp(transform.rotation, _targetRotation, _rotationSmoothTime * Time.deltaTime);
+            var diff = Quaternion.Inverse(transform.rotation) * _targetRotation;
+            var target = transform.rotation * diff;
+            
+            Quaternion lerp = Quaternion.Lerp(transform.rotation, target,
+                _rotationSmoothTime * Time.deltaTime);
             transform.rotation = lerp;
         }
     }
