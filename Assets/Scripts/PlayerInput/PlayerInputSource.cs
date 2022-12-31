@@ -1,5 +1,5 @@
-using System;
 using LevelCompleter;
+using Plugins.WebGL;
 using UI.Joystick;
 using UnityEngine;
 
@@ -7,11 +7,12 @@ namespace PlayerInput
 {
     public class PlayerInputSource : MonoBehaviour, ICharacterInputSource
     {
+        private JavascriptHook _javascriptHook;
         private CursorLockerPanel _lockerPanel;
         private Completer _completer;
         private MovementInputSource _movementInput;
         private RotationInputSource _rotationInput;
-        private bool _isPause;
+        private bool _isPause, _isUnlocked;
 
         public Vector2 MovementInput { get; private set; }
         public Vector2 MouseInput { get; private set; }
@@ -19,8 +20,10 @@ namespace PlayerInput
         
         private void Awake()
         {
+            // WebGLInput.captureAllKeyboardInput = true; 
             _lockerPanel = FindObjectOfType<CursorLockerPanel>();
             var stick = FindObjectOfType<StickPointer>();
+            _javascriptHook = FindObjectOfType<JavascriptHook>();
             _movementInput = new MovementInputSource(stick);
             var touchPointer = FindObjectOfType<TouchPointer>();
             _rotationInput = new RotationInputSource(touchPointer);
@@ -31,6 +34,8 @@ namespace PlayerInput
         {
             _lockerPanel.PointerDowned += OnPointerDowned;
             _completer.Completed += Pause;
+            _javascriptHook.PointerLocked += OnPointerLocked;
+            _javascriptHook.PointerUnlocked += OnPointerUnlocked;
             _movementInput.Subscribe();
             _rotationInput.Subscribe();
         }
@@ -39,6 +44,8 @@ namespace PlayerInput
         {
             _lockerPanel.PointerDowned -= OnPointerDowned;
             _completer.Completed -= Pause;
+            _javascriptHook.PointerLocked -= OnPointerLocked;
+            _javascriptHook.PointerUnlocked -= OnPointerUnlocked;
             _movementInput.Unsubscribe();
             _rotationInput.Unsubscribe();
         }
@@ -48,24 +55,20 @@ namespace PlayerInput
             if (_isPause)
                 return;
             
-            CursorLock();
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update()
         {
-#if !UNITY_EDITOR && UNITY_WEBGL
-            WebGLInput.captureAllKeyboardInput = true;
-#endif
-            
             if (Input.GetButtonDown("Cancel") || Cursor.lockState == CursorLockMode.Locked
                 && (Input.GetButtonDown("CursorUnlock")
                     || Input.GetButton("CursorUnlock")
                     || Input.GetButtonUp("CursorUnlock")))
             {
-                CursorUnlock();
+                //OnPointerUnlocked();
             }
-
-            if (_isPause)
+            
+            if (_isPause || _isUnlocked)
             {
                 MouseInput = Vector2.zero;
                 MovementInput = Vector2.zero;
@@ -80,23 +83,23 @@ namespace PlayerInput
             }
         }
         
-        private void CursorLock()
+        private void OnPointerLocked()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            _isUnlocked = false;
         }
 
-        private void CursorUnlock()
+        private void OnPointerUnlocked()
         {
+            _isUnlocked = true;
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            
         }
 
         private void Pause()
         {
             _movementInput.Reset();
             _rotationInput.Reset();
-            CursorUnlock();
+            OnPointerUnlocked();
             _isPause = true;
         }
     }

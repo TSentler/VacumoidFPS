@@ -36,11 +36,13 @@
     };
 
     const progressBar = document.querySelector("#progress-bar");
-
+    
+    var myGameInstance = null;
     setTimeout(() => {
       createUnityInstance(document.querySelector("#unity-canvas"), settings, (progress) => {
         progressBar.style.right = 100 * (1 - progress) + "%";
-      }).then(() => {
+      }).then((unityInstance) => {
+        myGameInstance = unityInstance;
         progressBar.style.display = "none";
       }).catch((message) => {
         alert(message);

@@ -1,12 +1,7 @@
 {
-    "name": "PlayerInput",
+    "name": "Plugins.WebGl",
     "rootNamespace": "",
-    "references": [
-        "GUID:ad0cbaf957503f550b1e4a5e4cd7cd29",
-        "GUID:03199192475ed684c975f84099a9bca1",
-        "GUID:eceb20a37dcc276469b4102259776749",
-        "GUID:4327a17329303f544b92675db53e7308"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
