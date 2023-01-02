@@ -4171,7 +4171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e3fee61918ecc498825e1ff3fd00a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDesktop: 1
+  _isDesktop: 0
   _mobilePanels:
   - {fileID: 1466610085231618194}
   - {fileID: 5848127337227047670}
@@ -11152,6 +11152,8 @@ GameObject:
   - component: {fileID: 2717973261857295117}
   - component: {fileID: 7758988444795613591}
   - component: {fileID: 7241456989978606348}
+  - component: {fileID: 3985109240655178682}
+  - component: {fileID: 6739104854421393905}
   m_Layer: 5
   m_Name: MobileMouseAreaPanel
   m_TagString: Untagged
@@ -11225,6 +11227,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f981237971c3e434cb0c218dc7595f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3985109240655178682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848127337227047670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3037e3c92e3df41a8814fd6e31afa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6739104854421393905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848127337227047670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5373ef8accc74074a87eadffda94b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5851655386496148473

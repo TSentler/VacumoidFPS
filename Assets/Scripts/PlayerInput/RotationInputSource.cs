@@ -10,7 +10,8 @@ namespace PlayerInput
             _touchable = touchable;
         }
 
-        private ITouchable _touchable;
+        private readonly ITouchable _touchable;
+        
         private Vector2 _lastDirection;
 
         public void Subscribe()

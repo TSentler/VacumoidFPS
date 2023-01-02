@@ -3,16 +3,15 @@ using UnityEngine;
 
 namespace PlayerInput
 {
-    public class MovementInputSource
+    public class ZoomInputSource
     {
-        public MovementInputSource(ITouchable touchable)
+        public ZoomInputSource(ZoomTouch touchable)
         {
             _touchable = touchable;
         }
 
-        private readonly ITouchable _touchable;
-        
-        private Vector2 _lastDirection;
+        private ZoomTouch _touchable;
+        private float _lastDistance;
 
         public void Subscribe()
         {
@@ -28,28 +27,22 @@ namespace PlayerInput
             _touchable.Moved -= OnMoved;
         }
         
-        public Vector2 GetInput()
+        public float GetInput()
         {
             if (_touchable.IsTouch == false)
             {
-                _lastDirection = new Vector2(
-                    Input.GetAxisRaw("Horizontal"),
-                    Input.GetAxisRaw("Vertical"));
-                if (_lastDirection.magnitude > 1f)
-                {
-                    _lastDirection.Normalize();
-                }
+                _lastDistance = Input.mouseScrollDelta.y;
             }
 
-            return _lastDirection;
+            return _lastDistance;
         }
 
         public void Reset()
         {
-            _lastDirection = Vector2.zero;
+            _lastDistance = 0f;
         }
         
-        private void OnDowned(Vector2 position)
+        private void OnDowned(float distance)
         {
             Reset();
         }
@@ -59,9 +52,9 @@ namespace PlayerInput
             Reset();
         }
         
-        private void OnMoved(Vector2 direction)
+        private void OnMoved(float distance)
         {
-            _lastDirection = direction;
+            _lastDistance = distance;
         }
     }
 }

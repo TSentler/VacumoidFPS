@@ -12,6 +12,7 @@ namespace PlayerInput
         private Completer _completer;
         private MovementInputSource _movementInput;
         private RotationInputSource _rotationInput;
+        private ZoomInputSource _zoomInput;
         private bool _isPause, _isUnlocked;
 
         public Vector2 MovementInput { get; private set; }
@@ -27,6 +28,8 @@ namespace PlayerInput
             _movementInput = new MovementInputSource(stick);
             var touchPointer = FindObjectOfType<TouchPointer>();
             _rotationInput = new RotationInputSource(touchPointer);
+            var zoomTouch = FindObjectOfType<ZoomTouch>();
+            _zoomInput = new ZoomInputSource(zoomTouch);
             _completer = FindObjectOfType<Completer>();
         }
 
@@ -38,6 +41,7 @@ namespace PlayerInput
             _javascriptHook.PointerUnlocked += OnPointerUnlocked;
             _movementInput.Subscribe();
             _rotationInput.Subscribe();
+            _zoomInput.Subscribe();
         }
 
         private void OnDisable()
@@ -48,6 +52,7 @@ namespace PlayerInput
             _javascriptHook.PointerUnlocked -= OnPointerUnlocked;
             _movementInput.Unsubscribe();
             _rotationInput.Unsubscribe();
+            _zoomInput.Unsubscribe();
         }
 
         private void OnPointerDowned()
@@ -76,13 +81,25 @@ namespace PlayerInput
             }
             else
             {
-                ScrollInput = Input.mouseScrollDelta.y;
-                MouseInput = _rotationInput.GetInput();
-                _rotationInput.Reset();
+                ScrollInput = _zoomInput.GetInput();
+                if (Mathf.Approximately(ScrollInput, 0f))
+                {
+                    MouseInput = _rotationInput.GetInput();
+                }
+                else
+                {
+                    MouseInput = Vector3.zero;
+                }
                 MovementInput = _movementInput.GetInput();
             }
         }
-        
+
+        private void LateUpdate()
+        {
+            _zoomInput.Reset();
+            _rotationInput.Reset();
+        }
+
         private void OnPointerLocked()
         {
             _isUnlocked = false;
@@ -99,6 +116,7 @@ namespace PlayerInput
         {
             _movementInput.Reset();
             _rotationInput.Reset();
+            _zoomInput.Reset();
             OnPointerUnlocked();
             _isPause = true;
         }

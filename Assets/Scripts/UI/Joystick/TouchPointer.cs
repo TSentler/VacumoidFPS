@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -56,10 +55,10 @@ namespace UI.Joystick
             Moved?.Invoke(moveVector);
         }
 
-        private Vector2 CalculateMoveVector(Vector2 _currentPosition, 
+        private Vector2 CalculateMoveVector(Vector2 currentPosition, 
             Vector2 previousPosition)
         {
-            var move = _currentPosition - previousPosition;
+            var move = currentPosition - previousPosition;
             move = new Vector2(move.x / Screen.width, move.y / Screen.height);
             move *= Screen.dpi;
             if (move.magnitude < _deadZone)
