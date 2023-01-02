@@ -6,7 +6,7 @@ namespace UI.Joystick
     [RequireComponent(typeof(TwoPointersHandler))]
     public class ZoomTouch : MonoBehaviour
     {
-        private readonly float _deadZone = 0.001f;
+        private readonly float _minMove = 0.001f, _minDistance = 0.1f;
 
         
         private TwoPointersHandler _pointerHandler;
@@ -50,6 +50,11 @@ namespace UI.Joystick
 
         private void OnPointerMoved(float distance)
         {
+            if (distance < _minDistance)
+            {
+                distance = 0f;
+            }
+            
             _previousDistance = _currentDistance;
             _currentDistance = distance;
             var moveDistance = CalculateMoveDistance(_currentDistance, 
@@ -62,7 +67,7 @@ namespace UI.Joystick
         {
             var diff = (currentDistance - previousDistance) * 
                 _sensitivity / Screen.dpi;
-            if (Mathf.Abs(diff) < _deadZone)
+            if (Mathf.Abs(diff) < _minMove)
                 diff = 0f;
             
             return diff;
