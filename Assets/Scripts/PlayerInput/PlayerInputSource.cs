@@ -23,8 +23,8 @@ namespace PlayerInput
         {
             // WebGLInput.captureAllKeyboardInput = true; 
             _lockerPanel = FindObjectOfType<CursorLockerPanel>();
-            var stick = FindObjectOfType<StickPointer>();
             _javascriptHook = FindObjectOfType<JavascriptHook>();
+            var stick = FindObjectOfType<StickPointer>();
             _movementInput = new MovementInputSource(stick);
             var touchPointer = FindObjectOfType<TouchPointer>();
             _rotationInput = new RotationInputSource(touchPointer);
@@ -109,7 +109,6 @@ namespace PlayerInput
         {
             _isUnlocked = true;
             Cursor.lockState = CursorLockMode.None;
-            
         }
 
         private void Pause()

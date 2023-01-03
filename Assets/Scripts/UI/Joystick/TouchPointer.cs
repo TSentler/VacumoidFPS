@@ -6,8 +6,14 @@ namespace UI.Joystick
     [RequireComponent(typeof(PointerHandler))]
     public class TouchPointer : MonoBehaviour, ITouchable
     {
-        private readonly float _deadZone = 0.05f;
+        private readonly float _minMove = 0.05f;
 
+        [Min(0.01f), SerializeField] private float _sensitivity = 20f;
+
+        public void Set(float s)
+        {
+            _sensitivity = s;
+        }
         private PointerHandler _pointerHandler;
         private Vector2 _previousTouch, _currentTouch;
 
@@ -59,9 +65,9 @@ namespace UI.Joystick
             Vector2 previousPosition)
         {
             var move = currentPosition - previousPosition;
-            move = new Vector2(move.x / Screen.width, move.y / Screen.height);
-            move *= Screen.dpi;
-            if (move.magnitude < _deadZone)
+            // move = new Vector2(move.x / Screen.width, move.y / Screen.height);
+            move *= _sensitivity / Screen.dpi;
+            if (move.magnitude < _minMove)
                 move = Vector2.zero;
 
             return move;

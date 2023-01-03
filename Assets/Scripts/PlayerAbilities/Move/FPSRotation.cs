@@ -11,12 +11,6 @@ namespace PlayerAbilities.Move
         [SerializeField] private Transform _cameraRoot;
         [SerializeField] private Vector2 _turn;
         [Min(0.001f), SerializeField] private float _speed = 10f;
-        [Min(0.01f), SerializeField] private float _sensitivity = 1f;
-
-        public void Set(float val)
-        {
-            _sensitivity = val;
-        }
 
         private ICharacterInputSource InputSource;
 
@@ -48,7 +42,7 @@ namespace PlayerAbilities.Move
         
         private void Update()
         {
-            _turn += InputSource.MouseInput * _sensitivity;
+            _turn += InputSource.MouseInput;
             _turn.x %= 360f;
             _turn.y %= 360f;
         }

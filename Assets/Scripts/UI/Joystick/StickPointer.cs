@@ -6,7 +6,7 @@ namespace UI.Joystick
     [RequireComponent(typeof(PointerHandler))]
     public class StickPointer : MonoBehaviour, ITouchable
     {
-        private readonly float _deadZone = 0.05f;
+        private readonly float _minMove = 0.05f;
 
         [SerializeField] private RectTransform _stickRect;
 
@@ -69,7 +69,7 @@ namespace UI.Joystick
             stickVector /= _stickRect.lossyScale;
             var radius = _stickRect.rect.height / 2;
             stickVector /= radius;
-            if (stickVector.magnitude < _deadZone)
+            if (stickVector.magnitude < _minMove)
                 stickVector = Vector2.zero;
             else if (stickVector.magnitude > 1f)
                 stickVector.Normalize();
