@@ -59,6 +59,7 @@ namespace UI.Joystick
             _currentDistance = distance;
             var moveDistance = CalculateMoveDistance(_currentDistance, 
                 _previousDistance);
+            
             Moved?.Invoke(moveDistance);
         }
 

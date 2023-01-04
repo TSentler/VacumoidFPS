@@ -83,7 +83,6 @@ GameObject:
   - component: {fileID: 1956850126641935997}
   - component: {fileID: 1956850126641935994}
   - component: {fileID: 1956850126641935995}
-  - component: {fileID: 1956850126641935992}
   m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
@@ -181,8 +180,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boostMultiply: 1.5
   _startSpeed: 125
-  _currentSpeed: 0
-  _currentBoost: 1
 --- !u!114 &2643235547577291443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,9 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputSourceBehaviour: {fileID: 7177281414307245018}
   _speedStat: {fileID: 6173048192533854351}
-  _maxSpeed: 0
-  _speed: 2
-  _isRigid: 1
 --- !u!114 &1956850126641935997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,21 +254,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 6
---- !u!114 &1956850126641935992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956850126641935971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f40dc7c88f8df119b44535c62668d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sliderRoot: {fileID: 1956850128671543876}
-  _slider: {fileID: 1956850127686140082}
-  _temporaryBonus: {fileID: 1956850126641935995}
 --- !u!1 &1956850126667180833
 GameObject:
   m_ObjectHideFlags: 0
@@ -6092,6 +6071,7 @@ GameObject:
   - component: {fileID: 1956850128671543877}
   - component: {fileID: 1956850128671543875}
   - component: {fileID: 1956850128671543874}
+  - component: {fileID: 6796292593624261945}
   m_Layer: 6
   m_Name: LightningBonusBar
   m_TagString: Untagged
@@ -6158,6 +6138,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6796292593624261945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956850128671543876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f40dc7c88f8df119b44535c62668d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sliderRoot: {fileID: 1956850128671543876}
+  _slider: {fileID: 1956850127686140082}
+  _temporaryBonus: {fileID: 1956850126641935995}
 --- !u!1 &4093290223278130980
 GameObject:
   m_ObjectHideFlags: 0

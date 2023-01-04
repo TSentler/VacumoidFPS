@@ -92,10 +92,6 @@ namespace PlayerInput
                 }
                 MovementInput = _movementInput.GetInput();
             }
-        }
-
-        private void LateUpdate()
-        {
             _zoomInput.Reset();
             _rotationInput.Reset();
         }

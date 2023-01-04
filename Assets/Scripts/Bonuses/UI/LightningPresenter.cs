@@ -7,7 +7,8 @@ namespace Bonuses.UI
     {
         [SerializeField] private GameObject _sliderRoot;
         [SerializeField] private Slider _slider;
-        [SerializeField] private TemporaryBonus _temporaryBonus;
+        
+        private TemporaryBonus _temporaryBonus;
         
         private void OnValidate()
         {
@@ -15,12 +16,11 @@ namespace Bonuses.UI
                 Debug.LogWarning("SliderRoot was not found!", this);
             if (_slider == null)
                 Debug.LogWarning("Slider was not found!", this);
-            if (_temporaryBonus == null)
-                Debug.LogWarning("TemporaryBonus was not found!", this);
         }
 
         private void Awake()
         {
+            _temporaryBonus = FindObjectOfType<TemporaryBonus>();
             _sliderRoot.SetActive(false);
         }
 
