@@ -5,23 +5,16 @@ namespace Robber
     [RequireComponent(typeof(Animator))]
     public class StumbleState : MonoBehaviour
     {
-        private readonly int _stumbleName = Animator.StringToHash("Stumble");
-        
         [SerializeField] private RobberAI _robberAI;
-        
-        private StumbleBehaviour _stumbleBehaviour;
+        private readonly int _stumbleName = Animator.StringToHash("Stumble");
         private Animator _animator;
-        
-        private void OnValidate()
-        {
-            if (_robberAI == null)
-                Debug.LogWarning("Robber was not found!", this);
-        }
-        
+
+        private StumbleBehaviour _stumbleBehaviour;
+
         private void Awake()
         {
-            _animator = GetComponent<Animator>(); 
-            _stumbleBehaviour = 
+            _animator = GetComponent<Animator>();
+            _stumbleBehaviour =
                 _animator.GetBehaviour<StumbleBehaviour>();
         }
 
@@ -37,12 +30,18 @@ namespace Robber
             _stumbleBehaviour.Ended -= OnStumbleEnded;
         }
 
+        private void OnValidate()
+        {
+            if (_robberAI == null)
+                Debug.LogWarning("Robber was not found!", this);
+        }
+
         private void OnStumbleStarted()
         {
             _robberAI.UseGravity();
             _robberAI.DropTarget();
         }
-        
+
         private void OnStumbleEnded()
         {
             _animator.ResetTrigger(_stumbleName);

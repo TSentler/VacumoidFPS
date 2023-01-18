@@ -8,23 +8,18 @@ namespace Robber
     public class RunToTargetState : MonoBehaviour
     {
         [SerializeField] private RobberAI _robberAI;
-        [Min(0.1f), SerializeField] private float _minDistance = 1f;
-        
-        private RunToTargetBehaviour _runToTargetBehaviour;
-        private TopDownMovement _topDownMovement;
+        [Min(0.1f)] [SerializeField] private float _minDistance = 1f;
         private Animator _animator;
         private Vector2 _runDirection;
-        
-        private void OnValidate()
-        {
-            if (_robberAI == null)
-                Debug.LogWarning("Robber was not found!", this);
-        }
-        
+
+        private RunToTargetBehaviour _runToTargetBehaviour;
+        private TopDownMovement _topDownMovement;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _runToTargetBehaviour = _animator.GetBehaviour<RunToTargetBehaviour>();
+            _runToTargetBehaviour =
+                _animator.GetBehaviour<RunToTargetBehaviour>();
             _topDownMovement = GetComponent<TopDownMovement>();
         }
 
@@ -42,11 +37,17 @@ namespace Robber
             _runToTargetBehaviour.Ended -= OnRunToTargetEnded;
         }
 
+        private void OnValidate()
+        {
+            if (_robberAI == null)
+                Debug.LogWarning("Robber was not found!", this);
+        }
+
         private void OnRunToTargetStarted()
         {
             _robberAI.UseGravity();
         }
-        
+
         private void OnRunToTargetUpdated()
         {
             var direction = _robberAI.GetDirectionToTarget();
