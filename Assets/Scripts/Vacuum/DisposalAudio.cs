@@ -26,9 +26,9 @@ namespace Vacuum
             _disposal.Collected -= OnCollected;
         }
 
-        private void OnCollected(Garbage garbage)
+        private void OnCollected(ITrashCollectable trash)
         {
-            if (garbage is MicroGarbage || _audio.isPlaying)
+            if (trash is MicroGarbage || _audio.isPlaying)
                 return;
 
             _audio.Play();

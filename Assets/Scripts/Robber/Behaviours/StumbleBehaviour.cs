@@ -5,6 +5,8 @@ namespace Robber
 {
     public class StumbleBehaviour : StateMachineBehaviour
     {
+        public event UnityAction Started, Ended;
+        
         public override void OnStateEnter(Animator animator,
             AnimatorStateInfo stateInfo,
             int layerIndex)
@@ -20,7 +22,5 @@ namespace Robber
             base.OnStateExit(animator, stateInfo, layerIndex);
             Ended?.Invoke();
         }
-
-        public event UnityAction Started, Ended;
     }
 }

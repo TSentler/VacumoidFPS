@@ -6,8 +6,15 @@ using UnityEngine.Serialization;
 
 namespace Trash
 {
+    public interface ITrashCollectable
+    {
+        float TrashPoints { get; }
+
+        void Sucked();
+    }
+    
     [RequireComponent(typeof(Collider))]
-    public abstract class Garbage : MonoBehaviour, ISuckableToCenter
+    public abstract class Garbage : MonoBehaviour, ISuckableToCenter, ITrashCollectable
     {
         [FormerlySerializedAs("_count")] 
         [Min(0), SerializeField] private float _trashPoints = 0f;

@@ -8,15 +8,15 @@ namespace Vacuum
     {
         [SerializeField] private VacuumBag _bag;
 
-        public event UnityAction<Garbage> Collected;
+        public event UnityAction<ITrashCollectable> Collected;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Garbage garbage))
+            if (other.TryGetComponent(out ITrashCollectable trash))
             {
-                garbage.Sucked();
-                _bag.AddTrashPoints(garbage.TrashPoints);
-                Collected?.Invoke(garbage);
+                trash.Sucked();
+                _bag.AddTrashPoints(trash.TrashPoints);
+                Collected?.Invoke(trash);
             }
         }
     }

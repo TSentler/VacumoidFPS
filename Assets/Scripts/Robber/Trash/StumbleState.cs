@@ -1,3 +1,4 @@
+using Trash;
 using UnityEngine;
 
 namespace Robber
@@ -6,6 +7,8 @@ namespace Robber
     public class StumbleState : MonoBehaviour
     {
         [SerializeField] private RobberAI _robberAI;
+        [SerializeField] private VacuumGrabberActivator _vacuumActivator;
+        
         private readonly int _stumbleName = Animator.StringToHash("Stumble");
         private Animator _animator;
 
@@ -38,6 +41,7 @@ namespace Robber
 
         private void OnStumbleStarted()
         {
+            _vacuumActivator.Activate();
             _robberAI.UseGravity();
             _robberAI.DropTarget();
         }
