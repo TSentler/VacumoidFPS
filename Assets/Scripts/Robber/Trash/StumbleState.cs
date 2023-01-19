@@ -11,32 +11,36 @@ namespace Robber
         
         private readonly int _stumbleName = Animator.StringToHash("Stumble");
         private Animator _animator;
-
+        private GettingUpBehaviour _gettingUpBehaviour;
         private StumbleBehaviour _stumbleBehaviour;
+
+        private void OnValidate()
+        {
+            if (_robberAI == null)
+                Debug.LogWarning("Robber was not found!", this);
+        }
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _stumbleBehaviour =
                 _animator.GetBehaviour<StumbleBehaviour>();
+            _gettingUpBehaviour =
+                _animator.GetBehaviour<GettingUpBehaviour>();
         }
 
         private void OnEnable()
         {
             _stumbleBehaviour.Started += OnStumbleStarted;
             _stumbleBehaviour.Ended += OnStumbleEnded;
+            _gettingUpBehaviour.Ended += OnGettingUpEnded;
         }
 
         private void OnDisable()
         {
             _stumbleBehaviour.Started -= OnStumbleStarted;
             _stumbleBehaviour.Ended -= OnStumbleEnded;
-        }
-
-        private void OnValidate()
-        {
-            if (_robberAI == null)
-                Debug.LogWarning("Robber was not found!", this);
+            _gettingUpBehaviour.Ended -= OnGettingUpEnded;
         }
 
         private void OnStumbleStarted()
@@ -50,5 +54,11 @@ namespace Robber
         {
             _animator.ResetTrigger(_stumbleName);
         }
+        
+        private void OnGettingUpEnded()
+        {
+            _vacuumActivator.Deactivate();
+        }
+        
     }
 }

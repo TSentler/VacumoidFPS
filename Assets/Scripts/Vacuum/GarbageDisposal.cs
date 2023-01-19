@@ -1,6 +1,5 @@
 using Trash;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Vacuum
 {
@@ -8,16 +7,18 @@ namespace Vacuum
     {
         [SerializeField] private VacuumBag _bag;
 
-        public event UnityAction<ITrashCollectable> Collected;
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out ITrashCollectable trash))
             {
                 trash.Sucked();
                 _bag.AddTrashPoints(trash.TrashPoints);
-                Collected?.Invoke(trash);
             }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            OnTriggerEnter(other);
         }
     }
 }

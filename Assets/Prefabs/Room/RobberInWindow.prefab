@@ -1318,7 +1318,6 @@ GameObject:
   - component: {fileID: 2118475100559417019}
   - component: {fileID: 5967141230711301237}
   - component: {fileID: 2074620993889320127}
-  - component: {fileID: 7854628999502829500}
   - component: {fileID: 8033695117367305590}
   - component: {fileID: 4478578111824286931}
   m_Layer: 13
@@ -1492,6 +1491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _garbage: {fileID: 2118475100559417023}
+  _collider: {fileID: 7502182514069083713}
 --- !u!114 &2118475100559417023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1586,19 +1586,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _money: {fileID: 6332346762576841582}
   _count: 90
---- !u!114 &7854628999502829500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7267810266732585004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4252782feba999e47b46a62cab6ec725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _vacuumActivator: {fileID: 1897313725437063606}
 --- !u!114 &8033695117367305590
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,13 +10,12 @@ namespace Trash
         [SerializeField] private DeformableGarbage _garbage;
         
         private ISuckCenter _target;
-        private bool _isReady = true;
+        private bool _isReady = false;
 
-        public float TrashPoints { get; } = 0f;
+        public float TrashPoints => _isReady ? _garbage.TrashPoints : 0f;
 
         public void Activate()
         {
-            Debug.Log("Activate");
             _isReady = true;
             if (_target != null)
             {
@@ -26,7 +25,6 @@ namespace Trash
 
         public void Deactivate()
         {
-            Debug.Log("Deactivate");
             _isReady = false;
         }
         

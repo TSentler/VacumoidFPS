@@ -14,7 +14,8 @@ namespace Trash
     }
     
     [RequireComponent(typeof(Collider))]
-    public abstract class Garbage : MonoBehaviour, ISuckableToCenter, ITrashCollectable
+    public abstract class Garbage : MonoBehaviour, ISuckableToCenter,
+        ITrashCollectable
     {
         [FormerlySerializedAs("_count")] 
         [Min(0), SerializeField] private float _trashPoints = 0f;

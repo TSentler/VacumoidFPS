@@ -8,30 +8,21 @@ namespace Vacuum
     public class DisposalAudio : MonoBehaviour
     {
         private AudioSource _audio;
-        private GarbageDisposal _disposal;
-
+        
         private void Awake()
         {
             _audio = GetComponent<AudioSource>();
-            _disposal = GetComponent<GarbageDisposal>();
         }
 
-        private void OnEnable()
+        private void OnTriggerEnter(Collider other)
         {
-            _disposal.Collected += OnCollected;
-        }
-
-        private void OnDisable()
-        {
-            _disposal.Collected -= OnCollected;
-        }
-
-        private void OnCollected(ITrashCollectable trash)
-        {
-            if (trash is MicroGarbage || _audio.isPlaying)
+            if (_audio.isPlaying)
                 return;
-
-            _audio.Play();
+            
+            if (other.TryGetComponent(out MicroGarbage garbage))
+            {
+                _audio.Play();
+            }
         }
     }
 }
