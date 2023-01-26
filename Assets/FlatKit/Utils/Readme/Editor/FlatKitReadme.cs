@@ -59,7 +59,8 @@ public class FlatKitReadme : ScriptableObject {
         UnityVersion = Application.unityVersion;
     }
 
-    private PackageCollection GetPackageList() {
+    private PackageCollection GetPackageList() 
+    {
         var listRequest = Client.List(true);
 
         while (listRequest.Status == StatusCode.InProgress) continue;

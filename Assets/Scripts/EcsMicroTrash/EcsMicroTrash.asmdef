@@ -1,0 +1,20 @@
+{
+    "name": "EcsMicroTrash",
+    "rootNamespace": "",
+    "references": [
+        "GUID:34bc99d99493a6c0d8ffbe0f5967fd13",
+        "GUID:22eef73b61f1c0741be1c394ac23041b",
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:206779980ac58453ea65e900299ccf71",
+        "GUID:a22362b82293644e1bbe51356c008d63"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

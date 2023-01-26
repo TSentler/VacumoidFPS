@@ -19,7 +19,7 @@ namespace Trash
         {
             _garbage.transform.parent = transform.parent;
             _garbage.gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
         }
 
         public void SetCount(float oneGarbageCount)
