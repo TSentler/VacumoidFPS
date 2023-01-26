@@ -4,6 +4,8 @@
     "com.agava.vkgames": "https://github.com/punisherpete/com.agava.vkgames.git",
     "com.agava.webutility": "https://github.com/forcepusher/com.agava.webutility.git#2.0.0",
     "com.agava.yandexgames": "https://github.com/forcepusher/com.agava.yandexgames.git#11.0.0",
+    "com.leopotam.ecslite": "https://github.com/Leopotam/ecslite.git",
+    "com.leopotam.ecslite.unityeditor": "https://github.com/Leopotam/ecslite-unityeditor.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.analytics": "3.6.12",
     "com.unity.collab-proxy": "1.17.7",
