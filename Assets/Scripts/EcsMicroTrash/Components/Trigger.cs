@@ -1,12 +1,12 @@
 using Leopotam.EcsLite;
-using UnityEngine;
+using Trash;
 
 namespace EcsMicroTrash.Components
 {
     public struct Trigger : IEcsAutoReset<Trigger>
     {
         public float Radius;
-        public Transform Transform;
+        public MicroGarbageStaticTrigger StaticTrigger;
         
         public void AutoReset(ref Trigger trigger)
         {

@@ -6,5 +6,6 @@ namespace EcsMicroTrash.Components
     {
         public float Radius;
         public Transform Transform;
+        public bool isTest;
     }
 }

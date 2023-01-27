@@ -30,7 +30,7 @@ namespace EcsMicroTrash.Systems
                 var staticGarbage = world.NewEntity();
                 var triggerPool = world.GetPool<Trigger>();
                 ref Trigger trigger = ref triggerPool.Add(staticGarbage);
-                trigger.Transform = microGarbageStatics[i].transform;
+                trigger.StaticTrigger = microGarbageStatics[i];
             }
         }
     }

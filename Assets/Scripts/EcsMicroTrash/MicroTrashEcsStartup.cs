@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using EcsMicroTrash.Systems;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace EcsMicroTrash
         private EcsWorld _world;
         private IEcsSystems _systems;
 
-        public void Start () 
+        public void Start ()
         {
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
