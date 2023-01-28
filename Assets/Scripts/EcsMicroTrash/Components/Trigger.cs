@@ -6,6 +6,7 @@ namespace EcsMicroTrash.Components
     public struct Trigger : IEcsAutoReset<Trigger>
     {
         public float Radius;
+        public bool IsSucked;
         public MicroGarbageStaticTrigger StaticTrigger;
         
         public void AutoReset(ref Trigger trigger)
