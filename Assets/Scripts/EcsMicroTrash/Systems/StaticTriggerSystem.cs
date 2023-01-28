@@ -36,8 +36,33 @@ namespace EcsMicroTrash.Systems
         }
     }
 
-    public class StaticTriggerSystem : IEcsRunSystem
+    public class StaticTriggerSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
     {
+        private NativeArray<Vector3> _triggersPosition;
+        private NativeArray<bool> _triggersIsSucked;
+        private NativeArray<float> _triggersRadius;
+
+        public void Init(IEcsSystems systems)
+        {
+            var world = systems.GetWorld();
+
+            var triggerPool = world.GetPool<Trigger>();
+            var triggerFilter = world.Filter<Trigger>().End();
+            var count = triggerFilter.GetEntitiesCount();
+            _triggersIsSucked = new NativeArray<bool>(count, Allocator.TempJob);
+            _triggersPosition = new NativeArray<Vector3>(count, Allocator.TempJob);
+            _triggersRadius = new NativeArray<float>(count, Allocator.TempJob);
+            var i = 0;
+            foreach (var triggerEntity in triggerFilter)
+            {
+                var trigger= triggerPool.Get(triggerEntity);
+                _triggersIsSucked[i] = trigger.IsSucked;
+                _triggersPosition[i] = trigger.StaticTrigger.transform.position;
+                _triggersRadius[i] = trigger.Radius;
+                i++;
+            }
+        }
+        
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
@@ -47,40 +72,31 @@ namespace EcsMicroTrash.Systems
             foreach (var playerEntity in playerFilter)
             {
                 ref var vacuum = ref vacuumPool.Get(playerEntity);
-                var triggerPool = world.GetPool<Trigger>();
                 var triggerFilter = world.Filter<Trigger>().End();
                 var count = triggerFilter.GetEntitiesCount();
-                var triggersIsSucked = new NativeArray<bool>(count, Allocator.TempJob);
-                var triggersPosition = new NativeArray<Vector3>(count, Allocator.TempJob);
-                var triggersRadius = new NativeArray<float>(count, Allocator.TempJob);
-                var i = 0;
-                foreach (var triggerEntity in triggerFilter)
-                {
-                    var trigger= triggerPool.Get(triggerEntity);
-                    triggersIsSucked[i] = trigger.IsSucked;
-                    triggersPosition[i] = trigger.StaticTrigger.transform.position;
-                    triggersRadius[i] = trigger.Radius;
-                    i++;
-                }
 
                 var triggerEnterJob = new TriggerEnterJob
                 {
                     VacuumRadius = vacuum.Radius,
                     VacuumPosition = vacuum.Transform.position,
-                    TriggersPosition = triggersPosition,
-                    TriggersRadius = triggersRadius,
-                    TriggersIsSucked = triggersIsSucked
+                    TriggersPosition = _triggersPosition,
+                    TriggersRadius = _triggersRadius,
+                    TriggersIsSucked = _triggersIsSucked
                 };
 
                 var triggerEnterHandle = 
                     triggerEnterJob.Schedule(count, 0);
                 triggerEnterHandle.Complete();
-                triggersPosition.Dispose();
-                triggersRadius.Dispose();
-                triggersIsSucked.Dispose();
                 
                 break;
             }
+        }
+
+        public void Destroy(IEcsSystems systems)
+        {
+            _triggersPosition.Dispose();
+            _triggersRadius.Dispose();
+            _triggersIsSucked.Dispose();
         }
     }
 }
