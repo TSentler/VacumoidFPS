@@ -14,6 +14,8 @@ namespace Vacuum
         private VacuumRadiusUpgrader _vacuumRadiusUpgrader;
         private float _radius;
 
+        public float Radius => _radius;
+
         private void Awake()
         {
             _sphereCollider = GetComponent<SphereCollider>();

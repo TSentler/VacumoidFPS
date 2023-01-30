@@ -14,7 +14,7 @@ namespace Trash
         private void OnValidate()
         {
             if (_garbage.TryGetComponent(
-                    out MicroGarbageStaticTrigger garbageTriger) == false)
+                    out StaticGarbage garbageTriger) == false)
             {
                 Debug.LogError("MicroGarbageStaticTrigger prefab not to found", this);
             }
@@ -24,10 +24,10 @@ namespace Trash
             }
         }
 
-        private List<MicroGarbageStaticTrigger> SpawnAsGrid(Vector3 startPosition, 
+        private List<StaticGarbage> SpawnAsGrid(Vector3 startPosition, 
             float rows, float columns, Transform parent)
         {
-            List<MicroGarbageStaticTrigger> trash = new();
+            List<StaticGarbage> trash = new();
             var rowPosition = startPosition;
             for (int i = 0; i < rows; i++)
             {
@@ -44,7 +44,7 @@ namespace Trash
             return trash;
         }
 
-        private MicroGarbageStaticTrigger Spawn(Vector3 position, Transform parent)
+        private StaticGarbage Spawn(Vector3 position, Transform parent)
         {
             var garbage = Instantiate(_garbage).transform;
             garbage.parent = parent;
@@ -52,12 +52,12 @@ namespace Trash
                 position
                 + Vector3.right * Random.Range(-_offset, _offset)
                 + Vector3.forward * Random.Range(-_offset, _offset);
-            return garbage.GetComponent<MicroGarbageStaticTrigger>();
+            return garbage.GetComponent<StaticGarbage>();
         }
 
-        public List<MicroGarbageStaticTrigger> SpawnInsideAllColliders()
+        public List<StaticGarbage> SpawnInsideAllColliders()
         {
-            List<MicroGarbageStaticTrigger> trash = new();
+            List<StaticGarbage> trash = new();
             foreach (var box in _boxColliders)
             {
                 var startPosition = new Vector3(

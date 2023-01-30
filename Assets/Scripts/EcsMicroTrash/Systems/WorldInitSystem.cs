@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using EcsMicroTrash.Components;
 using Leopotam.EcsLite;
 using Trash;
@@ -8,12 +9,15 @@ namespace EcsMicroTrash.Systems
 {
     public class WorldInitSystem : IEcsInitSystem
     {
-        public WorldInitSystem(VacuumRadius vacuumRadius)
+        public WorldInitSystem(VacuumRadius vacuumRadius, 
+            List<StaticGarbage> staticMicroGarbages)
         {
             _vacuumRadius = vacuumRadius;
+            _staticMicroGarbages = staticMicroGarbages;
         }
         
         private readonly VacuumRadius _vacuumRadius;
+        private readonly List<StaticGarbage> _staticMicroGarbages;
         
         public void Init(IEcsSystems systems)
         {
@@ -23,14 +27,12 @@ namespace EcsMicroTrash.Systems
             vacuum.Radius = _vacuumRadius.GetComponent<SphereCollider>().radius;
             vacuum.Transform = _vacuumRadius.transform;
             
-            var microGarbageStatics =
-                GameObject.FindObjectsOfType<MicroGarbageStaticTrigger>();
-            for (int i = 0; i < microGarbageStatics.Length; i++)
+            var staticGarbagePool = world.GetPool<StaticGarbageComponent>();
+            for (int i = 0; i < _staticMicroGarbages.Count; i++)
             {
                 var staticGarbage = world.NewEntity();
-                var triggerPool = world.GetPool<Trigger>();
-                ref Trigger trigger = ref triggerPool.Add(staticGarbage);
-                trigger.StaticTrigger = microGarbageStatics[i];
+                ref var staticGarbageComponent = ref staticGarbagePool.Add(staticGarbage);
+                staticGarbageComponent.StaticGarbage = _staticMicroGarbages[i];
             }
         }
     }

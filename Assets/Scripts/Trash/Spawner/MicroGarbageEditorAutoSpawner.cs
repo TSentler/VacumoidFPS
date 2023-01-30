@@ -27,7 +27,7 @@ namespace Trash
             _scaleRandomizer = GetComponent<ScaleRandomizer>();
             _rotationRandomizer = GetComponent<RotationRandomizer>();
 
-            List<MicroGarbageStaticTrigger> trash = _spawner.SpawnInsideAllColliders();
+            List<StaticGarbage> trash = _spawner.SpawnInsideAllColliders();
             
             var oneGarbageCount = (float)_countMicroGarbage / trash.Count;
             foreach (var garbage in trash)
@@ -43,7 +43,7 @@ namespace Trash
         public void ClearButton()
         {
             var trash = 
-                _microGarbageRoot.GetComponentsInChildren<MicroGarbageStaticTrigger>();
+                _microGarbageRoot.GetComponentsInChildren<StaticGarbage>();
             foreach (var garbage in trash)
             {
                 DestroyImmediate(garbage.gameObject);

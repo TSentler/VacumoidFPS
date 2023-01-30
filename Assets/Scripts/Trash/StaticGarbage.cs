@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace Trash
 {
-    public class MicroGarbageStaticTrigger : MonoBehaviour
+    public class StaticGarbage : MonoBehaviour
     {
         [SerializeField] private MicroGarbage _garbage;
+        [SerializeField] private float _radius = 0.06f;
 
         private void OnValidate()
         {
@@ -25,6 +26,22 @@ namespace Trash
         public void SetCount(float oneGarbageCount)
         {
             _garbage.SetCount(oneGarbageCount);
+        }
+
+        public struct Data
+        {
+            public Data(StaticGarbage staticGarbage, int entity)
+            {
+                Radius = staticGarbage._radius;
+                IsSucked = staticGarbage.enabled == false;
+                Entity = entity;
+            }
+            
+            public int Entity { get; }
+            public float Radius { get; }
+            public bool IsSucked { get; private set; }
+
+            public void Suck() => IsSucked = true;
         }
     }
 }
