@@ -66,16 +66,8 @@ namespace EcsMicroTrash.Systems
                 {
                     int entity = _triggers[i].Entity;
                     ref var staticGarbageComponent = ref _staticGarbagePool.Get(entity);
-                    staticGarbageComponent.StaticGarbage.Suck();
-                    _staticGarbagePool.Del(entity);
+                    staticGarbageComponent.StaticGarbage.Suck(999);
                 }
-            }
-
-            if (sucked.Any(item => item))
-            {
-                _triggers.Dispose();
-                _transformAccessArray.Dispose();
-                Setup();
             }
 
             sucked.Dispose();

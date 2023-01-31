@@ -1,3 +1,4 @@
+using System;
 using Suckables;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Trash
     {
         [SerializeField] private MicroGarbage _garbage;
         [SerializeField] private float _radius = 0.06f;
+        [SerializeField] private int _index;
+        public int IndexInit;
 
         private void OnValidate()
         {
@@ -16,8 +19,13 @@ namespace Trash
             }
         }
 
-        public void Suck()
+        public void Suck(int index)
         {
+            _index = index;
+            if (gameObject.activeSelf == false)
+                return;
+            
+            
             _garbage.transform.parent = transform.parent;
             _garbage.gameObject.SetActive(true);
             gameObject.SetActive(false);
