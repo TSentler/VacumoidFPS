@@ -8,8 +8,6 @@ namespace Trash
     {
         [SerializeField] private MicroGarbage _garbage;
         [SerializeField] private float _radius = 0.06f;
-        [SerializeField] private int _index;
-        public int IndexInit;
 
         private void OnValidate()
         {
@@ -19,13 +17,8 @@ namespace Trash
             }
         }
 
-        public void Suck(int index)
+        public void Suck()
         {
-            _index = index;
-            if (gameObject.activeSelf == false)
-                return;
-            
-            
             _garbage.transform.parent = transform.parent;
             _garbage.gameObject.SetActive(true);
             gameObject.SetActive(false);
@@ -38,18 +31,16 @@ namespace Trash
 
         public struct Data
         {
-            public Data(StaticGarbage staticGarbage, int entity)
+            public Data(StaticGarbage staticGarbage)
             {
+                Garbage = staticGarbage._garbage;
                 Radius = staticGarbage._radius;
-                IsSucked = staticGarbage.enabled == false;
-                Entity = entity;
+                Position = staticGarbage.transform.position;
             }
             
-            public int Entity { get; }
+            public MicroGarbage Garbage { get; }
             public float Radius { get; }
-            public bool IsSucked { get; private set; }
-
-            public void Suck() => IsSucked = true;
+            public Vector3 Position { get; }
         }
     }
 }

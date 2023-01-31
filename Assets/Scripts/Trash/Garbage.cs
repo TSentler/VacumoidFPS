@@ -17,6 +17,8 @@ namespace Trash
     public abstract class Garbage : MonoBehaviour, ISuckableToCenter,
         ITrashCollectable
     {
+        public bool IsSucked = false;
+        
         [FormerlySerializedAs("_count")] 
         [Min(0), SerializeField] private float _trashPoints = 0f;
 
@@ -70,6 +72,7 @@ namespace Trash
         public void Sucked()
         {
             gameObject.SetActive(false);
+            IsSucked = true;
         }
     }
 }

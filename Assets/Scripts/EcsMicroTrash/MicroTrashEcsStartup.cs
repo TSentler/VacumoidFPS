@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using EcsMicroTrash.Systems;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using TMPro;
 using Trash;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace EcsMicroTrash
     {
         //TODO: find _suckerTransform by VacuumRadius
         [SerializeField] private VacuumRadius _vacuumRadius;
+        [SerializeField] private float _garbageRadius = 0.05f;
         [SerializeField] private TMP_Text _text; 
         
         private EcsWorld _world;
@@ -26,11 +28,14 @@ namespace EcsMicroTrash
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _systems
+                .Add(new UpdateDataSystem())
                 .Add(new WorldInitSystem(_vacuumRadius, staticMicroGarbages))
-                .Add(new StaticTriggerSystem())
+                .Add(new StaticTriggerSystem(_garbageRadius))
+                .Add(new MoveMicroGarbageSystem(_garbageRadius))
 #if UNITY_EDITOR
                 .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+                .Inject()
                 .Init ();
         }
 

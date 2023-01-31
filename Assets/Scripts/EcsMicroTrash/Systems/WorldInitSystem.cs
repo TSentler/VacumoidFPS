@@ -23,16 +23,16 @@ namespace EcsMicroTrash.Systems
         {
             var world = systems.GetWorld();
             var player = world.NewEntity();
-            ref var vacuum = ref world.GetPool<Components.Vacuum>().Add(player);
-            vacuum.Radius = _vacuumRadius.GetComponent<SphereCollider>().radius;
-            vacuum.Transform = _vacuumRadius.transform;
+            ref var vacuum = ref world.GetPool<Components.VacuumComponent>().Add(player);
+            vacuum = new VacuumComponent(_vacuumRadius);
             
             var staticGarbagePool = world.GetPool<StaticGarbageComponent>();
+            var microGarbagePool = world.GetPool<MicroGarbageComponent>();
             for (int i = 0; i < _staticMicroGarbages.Count; i++)
             {
                 var staticGarbage = world.NewEntity();
                 ref var staticGarbageComponent = ref staticGarbagePool.Add(staticGarbage);
-                staticGarbageComponent.StaticGarbage = _staticMicroGarbages[i];
+                staticGarbageComponent = new StaticGarbageComponent(_staticMicroGarbages[i]);
             }
         }
     }

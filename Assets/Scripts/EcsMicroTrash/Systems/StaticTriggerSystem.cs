@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EcsMicroTrash.Components;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using Trash;
 using Unity.Collections;
 using UnityEngine;
@@ -10,23 +12,30 @@ using Debug = UnityEngine.Debug;
 
 namespace EcsMicroTrash.Systems
 {
-    public class StaticTriggerSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
+    public class StaticTriggerSystem : IEcsInitSystem, IEcsRunSystem
     {
+        public StaticTriggerSystem(float garbageRadius)
+        {
+            _garbageRadius = garbageRadius;
+        }
+        
+        readonly EcsPoolInject<MicroGarbageComponent> _microPool = default;
+        
         private EcsWorld _world;
-        private NativeArray<StaticGarbage.Data> _triggers;
-        private TransformAccessArray _transformAccessArray;
         private EcsPool<StaticGarbageComponent> _staticGarbagePool;
         private EcsFilter _staticGarbageFilter;
-        private EcsPool<Components.Vacuum> _vacuumPool;
+        private EcsPool<VacuumComponent> _vacuumPool;
         private EcsFilter _playerFilter;
+        private float _garbageRadius;
 
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _vacuumPool = _world.GetPool<Components.Vacuum>();
-            _playerFilter = _world.Filter<Components.Vacuum>().End();
+            _vacuumPool = _world.GetPool<VacuumComponent>();
+            _playerFilter = _world.Filter<VacuumComponent>().End();
             
-            Setup();
+            _staticGarbagePool = _world.GetPool<StaticGarbageComponent>();
+            _staticGarbageFilter = _world.Filter<StaticGarbageComponent>().End();
         }
         
         public void Run(IEcsSystems systems)
@@ -34,65 +43,27 @@ namespace EcsMicroTrash.Systems
             foreach (var playerEntity in _playerFilter)
             {
                 ref var vacuum = ref _vacuumPool.Get(playerEntity);
-                CheckTriggerEnter(ref vacuum);
-            }
-        }
-
-        public void Destroy(IEcsSystems systems)
-        {
-            _triggers.Dispose();
-            _transformAccessArray.Dispose();
-        }
-        
-        private void CheckTriggerEnter(ref Components.Vacuum vacuum)
-        {
-            var count = _triggers.Length;
-            var sucked = new NativeArray<bool>(count, Allocator.TempJob);
-            var triggerEnterJob = new StaticGarbageTriggerJob
-            {
-                VacuumRadius = vacuum.Radius,
-                VacuumPosition = vacuum.Transform.position,
-                Triggers = _triggers,
-                Sucked = sucked
-            };
-
-            var triggerEnterHandle = 
-                triggerEnterJob.Schedule(_transformAccessArray);
-            triggerEnterHandle.Complete();
-
-            for (int i = 0; i < count; i++)
-            {
-                if (sucked[i])
+                var vacuumPosition = vacuum.Position;
+                var sqrMinDistance = Mathf.Pow(_garbageRadius + vacuum.Radius, 2);
+                var anySucked = false;
+                foreach (var staticGarbageEntity in _staticGarbageFilter)
                 {
-                    int entity = _triggers[i].Entity;
-                    ref var staticGarbageComponent = ref _staticGarbagePool.Get(entity);
-                    staticGarbageComponent.StaticGarbage.Suck(999);
+                    ref var staticGarbageComponent =
+                        ref _staticGarbagePool.Get(staticGarbageEntity);
+                    if (staticGarbageComponent.IsSucked)
+                        continue;
+                    
+                    var distance = (vacuumPosition - staticGarbageComponent.Data.Position).sqrMagnitude;
+                    if (distance <= sqrMinDistance)
+                    {
+                        staticGarbageComponent.Suck();
+                        var microGarbage = _world.NewEntity();
+                        ref var microGarbageComponent = ref _microPool.Value.Add(microGarbage);
+                        microGarbageComponent = new MicroGarbageComponent(staticGarbageComponent.Data.Garbage);
+                        _staticGarbagePool.Del(staticGarbageEntity);
+                    }
                 }
             }
-
-            sucked.Dispose();
-        }
-
-        private void Setup()
-        {
-            _staticGarbagePool = _world.GetPool<StaticGarbageComponent>();
-            _staticGarbageFilter = _world.Filter<StaticGarbageComponent>().End();
-            var count = _staticGarbageFilter.GetEntitiesCount();
-            var transforms = new Transform[count];
-            _triggers = new NativeArray<StaticGarbage.Data>(count,
-                Allocator.Persistent);
-            var i = 0;
-            foreach (var entity in _staticGarbageFilter)
-            {
-                ref var staticGarbageComponent = ref _staticGarbagePool.Get(entity);
-                _triggers[i] =
-                    new StaticGarbage.Data(staticGarbageComponent.StaticGarbage,
-                        entity);
-                transforms[i] = staticGarbageComponent.StaticGarbage.transform;
-                i++;
-            }
-
-            _transformAccessArray = new TransformAccessArray(transforms);
         }
     }
 }
