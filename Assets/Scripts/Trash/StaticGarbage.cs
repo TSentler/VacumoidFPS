@@ -1,5 +1,4 @@
-using System;
-using Suckables;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Trash
@@ -40,7 +39,7 @@ namespace Trash
             
             public MicroGarbage Garbage { get; }
             public float Radius { get; }
-            public Vector3 Position { get; }
+            public float3 Position { get; }
         }
     }
 }

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using Vacuum;
 
@@ -13,17 +14,16 @@ namespace EcsMicroTrash.Components
             Position = _vacuumRadius.transform.position;
         }
 
+        public float Radius;
+        public float3 Position;
+        
         private VacuumRadius _vacuumRadius;
         private Transform _transform;
-        
-        public float Radius { get; set; }
-        public Vector3 Position { get; set; }
         
         public void UpdateData()
         {
             Radius = _vacuumRadius.Radius;
             Position = _transform.position;
         }
-
     }
 }

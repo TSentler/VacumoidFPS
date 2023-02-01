@@ -2,7 +2,8 @@
     "name": "Trash",
     "rootNamespace": "",
     "references": [
-        "GUID:f704a9a3fbfe0ea43890c3714be49bbb"
+        "GUID:f704a9a3fbfe0ea43890c3714be49bbb",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

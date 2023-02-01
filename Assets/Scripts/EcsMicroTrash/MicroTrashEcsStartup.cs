@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using EcsMicroTrash.StaticData;
 using EcsMicroTrash.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -17,20 +18,23 @@ namespace EcsMicroTrash
         //TODO: find _suckerTransform by VacuumRadius
         [SerializeField] private VacuumRadius _vacuumRadius;
         [SerializeField] private float _garbageRadius = 0.05f;
-        [SerializeField] private TMP_Text _text; 
+        [SerializeField] private MicroGarbageStaticData _microGarbageStaticData;
         
         private EcsWorld _world;
         private IEcsSystems _systems;
+        private StaticTriggerSystem _staticTriggerSystem;
+
 
         public void Start ()
         {
-            var staticMicroGarbages = FindObjectsOfType<StaticGarbage>().ToList();
+            _staticTriggerSystem = new StaticTriggerSystem(_garbageRadius, _microGarbageStaticData);
+            var staticMicroGarbages = FindObjectsOfType<StaticGarbage>();
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             _systems
                 .Add(new UpdateDataSystem())
                 .Add(new WorldInitSystem(_vacuumRadius, staticMicroGarbages))
-                .Add(new StaticTriggerSystem(_garbageRadius))
+                .Add(_staticTriggerSystem)
                 .Add(new MoveMicroGarbageSystem(_garbageRadius))
 #if UNITY_EDITOR
                 .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
@@ -41,11 +45,12 @@ namespace EcsMicroTrash
 
         public void Update() 
         {
-            var sw = new Stopwatch();
-            sw.Start();
-            _systems?.Run();
-            sw.Stop();
-            _text.SetText(sw.Elapsed.Ticks.ToString("F4"));
+            // var sw = new Stopwatch();
+            // sw.Start();
+            
+            _systems.Run();
+            // sw.Stop();
+            // _text.SetText(sw.Elapsed.Ticks.ToString("F4"));
         }
 
         public void OnDestroy() 

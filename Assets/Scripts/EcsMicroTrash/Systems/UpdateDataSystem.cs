@@ -19,15 +19,6 @@ namespace EcsMicroTrash.Systems
                 ref var vacuum = ref _vacuumPool.Value.Get(vacuumEntity);
                 vacuum.UpdateData();
             }
-
-            foreach (var garbageEntity in _microFilter.Value)
-            {
-                ref var garbage = ref _microPool.Value.Get(garbageEntity);
-                if (garbage.IsSucked)
-                {
-                    _microPool.Value.Del(garbageEntity);
-                }
-            }
         }
     }
 }

@@ -1,19 +1,17 @@
+using EcsMicroTrash.StaticData;
 using Trash;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace EcsMicroTrash.Components
 {
     public struct MicroGarbageComponent
     {
-        public MicroGarbageComponent(MicroGarbage microGarbage)
+        public MicroGarbageComponent(MicroGarbage microGarbage, MicroGarbageStaticData staticData)
         {
             _microGarbage = microGarbage;
             _transform = microGarbage.transform;
-            _minRotationRatio = 0.01f;
-            _maxRotationRatio = 1f;
-            _minVelocity = 0.01f;
-            _maxVelocity = 0.3f;
-            _damp = 12;
+            _staticData = staticData;
             
             Position = _transform.position;
             Target = -1;
@@ -23,23 +21,18 @@ namespace EcsMicroTrash.Components
             _axeleration = 0.5f;
         }
         
+        private readonly MicroGarbageStaticData _staticData;
         private readonly MicroGarbage _microGarbage;
         private readonly Transform _transform;
 
-        private readonly float _minRotationRatio,
-            _maxRotationRatio,
-            _minVelocity,
-            _maxVelocity,
-            _damp;
-        
-        private Vector3 _direction;
+        private float3 _direction;
         private float _startDistance, _velocity, _axeleration;
         
         public int Target { get; private set; }
-        public Vector3 Position { get; private set; }
+        public float3 Position { get; private set; }
 
         public bool IsSucked => _microGarbage.IsSucked;
-        public bool IsMove => _velocity > _minVelocity;
+        public bool IsMove => _velocity > _staticData.MinVelocity;
         
         public void Move()
         {
@@ -47,41 +40,45 @@ namespace EcsMicroTrash.Components
             _transform.position = Position;
         }
 
-        public void SetTarget(int playerEntity, Vector3 targetPosition)
+        public static void SetTarget(ref MicroGarbageComponent garbage, 
+            int playerEntity, float3 targetPosition)
         {
-            Target = playerEntity;
-            if (_velocity > _minVelocity)
+            garbage.Target = playerEntity;
+            if (garbage._velocity > garbage._staticData.MinVelocity)
                 return;
             
-            _direction = targetPosition - Position;
-            _startDistance = _direction.magnitude;
-            _direction.Normalize();
-            _velocity = 0f;
+            garbage._direction = targetPosition - garbage.Position;
+            garbage._startDistance = math.length(garbage._direction);
+            garbage._direction = math.normalize(garbage._direction);
+            garbage._velocity = 0f;
         }
         
-        public void CalculateDirection(Vector3 targetPosition)
+        public static void CalculateDirection(ref MicroGarbageComponent garbage,
+            float3 targetPosition)
         {
-            var direction = targetPosition - Position;
-            var distance = direction.magnitude;
-            direction.Normalize();
-            var distanceRatio = 1f - distance / _startDistance;
-            var rotationRatio = Mathf.Lerp(_minRotationRatio,
-                _maxRotationRatio, distanceRatio) * 2f;
-            _direction = Vector3.Lerp(_direction, direction, rotationRatio);
+            var direction = targetPosition - garbage.Position;
+            var distance = math.length(direction);
+            direction = math.normalize(direction);
+            var distanceRatio = 1f - distance / garbage._startDistance;
+            var rotationRatio = Mathf.Lerp(garbage._staticData.MinRotationRatio,
+                garbage._staticData.MaxRotationRatio, distanceRatio) * 2f;
+            garbage._direction = math.lerp(garbage._direction, direction, rotationRatio);
         }
 
-        public void CalculateVelocity(float deltaTime)
+        public static void CalculateVelocity(ref MicroGarbageComponent garbage,
+            float deltaTime)
         {
-            if (Target > -1)
+            if (garbage.Target > -1)
             {
-                _velocity += _axeleration * deltaTime;
+                garbage._velocity += garbage._axeleration * deltaTime;
             }
             else
             {
-                _velocity -= _damp * deltaTime;
+                garbage._velocity -= garbage._staticData.Damp * deltaTime;
             }
 
-            _velocity = Mathf.Clamp(_velocity, 0f, _maxVelocity);
+            garbage._velocity = Mathf.Clamp(garbage._velocity, 0f, 
+                garbage._staticData.MaxVelocity);
         }
     }
 }

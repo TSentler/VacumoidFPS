@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using EcsMicroTrash.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Unity.Mathematics;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace EcsMicroTrash.Systems
 {
@@ -26,47 +23,44 @@ namespace EcsMicroTrash.Systems
         public void Run(IEcsSystems systems)
         {
             var deltaTime = Time.deltaTime;
-            foreach (var playerEntity in _vacuumFilter.Value)
-            {
-                ref var vacuumComponent =
-                    ref _vacuumPool.Value.Get(playerEntity);
-                var vacuumPosition = vacuumComponent.Position;
-                var sqrMinDistance =
-                    Mathf.Pow(_garbageRadius + vacuumComponent.Radius, 2);
-                foreach (var garbageEntity in _microFilter.Value)
-                {
-                    ref var garbage =
-                        ref _microPool.Value.Get(garbageEntity);
-                    if (garbage.IsSucked)
-                        continue;
-                    if (garbage.Target == -1 || garbage.Target == playerEntity)
-                    {
-                        var distance = (vacuumPosition - garbage.Position).sqrMagnitude;
-                        if (garbage.Target == -1 && distance <= sqrMinDistance)
-                        {
-                            garbage.SetTarget(playerEntity, vacuumPosition);
-                        }
-                        else if (garbage.Target == playerEntity && distance > sqrMinDistance)
-                        {
-                            garbage.SetTarget(-1, garbage.Position);
-                        }
-                    }
-                }
-            }
+            int playerEntity = 0;
+            VacuumComponent vacuumComponent = _vacuumPool.Value.Get(playerEntity);
 
             foreach (var garbageEntity in _microFilter.Value)
             {
                 ref var garbage = ref _microPool.Value.Get(garbageEntity);
-                garbage.CalculateVelocity(deltaTime);
+                
+                if (garbage.IsSucked)
+                {
+                    _microPool.Value.Del(garbageEntity);
+                    continue;
+                }
+                
+                if (garbage.Target == -1 || garbage.Target == playerEntity)
+                {
+                    var vacuumPosition = vacuumComponent.Position;
+                    var sqrMinDistance =
+                        math.pow(_garbageRadius + vacuumComponent.Radius, 2);
+                    var sqrDistance = math.lengthsq(vacuumPosition - garbage.Position);
+                    if (garbage.Target == -1 && sqrDistance <= sqrMinDistance)
+                    {
+                        MicroGarbageComponent.SetTarget(ref garbage, playerEntity, vacuumPosition);
+                    }
+                    else if (garbage.Target == playerEntity && sqrDistance > sqrMinDistance)
+                    {
+                        MicroGarbageComponent.SetTarget(ref garbage, -1, garbage.Position);
+                    }
+                }
+                
+                MicroGarbageComponent.CalculateVelocity(ref garbage, deltaTime);
 
                 if (garbage.IsMove == false)
                     continue;
                 
                 if (garbage.Target > -1)
                 {
-                    ref var vacuumComponent =
-                        ref _vacuumPool.Value.Get(garbage.Target);
-                    garbage.CalculateDirection(vacuumComponent.Position);
+                    ref var vacuum = ref _vacuumPool.Value.Get(garbage.Target);
+                    MicroGarbageComponent.CalculateDirection(ref garbage, vacuum.Position);
                 }
                 garbage.Move();
             }

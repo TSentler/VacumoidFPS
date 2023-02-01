@@ -1,4 +1,5 @@
 using Trash;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace EcsMicroTrash.Components
@@ -8,14 +9,18 @@ namespace EcsMicroTrash.Components
         public StaticGarbageComponent(StaticGarbage staticGarbage)
         {
             _staticGarbage = staticGarbage;
-            Data = new StaticGarbage.Data(staticGarbage);
+            var data = new StaticGarbage.Data(staticGarbage);
+            Position = data.Position;
+            Garbage = data.Garbage;
             IsSucked = false;
         }
         
-        private StaticGarbage _staticGarbage;
+        private readonly StaticGarbage _staticGarbage;
+
+        public float3 Position;
+        public bool IsSucked; 
         
-        public StaticGarbage.Data Data { get; }
-        public bool IsSucked { get; private set; }
+        public MicroGarbage Garbage { get; }
         
         public void Suck()
         {
