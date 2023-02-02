@@ -6,7 +6,6 @@ namespace Trash
     public class StaticGarbage : MonoBehaviour
     {
         [SerializeField] private MicroGarbage _garbage;
-        [SerializeField] private float _radius = 0.06f;
 
         private void OnValidate()
         {
@@ -33,12 +32,10 @@ namespace Trash
             public Data(StaticGarbage staticGarbage)
             {
                 Garbage = staticGarbage._garbage;
-                Radius = staticGarbage._radius;
                 Position = staticGarbage.transform.position;
             }
             
             public MicroGarbage Garbage { get; }
-            public float Radius { get; }
             public float3 Position { get; }
         }
     }

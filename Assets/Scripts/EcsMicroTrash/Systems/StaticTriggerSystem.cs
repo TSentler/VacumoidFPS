@@ -9,10 +9,9 @@ namespace EcsMicroTrash.Systems
 {
     public class StaticTriggerSystem : IEcsInitSystem, IEcsRunSystem
     {
-        public StaticTriggerSystem(float garbageRadius, MicroGarbageStaticData staticData)
+        public StaticTriggerSystem(float garbageRadius)
         {
             _garbageRadius = garbageRadius;
-            _staticData = staticData;
         }
         
         readonly EcsPoolInject<MicroGarbageComponent> _microPool = default;
@@ -23,7 +22,6 @@ namespace EcsMicroTrash.Systems
         private EcsPool<VacuumComponent> _vacuumPool;
         private EcsFilter _playerFilter;
         private float _garbageRadius;
-        private MicroGarbageStaticData _staticData;
 
         private StaticGarbageComponent[] _staticGarbageComponents;
         
@@ -71,8 +69,7 @@ namespace EcsMicroTrash.Systems
                     var microGarbage = _world.NewEntity();
                     ref var microGarbageComponent = ref _microPool.Value.Add(microGarbage);
                     microGarbageComponent = new MicroGarbageComponent(
-                        staticGarbageComponent.Garbage,
-                        _staticData);
+                        staticGarbageComponent.Garbage);
                     staticGarbageComponent.Garbage.Show();
                     // _staticGarbagePool.Del(staticGarbageEntity);
                 }

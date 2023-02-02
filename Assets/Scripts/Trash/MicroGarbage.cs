@@ -1,28 +1,35 @@
-using System;
 using UnityEngine;
 
 namespace Trash
 {
-    public class MicroGarbage : Garbage
+    public class MicroGarbage : MonoBehaviour, ITrashCollectable
     {
         [SerializeField] private GameObject _scribble;
-        [SerializeField] private float _damp = 12f;
+        [SerializeField] private float _trashCount;
         
-        private void Start()
+        public bool IsSucked { get; private set; }
+        public float TrashPoints => _trashCount;
+
+        private void Awake()
         {
-            if (Target == null)
-            {
-                gameObject.SetActive(false);
-            } 
+            gameObject.SetActive(false);
         }
 
+        public void SetCount(float trashPoints)
+        {
+            _trashCount = trashPoints;
+        }
+        
         public void Show()
         {
+            gameObject.SetActive(true);
             _scribble.SetActive(true);
         }
-
-        protected override void SuckHandler()
+        
+        public void Sucked()
         {
+            IsSucked = true;
+            gameObject.SetActive(false);
         }
     }
 }

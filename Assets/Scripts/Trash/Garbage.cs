@@ -17,8 +17,6 @@ namespace Trash
     public abstract class Garbage : MonoBehaviour, ISuckableToCenter,
         ITrashCollectable
     {
-        public bool IsSucked = false;
-        
         [FormerlySerializedAs("_count")] 
         [Min(0), SerializeField] private float _trashPoints = 0f;
 
@@ -39,26 +37,8 @@ namespace Trash
 
         public event UnityAction SuckStarted;
         
-        private bool CheckPositive(float value)
-        {
-            if (value < 0f)
-            {
-                Debug.LogWarning("Count of garbage less than 0", this);
-            }
-
-            return value > 0f;
-        }
-
         protected abstract void SuckHandler();
 
-        public void SetCount(float value)
-        {
-            if (_trashPoints == 0f && CheckPositive(value))
-            {
-                _trashPoints = value;
-            }
-        }
-        
         public void Suck(ISuckCenter center)
         {
             _target = center;
@@ -72,7 +52,6 @@ namespace Trash
         public void Sucked()
         {
             gameObject.SetActive(false);
-            IsSucked = true;
         }
     }
 }
