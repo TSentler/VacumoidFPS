@@ -1,38 +1,34 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Agava.YandexGames;
 using Agava.VKGames;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using DeviceType = Agava.YandexGames.DeviceType;
-using VkLeaderboard = Agava.VKGames.Leaderboard;
-
 
 namespace YaVk
 {
     [DisallowMultipleComponent,
-     RequireComponent(typeof(Initializer),
-        typeof(Ads))]
+     RequireComponent(typeof(Initializer))]
     public class SocialNetwork : MonoBehaviour
     {
         private Initializer _init;
-        private Ads _ads;
-        private YandexLeaderboard _yaLeaderboard;
-        
+        private UnifiedAdsPlatforms _unifiedAdsPlatforms;
+        private MobileDevice _mobileDevice;
+        private UnifiedLeaderboardPlatforms _unifiedLeaderboardPlatforms;
+
         public event UnityAction AdsStarted, AdsEnded;
         
         public bool IsAds { get; private set; }
+
+        public UnifiedLeaderboardPlatforms Leaderboard =>
+            _unifiedLeaderboardPlatforms;
         
         private void Awake()
         {
             _init = GetComponent<Initializer>();
-            _ads = GetComponent<Ads>();
-            _yaLeaderboard = new YandexLeaderboard();
-#if YANDEX_GAMES
-            YandexGamesSdk.CallbackLogging = true;
-#endif
+            _mobileDevice = new MobileDevice(_init);
+            _unifiedAdsPlatforms = new UnifiedAdsPlatforms(_init);
+            _unifiedLeaderboardPlatforms = new UnifiedLeaderboardPlatforms();
         }
 
         private void Start()
@@ -41,23 +37,8 @@ namespace YaVk
         }
 
         public IEnumerator CheckMobileDeviceCoroutine(
-            UnityAction<bool> callback)
-        {
-            yield return _init.TryInitializeSdkCoroutine();
-
-            bool isMobile = false;
-#if YANDEX_GAMES
-            isMobile = Device.Type != DeviceType.Desktop;
-#elif VK_GAMES_MOBILE
-            isMobile = true;
-#else
-            isMobile = Application.isMobilePlatform 
-                       || Application.platform == RuntimePlatform.Android
-                       || SystemInfo.deviceModel.StartsWith("iPad");
-#endif
-            callback.Invoke(isMobile);
-        }
-
+            UnityAction<bool> callback) => _mobileDevice.Check(callback);
+        
         public bool IsAdsAccess()
         {
 #if ITCHIO_GAMES
@@ -83,7 +64,7 @@ namespace YaVk
                 AdsEnded?.Invoke();
             };
             StartCoroutine(
-                _ads.ShowInterstitialAdsCoroutine(onCloseCallback, 
+                _unifiedAdsPlatforms.ShowInterstitialAdsCoroutine(onCloseCallback, 
                     onErrorCallback, onYaOpenCallback, onYaOfflineCallback));
         }
 
@@ -103,68 +84,9 @@ namespace YaVk
                 AdsEnded?.Invoke();
             };
             StartCoroutine(
-                _ads.ShowRewardedAdsCoroutine(onRewardedCallback, 
+                _unifiedAdsPlatforms.ShowRewardedAdsCoroutine(onRewardedCallback, 
                     onCloseCallback, onErrorCallback, onYaOpenCallback));
         }
         
-        public void GetLeaderboardPlayerEntry(
-            UnityAction<LeaderboardEntryResponse> successCallback)
-        {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            successCallback?.Invoke(null);
-#elif VK_GAMES
-            successCallback?.Invoke(null);
-#elif YANDEX_GAMES
-            _yaLeaderboard.GetLeaderboardPlayerEntry(successCallback);
-#endif
-        }
-
-        public bool IsLeaderboardAccess()
-        {
-#if VK_GAMES_MOBILE || YANDEX_GAMES 
-            return true;
-#endif
-            return false;
-        }
-        
-        public bool IsAutoLeaderboard()
-        {
-#if VK_GAMES
-            return true;
-#endif
-            return false;
-        }
-        
-        public void GetLeaderboard(int score, 
-            UnityAction<List<PlayerInfoLeaderboard>> successCallback)
-        {
-            if (IsLeaderboardAccess() == false)
-                return;
-            
-#if !UNITY_WEBGL || UNITY_EDITOR
-            _yaLeaderboard.GetTopPlayers(leaderList =>
-            {
-                successCallback?.Invoke(leaderList);
-            }, true);
-#elif VK_GAMES
-            successCallback?.Invoke(new ());
-            VkLeaderboard.ShowLeaderboard(score);
-#elif YANDEX_GAMES
-            _yaLeaderboard.AddPlayerToLeaderboard(score, () =>
-            {
-               _yaLeaderboard.GetTopPlayers(leaderList =>
-                {
-                    successCallback?.Invoke(leaderList);
-                });     
-            });
-#endif
-        }
-        
-        public void AddPlayerToLeaderboard(int score)
-        {
-#if YANDEX_GAMES && !UNITY_EDITOR
-            _yaLeaderboard.AddPlayerToLeaderboard(score);
-#endif
-        }
     }
 }

@@ -712,7 +712,7 @@ PlayerSettings:
   webGLDecompressionFallback: 1
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    WebGL: ITCHIO_GAMES
+    WebGL: ITCHIO_GAMES;CRAZY_GAMES;YANDEX_GAMES;VK_GAMES
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

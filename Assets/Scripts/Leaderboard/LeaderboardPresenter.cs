@@ -14,6 +14,7 @@ namespace Leaderboard
         
         private SocialNetwork _socialNetwork;
         private VacuumBag _vacuumBag;
+        private bool _hasLeaderboard;
 
         private void OnValidate()
         {
@@ -31,6 +32,8 @@ namespace Leaderboard
         private void Awake()
         {
             _socialNetwork = FindObjectOfType<SocialNetwork>();
+            _hasLeaderboard =
+                _socialNetwork?.Leaderboard.IsAutoLeaderboard() ?? false;
             _vacuumBag = FindObjectOfType<VacuumBag>();
         }
         
@@ -49,8 +52,7 @@ namespace Leaderboard
         private void Start()
         {
             _view.gameObject.SetActive(false);
-            var hasLeaderboard = _socialNetwork?.IsLeaderboardAccess() ?? false;
-            if (hasLeaderboard)
+            if (_hasLeaderboard)
             {
                 _button.ShowCupIcon();
             }
@@ -62,7 +64,7 @@ namespace Leaderboard
 
         private void BoardShowed()
         {
-            if (_socialNetwork.IsAutoLeaderboard())
+            if (_socialNetwork.Leaderboard.IsAutoLeaderboard())
             {
                 Apply();
             }
@@ -74,7 +76,7 @@ namespace Leaderboard
 
         private void LevelCompleted()
         {
-            if (_socialNetwork.IsAutoLeaderboard())
+            if (_hasLeaderboard)
                 return; 
             
             Apply();
@@ -82,10 +84,11 @@ namespace Leaderboard
         
         private void Apply()
         {
-            _socialNetwork.GetLeaderboard(_vacuumBag.AllTrashPointsRounded,
+            _socialNetwork.Leaderboard.GetLeaderboard(
+                _vacuumBag.AllTrashPointsRounded,
                 leaderList =>
                 {
-                    if (_socialNetwork.IsAutoLeaderboard() || _view == null)
+                    if (_hasLeaderboard || _view == null)
                         return;
                     
                     _view.ConstructLeaderboard(leaderList);

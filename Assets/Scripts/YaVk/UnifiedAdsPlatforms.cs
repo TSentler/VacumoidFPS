@@ -11,9 +11,14 @@ using VkVideoAd = Agava.VKGames.VideoAd;
 
 namespace YaVk
 {
-    public class Ads : MonoBehaviour
+    public class UnifiedAdsPlatforms
     {
-        [SerializeField] private Initializer _init;
+        public UnifiedAdsPlatforms(Initializer init)
+        {
+            _init = init;
+        }
+        
+        private readonly Initializer _init;
         
         public IEnumerator ShowInterstitialAdsCoroutine(
             UnityAction<bool> onCloseCallback = null,
@@ -55,7 +60,7 @@ namespace YaVk
             UnityAction<string> onErrorCallback = null,
             UnityAction onYaOpenCallback = null) 
         {
-            yield return StartCoroutine(_init.TryInitializeSdkCoroutine());
+            yield return _init.TryInitializeSdkCoroutine();
 #if !UNITY_WEBGL || UNITY_EDITOR
             onRewardedCallback?.Invoke();
             onCloseCallback?.Invoke();
