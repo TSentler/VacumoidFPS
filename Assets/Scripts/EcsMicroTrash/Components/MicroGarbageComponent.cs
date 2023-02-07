@@ -1,4 +1,3 @@
-using EcsMicroTrash.StaticData;
 using Trash;
 using Unity.Mathematics;
 using UnityEngine;
@@ -17,14 +16,13 @@ namespace EcsMicroTrash.Components
             Direction = default;
             StartDistance = 0f;
             Velocity = 0f;
-            Axeleration = 0.5f;
         }
         
         private readonly MicroGarbage _microGarbage;
         private readonly Transform _transform;
 
         public float3 Direction;
-        public float StartDistance, Velocity, Axeleration;
+        public float StartDistance, Velocity;
         public int Target;
 
         public float3 Position { get; private set; }
@@ -36,6 +34,5 @@ namespace EcsMicroTrash.Components
             Position += Direction * Velocity;
             _transform.position = Position;
         }
-
     }
 }

@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Trash
@@ -12,10 +13,12 @@ namespace Trash
             if (GUILayout.Button("Spawn"))
             {
                 _spawner.SpawnButton();
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
             if (GUILayout.Button("Clear"))
             {
                 _spawner.ClearButton();
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
         }
     }

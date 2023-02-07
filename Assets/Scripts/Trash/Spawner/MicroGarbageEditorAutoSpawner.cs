@@ -13,6 +13,8 @@ namespace Trash
 
         private ScaleRandomizer _scaleRandomizer;
         private RotationRandomizer _rotationRandomizer;
+        
+        public float Count => _countMicroGarbage;
 
         private void OnValidate()
         {

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using EcsMicroTrash.Components;
 using Leopotam.EcsLite;
 using Trash;

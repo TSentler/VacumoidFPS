@@ -1,22 +1,15 @@
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using EcsMicroTrash.StaticData;
 using EcsMicroTrash.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using TMPro;
 using Trash;
 using UnityEngine;
 using Vacuum;
-using Debug = UnityEngine.Debug;
 
 namespace EcsMicroTrash 
 {
     public sealed class MicroTrashEcsStartup : MonoBehaviour
     {
-        //TODO: find _suckerTransform by VacuumRadius
-        [SerializeField] private VacuumRadius _vacuumRadius;
         [SerializeField] private MicroGarbageStaticData _microGarbageStaticData;
         
         private EcsWorld _world;
@@ -24,6 +17,7 @@ namespace EcsMicroTrash
 
         public void Start ()
         {
+            var vacuumRadius = FindObjectOfType<VacuumRadius>();
             var staticTriggerSystem = new StaticTriggerSystem(
                 _microGarbageStaticData.Radius);
             var moveMicroGarbageSystem = 
@@ -33,7 +27,7 @@ namespace EcsMicroTrash
             _systems = new EcsSystems(_world);
             _systems
                 .Add(new UpdateDataSystem())
-                .Add(new WorldInitSystem(_vacuumRadius, staticMicroGarbages))
+                .Add(new WorldInitSystem(vacuumRadius, staticMicroGarbages))
                 .Add(staticTriggerSystem)
                 .Add(moveMicroGarbageSystem)
 #if UNITY_EDITOR

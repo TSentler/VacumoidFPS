@@ -15,7 +15,6 @@ namespace EcsMicroTrash.Systems
         }
         
         private readonly MicroGarbageStaticData _staticData;
-        private readonly EcsWorldInject _world = default;
         private readonly EcsPoolInject<VacuumComponent> _vacuumPool = default;
         private readonly EcsFilterInject<Inc<VacuumComponent>> _vacuumFilter = default; 
         private readonly EcsPoolInject<MicroGarbageComponent> _microPool = default;
@@ -37,21 +36,7 @@ namespace EcsMicroTrash.Systems
                     continue;
                 }
                 
-                if (garbage.Target == -1 || garbage.Target == playerEntity)
-                {
-                    var vacuumPosition = vacuumComponent.Position;
-                    var sqrMinDistance =
-                        math.pow(_staticData.Radius + vacuumComponent.Radius, 2);
-                    var sqrDistance = math.lengthsq(vacuumPosition - garbage.Position);
-                    if (garbage.Target == -1 && sqrDistance <= sqrMinDistance)
-                    {
-                        SetTarget(ref garbage, playerEntity, vacuumPosition);
-                    }
-                    else if (garbage.Target == playerEntity && sqrDistance > sqrMinDistance)
-                    {
-                        SetTarget(ref garbage, -1, garbage.Position);
-                    }
-                }
+                CheckTargetDistance(ref garbage, playerEntity, vacuumComponent);
                 
                 CalculateVelocity(ref garbage, deltaTime);
 
@@ -66,7 +51,27 @@ namespace EcsMicroTrash.Systems
                 garbage.Move();
             }
         }
-        
+
+        private void CheckTargetDistance(ref MicroGarbageComponent garbage,
+            int playerEntity, VacuumComponent vacuumComponent)
+        {
+            if (garbage.Target == -1 || garbage.Target == playerEntity)
+            {
+                var vacuumPosition = vacuumComponent.Position;
+                var sqrMinDistance =
+                    math.pow(_staticData.Radius + vacuumComponent.Radius, 2);
+                var sqrDistance = math.lengthsq(vacuumPosition - garbage.Position);
+                if (garbage.Target == -1 && sqrDistance <= sqrMinDistance)
+                {
+                    SetTarget(ref garbage, playerEntity, vacuumPosition);
+                }
+                else if (garbage.Target == playerEntity && sqrDistance > sqrMinDistance)
+                {
+                    SetTarget(ref garbage, -1, garbage.Position);
+                }
+            }
+        }
+
         private bool IsMove(MicroGarbageComponent garbage) => 
             garbage.Velocity > _staticData.MinVelocity;
         
@@ -100,7 +105,7 @@ namespace EcsMicroTrash.Systems
         {
             if (garbage.Target > -1)
             {
-                garbage.Velocity += garbage.Axeleration * deltaTime;
+                garbage.Velocity += _staticData.Acceleration * deltaTime;
             }
             else
             {

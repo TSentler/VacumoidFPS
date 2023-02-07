@@ -8,7 +8,6 @@ namespace Vacuum
 {
     public class GarbageCounter : MonoBehaviour
     {
-        private GarbageRoot[] _garbageRoots;
         private float _targetTrashPoints = 0f;
         
         public int TargetTrashPoints => Mathf.RoundToInt(_targetTrashPoints);
@@ -17,9 +16,9 @@ namespace Vacuum
         
         private void Awake()
         {
-            _garbageRoots = FindObjectsOfType<GarbageRoot>();
+            GarbageRoot[] garbageRoots = FindObjectsOfType<GarbageRoot>();
             var targetTrashPoints = 0f;
-            foreach (var root in _garbageRoots)
+            foreach (var root in garbageRoots)
             {
                 var childTrash = 
                     root.GetComponentsInChildren<Garbage>();
@@ -33,6 +32,10 @@ namespace Vacuum
                 }
             }
             _targetTrashPoints += targetTrashPoints;
+
+            var autoSpawner = FindObjectOfType<MicroGarbageEditorAutoSpawner>();
+            _targetTrashPoints += autoSpawner.Count;
+            
             TargetTrashPointsChanged?.Invoke();
         }
     }
