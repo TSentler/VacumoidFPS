@@ -1,6 +1,8 @@
 using System.Collections;
 using Agava.YandexGames;
+using UnityEngine;
 using UnityEngine.Events;
+using DeviceType = Agava.YandexGames.DeviceType;
 
 namespace YaVk
 {
@@ -24,7 +26,9 @@ namespace YaVk
 #elif VK_GAMES_MOBILE
             isMobile = true;
 #else
-            isMobile = Application.isMobilePlatform;
+            isMobile = Application.isMobilePlatform 
+                       || Application.platform == RuntimePlatform.Android
+                       || SystemInfo.deviceModel.StartsWith("iPad");
 #endif
             callback.Invoke(isMobile);
         }
