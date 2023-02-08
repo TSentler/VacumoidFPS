@@ -12,7 +12,7 @@ namespace YaVk
         private void Awake()
         {
             _socialNetwork = FindObjectOfType<SocialNetwork>();
-            gameObject.SetActive(_socialNetwork?.IsAdsAccess() ?? false);
+            gameObject.SetActive(_socialNetwork?.Ads.HasAccess() ?? false);
         }
     }
 }

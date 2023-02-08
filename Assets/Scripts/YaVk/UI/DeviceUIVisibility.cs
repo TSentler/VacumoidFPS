@@ -28,16 +28,18 @@ namespace YaVk
         {
             _desktopPanels.ForEach(item => item.SetActive(false));
             _mobilePanels.ForEach(item => item.SetActive(false));
-#if !UNITY_WEBGL || UNITY_EDITOR
-            if (_isDesktop)
+            if (Defines.IsUnityWebGl == false || Defines.IsUnityEditor)
             {
+                if (_isDesktop)
+                {
+                    _desktopPanels.ForEach(item => item.SetActive(true));
+                    return;
+                }
+
                 _desktopPanels.ForEach(item => item.SetActive(true));
+                _mobilePanels.ForEach(item => item.SetActive(true));
                 return;
             }
-            _desktopPanels.ForEach(item => item.SetActive(true));
-            _mobilePanels.ForEach(item => item.SetActive(true));
-            return;
-#endif
             _checkDeviceCoroutine = StartCoroutine(
                 _socialNetwork.CheckMobileDeviceCoroutine(
                     ActivateDevicePanels));

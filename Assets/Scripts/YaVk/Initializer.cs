@@ -27,17 +27,25 @@ namespace YaVk
             }
             
             _isInitializeRun = true;
-#if !UNITY_WEBGL || UNITY_EDITOR
-            InitializeComplete();
-#elif YANDEX_GAMES
-            yield return YandexGamesSdk.Initialize(
-                onSuccessCallback: InitializeComplete);
-#elif VK_GAMES
-            yield return VKGamesSdk.Initialize(
-                onSuccessCallback: InitializeComplete);
-#else
-            InitializeComplete();
-#endif
+            if (Defines.IsUnityWebGl == false
+                || Defines.IsUnityEditor)
+            {
+                InitializeComplete();
+            }
+            else if (Defines.IsYandexGames)
+            {
+                yield return YandexGamesSdk.Initialize(
+                    onSuccessCallback: InitializeComplete);
+            }
+            else if (Defines.IsVkGames)
+            {
+                yield return VKGamesSdk.Initialize(
+                    onSuccessCallback: InitializeComplete);
+            }
+            else
+            {
+                InitializeComplete();
+            }
         }
         
         private void InitializeComplete()

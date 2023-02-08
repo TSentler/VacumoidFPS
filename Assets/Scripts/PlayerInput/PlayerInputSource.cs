@@ -1,5 +1,5 @@
 using LevelCompleter;
-using Plugins.WebGL;
+using Plugins.PointerLock;
 using UI.Joystick;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace PlayerInput
 {
     public class PlayerInputSource : MonoBehaviour, ICharacterInputSource
     {
-        private JavascriptHook _javascriptHook;
+        private PointerLockHook _pointerLockHook;
         private CursorLockerPanel _lockerPanel;
         private Completer _completer;
         private MovementInputSource _movementInput;
@@ -23,7 +23,7 @@ namespace PlayerInput
         {
             // WebGLInput.captureAllKeyboardInput = true; 
             _lockerPanel = FindObjectOfType<CursorLockerPanel>();
-            _javascriptHook = FindObjectOfType<JavascriptHook>();
+            _pointerLockHook = FindObjectOfType<PointerLockHook>();
             var stick = FindObjectOfType<StickPointer>();
             _movementInput = new MovementInputSource(stick);
             var touchPointer = FindObjectOfType<TouchPointer>();
@@ -37,8 +37,8 @@ namespace PlayerInput
         {
             _lockerPanel.PointerDowned += OnPointerDowned;
             _completer.Completed += Pause;
-            _javascriptHook.PointerLocked += OnPointerLocked;
-            _javascriptHook.PointerUnlocked += OnPointerUnlocked;
+            _pointerLockHook.PointerLocked += OnPointerLocked;
+            _pointerLockHook.PointerUnlocked += OnPointerUnlocked;
             _movementInput.Subscribe();
             _rotationInput.Subscribe();
             _zoomInput.Subscribe();
@@ -48,8 +48,8 @@ namespace PlayerInput
         {
             _lockerPanel.PointerDowned -= OnPointerDowned;
             _completer.Completed -= Pause;
-            _javascriptHook.PointerLocked -= OnPointerLocked;
-            _javascriptHook.PointerUnlocked -= OnPointerUnlocked;
+            _pointerLockHook.PointerLocked -= OnPointerLocked;
+            _pointerLockHook.PointerUnlocked -= OnPointerUnlocked;
             _movementInput.Unsubscribe();
             _rotationInput.Unsubscribe();
             _zoomInput.Unsubscribe();

@@ -15,15 +15,15 @@ namespace Audio
         
         private void OnEnable()
         {
-            _socialNetwork.AdsStarted += OnAdsStarted;
-            _socialNetwork.AdsEnded += OnAdsEnded;
+            _socialNetwork.Ads.Started += OnAdsStarted;
+            _socialNetwork.Ads.AdsEnded += OnAdsEnded;
             WebApplication.InBackgroundChangeEvent += SetAudioState;
         }
 
         private void OnDisable()
         {
-            _socialNetwork.AdsStarted -= OnAdsStarted;
-            _socialNetwork.AdsEnded -= OnAdsEnded;
+            _socialNetwork.Ads.Started -= OnAdsStarted;
+            _socialNetwork.Ads.AdsEnded -= OnAdsEnded;
             WebApplication.InBackgroundChangeEvent -= SetAudioState;
         }
 
@@ -39,7 +39,7 @@ namespace Audio
 
         private void SetAudioState(bool isMute)
         {
-            isMute |= _isPlayerMuteAudio || _socialNetwork.IsAds;
+            isMute |= _isPlayerMuteAudio || _socialNetwork.Ads.IsRun;
             // Use both pause and volume muting methods at the same time.
             // They're both broken in Web, but work perfect together. Trust me on this.
             AudioListener.pause = isMute;

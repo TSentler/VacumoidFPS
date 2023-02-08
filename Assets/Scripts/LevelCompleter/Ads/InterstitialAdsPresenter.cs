@@ -27,7 +27,7 @@ namespace LevelCompleter.Ads
 
         private void InterstitialAdsStarted()
         {
-            _socialNetwork.ShowInterstitialAds(); 
+            _socialNetwork.Ads.ShowInterstitialAds(); 
         }
     }
 }

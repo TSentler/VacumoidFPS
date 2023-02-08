@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace YaVk
+namespace Tools
 {
     [DisallowMultipleComponent]
     public class IndestructibleGameObject : MonoBehaviour

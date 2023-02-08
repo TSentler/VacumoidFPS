@@ -702,7 +702,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: PROJECT:Crazy_2020
+  webGLTemplate: PROJECT:DungeonTemplate
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 0
@@ -712,7 +712,7 @@ PlayerSettings:
   webGLDecompressionFallback: 1
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    WebGL: ITCHIO_GAMES;CRAZY_GAMES;YANDEX_GAMES;VK_GAMES
+    WebGL: ITCHIO_GAMES
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

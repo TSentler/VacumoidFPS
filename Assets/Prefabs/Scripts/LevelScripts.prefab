@@ -588,7 +588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e530aae45572a408dce51c0daaf1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vacuumRadius: {fileID: 0}
   _microGarbageStaticData: {fileID: 11400000, guid: f74a203f019db744cb042b3179aeb3d6, type: 2}
 --- !u!1 &8752335166933386765
 GameObject:

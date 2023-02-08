@@ -30,7 +30,7 @@ namespace YaVk
 
         private void ShowRewardedAds()
         {
-            _socialNetwork.ShowRewardedAds(Rewarded);
+            _socialNetwork.Ads.ShowRewardedAds(Rewarded);
         }
     }
 }

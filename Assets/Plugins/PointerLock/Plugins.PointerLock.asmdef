@@ -1,5 +1,5 @@
 {
-    "name": "Plugins.WebGl",
+    "name": "Plugins.PointerLock",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],

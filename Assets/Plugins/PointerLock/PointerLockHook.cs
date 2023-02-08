@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Plugins.WebGL
+namespace Plugins.PointerLock
 {
-    public class JavascriptHook : MonoBehaviour
+    public class PointerLockHook : MonoBehaviour
     {
         public event UnityAction PointerLocked, PointerUnlocked;
         

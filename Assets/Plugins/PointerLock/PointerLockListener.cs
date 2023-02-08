@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace Plugins.WebGL
+namespace Plugins.PointerLock
 {
     public static class PointerLockListener
     {
