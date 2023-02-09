@@ -1,12 +1,19 @@
 using System.Collections;
-using Agava.VKGames;
-using Agava.YandexGames;
 using UnityEngine;
+using UnityEngine.Events;
+using YaVk.Interfaces;
 
 namespace YaVk
 {
-    public class Initializer : MonoBehaviour
+    public class Initializer
     {
+        public Initializer(IInitialize provider)
+        {
+            _platformProvider = provider;
+        }
+
+        private readonly IInitialize _platformProvider;
+        
         private bool _isInitialized,
             _isInitializeRun;
 
@@ -27,25 +34,7 @@ namespace YaVk
             }
             
             _isInitializeRun = true;
-            if (Defines.IsUnityWebGl == false
-                || Defines.IsUnityEditor)
-            {
-                InitializeComplete();
-            }
-            else if (Defines.IsYandexGames)
-            {
-                yield return YandexGamesSdk.Initialize(
-                    onSuccessCallback: InitializeComplete);
-            }
-            else if (Defines.IsVkGames)
-            {
-                yield return VKGamesSdk.Initialize(
-                    onSuccessCallback: InitializeComplete);
-            }
-            else
-            {
-                InitializeComplete();
-            }
+            yield return _platformProvider.Initialize(InitializeComplete);
         }
         
         private void InitializeComplete()
