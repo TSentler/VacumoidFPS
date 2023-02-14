@@ -1,12 +1,12 @@
 using Agava.WebUtility;
 using UnityEngine;
-using YaVk;
+using SocialNetwork;
 
 namespace Audio
 {
     public class BackgroundAudio : MonoBehaviour
     {
-        [SerializeField] private SocialNetwork _socialNetwork;
+        [SerializeField] private UnifySocialNetworks _socialNetwork;
 
         private bool _isPlayerMuteAudio;
         

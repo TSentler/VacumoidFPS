@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using YaVk;
+using SocialNetwork;
 
 namespace Leaderboard
 {

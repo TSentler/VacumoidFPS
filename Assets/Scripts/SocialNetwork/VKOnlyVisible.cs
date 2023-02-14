@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class VKOnlyVisible : MonoBehaviour
     {

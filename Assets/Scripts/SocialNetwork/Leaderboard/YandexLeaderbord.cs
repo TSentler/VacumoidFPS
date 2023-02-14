@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class YandexLeaderboard 
     {

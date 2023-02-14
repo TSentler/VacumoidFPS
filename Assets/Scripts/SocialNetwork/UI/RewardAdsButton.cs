@@ -2,19 +2,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace YaVk
+namespace SocialNetwork
 {
     [RequireComponent(typeof(Button))]
     public class RewardAdsButton : MonoBehaviour
     {
-        private SocialNetwork _socialNetwork;
+        private UnifySocialNetworks _socialNetwork;
         private Button _button;
         
         public event UnityAction Rewarded;
 
         private void Awake()
         {
-            _socialNetwork = FindObjectOfType<SocialNetwork>();
+            _socialNetwork = FindObjectOfType<UnifySocialNetworks>();
             _button = GetComponent<Button>();
         }
 

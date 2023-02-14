@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class DeviceUIVisibility : MonoBehaviour
     {
         [SerializeField] private bool _isDesktop;
         [SerializeField] private List<GameObject> _mobilePanels, _desktopPanels;
         
-        private SocialNetwork _socialNetwork;
+        private UnifySocialNetworks _socialNetwork;
         private Coroutine _checkDeviceCoroutine;
         
         private void Awake()
         {
-            _socialNetwork = FindObjectOfType<SocialNetwork>();
+            _socialNetwork = FindObjectOfType<UnifySocialNetworks>();
         }
 
         private void OnDisable()

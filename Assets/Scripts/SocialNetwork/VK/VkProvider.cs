@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using Agava.VKGames;
-using YaVk.Interfaces;
+using SocialNetwork.Interfaces;
 
-namespace YaVk.VK
+namespace SocialNetwork.VK
 {
-    public class VkProvider : IInitialize
+    public class VkProvider : IInitialize, IMobileChecker
     {
         public IEnumerator Initialize(Action onSuccessCallback)
         {
             yield return VKGamesSdk.Initialize(
                 onSuccessCallback: onSuccessCallback);
+        }
+
+        public bool MobileCheck()
+        {
+            return Defines.IsVkMobileGames;
         }
     }
 }

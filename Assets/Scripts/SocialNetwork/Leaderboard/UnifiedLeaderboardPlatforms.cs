@@ -3,7 +3,7 @@ using Agava.YandexGames;
 using UnityEngine.Events;
 using VkLeaderboard = Agava.VKGames.Leaderboard;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class UnifiedLeaderboardPlatforms
     {
@@ -21,18 +21,15 @@ namespace YaVk
         public void GetLeaderboardPlayerEntry(
             UnityAction<LeaderboardEntryResponse> successCallback)
         {
-            if (Defines.IsUnityWebGl == false
-                || Defines.IsUnityEditor)
-            {
-                successCallback?.Invoke(null);
-            }
-            else if (Defines.IsVkGames)
-            {
-                successCallback?.Invoke(null);
-            }
-            else if (Defines.IsYandexGames)
+            var isEditor = Defines.IsUnityWebGl == false 
+                           || Defines.IsUnityEditor;
+            if (isEditor == false && Defines.IsYandexGames)
             {
                 _yaLeaderboard.GetLeaderboardPlayerEntry(successCallback);
+            }
+            else
+            {
+                successCallback?.Invoke(null);
             }
         }
 
@@ -63,15 +60,7 @@ namespace YaVk
             if (IsLeaderboardAccess() == false)
                 return;
 
-            if (Defines.IsUnityWebGl == false 
-                || Defines.IsUnityEditor)
-            {
-                _yaLeaderboard.GetTopPlayers(leaderList =>
-                {
-                    successCallback?.Invoke(leaderList);
-                }, true);
-            }
-            else if (Defines.IsVkGames)
+            if (Defines.IsVkGames)
             {
                 successCallback?.Invoke(new ());
                 VkLeaderboard.ShowLeaderboard(score);

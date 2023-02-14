@@ -1,17 +1,17 @@
 using UnityEngine;
-using YaVk;
+using SocialNetwork;
 
 namespace LevelCompleter.Ads
 {
     [RequireComponent(typeof(CompletePresenter))]
     public class InterstitialAdsPresenter : MonoBehaviour
     {
-        private SocialNetwork _socialNetwork;
+        private UnifySocialNetworks _socialNetwork;
         private CompletePresenter _completePresenter;
 
         private void Awake()
         {
-            _socialNetwork = FindObjectOfType<SocialNetwork>();
+            _socialNetwork = FindObjectOfType<UnifySocialNetworks>();
             _completePresenter = GetComponent<CompletePresenter>();
         }
 

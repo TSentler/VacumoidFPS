@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using Agava.YandexGames;
-using YaVk.Interfaces;
+using SocialNetwork.Interfaces;
 
-namespace YaVk.Yandex
+namespace SocialNetwork.Yandex
 {
-    public class YandexProvider : IInitialize
+    public class YandexProvider : IInitialize, IMobileChecker
     {
         public IEnumerator Initialize(Action onSuccessCallback)
         {
             yield return YandexGamesSdk.Initialize(
                 onSuccessCallback: onSuccessCallback);
+        }
+
+        public bool MobileCheck()
+        {
+            return Device.Type != DeviceType.Desktop;
         }
     }
 }

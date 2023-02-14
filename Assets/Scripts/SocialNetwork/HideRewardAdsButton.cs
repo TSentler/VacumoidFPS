@@ -2,16 +2,16 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace YaVk
+namespace SocialNetwork
 {
     [RequireComponent(typeof(Button))]
     public class HideRewardAdsButton : MonoBehaviour
     {
-        private SocialNetwork _socialNetwork;
+        private UnifySocialNetworks _socialNetwork;
         
         private void Awake()
         {
-            _socialNetwork = FindObjectOfType<SocialNetwork>();
+            _socialNetwork = FindObjectOfType<UnifySocialNetworks>();
             gameObject.SetActive(_socialNetwork?.Ads.HasAccess() ?? false);
         }
     }

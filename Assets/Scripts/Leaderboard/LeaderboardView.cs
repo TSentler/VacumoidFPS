@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using YaVk;
+using SocialNetwork;
 
 namespace Leaderboard
 {

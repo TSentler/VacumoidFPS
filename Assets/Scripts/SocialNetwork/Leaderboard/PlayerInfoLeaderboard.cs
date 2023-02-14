@@ -1,4 +1,4 @@
-namespace YaVk
+namespace SocialNetwork
 {
     public class PlayerInfoLeaderboard
     {

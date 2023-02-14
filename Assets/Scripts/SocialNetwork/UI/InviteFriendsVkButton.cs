@@ -3,10 +3,10 @@ using Agava.VKGames;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace YaVk
+namespace SocialNetwork
 {
     [RequireComponent(typeof(Button))]
-    public class InviteGroupVkButton : MonoBehaviour
+    public class InviteFriendsVkButton : MonoBehaviour
     {
         private Button _button;
         
@@ -18,7 +18,7 @@ namespace YaVk
 
         private void OnInvited()
         {
-            Community.InviteToIJuniorGroup(OnRewardedCallback);
+            SocialInteraction.InviteFriends(OnRewardedCallback);
         }
 
         private void OnRewardedCallback()

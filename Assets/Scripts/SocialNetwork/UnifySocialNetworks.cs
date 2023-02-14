@@ -1,14 +1,14 @@
 using System.Collections;
+using SocialNetwork.Factory;
+using SocialNetwork.Mobile;
 using UnityEngine;
 using UnityEngine.Events;
-using YaVk.Factory;
-using YaVk.Mobile;
 
-namespace YaVk
+namespace SocialNetwork
 {
     [DisallowMultipleComponent,
      RequireComponent(typeof(Ads))]
-    public class SocialNetwork : MonoBehaviour
+    public class UnifySocialNetworks : MonoBehaviour
     {
         private Initializer _init;
         private MobileDevice _mobileDevice;
@@ -22,8 +22,8 @@ namespace YaVk
         
         private void Awake()
         {
-            _init = new InitializerFactory().Get();
-            _mobileDevice = new MobileDevice(_init);
+            _init = new Initializer(new InitializerFactory().Get());
+            _mobileDevice = new MobileDevice(_init,new MobileCheckerFactory().Get());
             _unifiedLeaderboardPlatforms = new UnifiedLeaderboardPlatforms();
             _ads = GetComponent<Ads>();
             _ads.Initialize(_init);

@@ -1,12 +1,12 @@
-using YaVk.Interfaces;
-using YaVk.VK;
-using YaVk.Yandex;
+using SocialNetwork.Interfaces;
+using SocialNetwork.VK;
+using SocialNetwork.Yandex;
 
-namespace YaVk.Factory
+namespace SocialNetwork.Factory
 {
     public class InitializerFactory
     {
-        public Initializer Get()
+        public IInitialize Get()
         {
             IInitialize platform;
             if (Defines.IsUnityWebGl == false
@@ -27,7 +27,7 @@ namespace YaVk.Factory
                 platform = new PlugProvider();
             }
 
-            return new Initializer(platform);
+            return platform;
         }
     }
 }

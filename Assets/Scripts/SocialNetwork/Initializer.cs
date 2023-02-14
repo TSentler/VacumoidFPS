@@ -1,9 +1,9 @@
 using System.Collections;
+using SocialNetwork.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
-using YaVk.Interfaces;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class Initializer
     {

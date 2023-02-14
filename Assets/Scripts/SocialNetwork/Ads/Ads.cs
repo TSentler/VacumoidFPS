@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class Ads : MonoBehaviour
     {

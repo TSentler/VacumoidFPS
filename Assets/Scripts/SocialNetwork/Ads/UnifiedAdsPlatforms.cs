@@ -8,7 +8,7 @@ using VkInterstitialAd = Agava.VKGames.Interstitial;
 using YaVideoAd = Agava.YandexGames.VideoAd;
 using VkVideoAd = Agava.VKGames.VideoAd;
 
-namespace YaVk
+namespace SocialNetwork
 {
     public class UnifiedAdsPlatforms
     {

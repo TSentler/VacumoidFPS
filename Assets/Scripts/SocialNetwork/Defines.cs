@@ -1,4 +1,4 @@
-namespace YaVk
+namespace SocialNetwork
 {
     public static class Defines
     {
@@ -25,7 +25,7 @@ namespace YaVk
 #endif
 
         public static bool IsVkMobileGames =>
-#if VK_GAMES
+#if VK_GAMES_MOBILE
             true;
 #else
             false;

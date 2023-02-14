@@ -1,7 +1,7 @@
 using Money;
 using UnityEngine;
 using UnityTools;
-using YaVk;
+using SocialNetwork;
 
 namespace Ads
 {
